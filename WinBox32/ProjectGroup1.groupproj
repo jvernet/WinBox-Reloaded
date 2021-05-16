@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{3857EC4C-5EBE-47F9-B05F-C2F5B7555DA4}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="WinBox32.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="libwbox_try1\libWinBox.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="WinBox32">
+        <MSBuild Projects="WinBox32.dproj"/>
+    </Target>
+    <Target Name="WinBox32:Clean">
+        <MSBuild Projects="WinBox32.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="WinBox32:Make">
+        <MSBuild Projects="WinBox32.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="libWinBox">
+        <MSBuild Projects="libwbox_try1\libWinBox.dproj"/>
+    </Target>
+    <Target Name="libWinBox:Clean">
+        <MSBuild Projects="libwbox_try1\libWinBox.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="libWinBox:Make">
+        <MSBuild Projects="libwbox_try1\libWinBox.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="WinBox32;libWinBox"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="WinBox32:Clean;libWinBox:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="WinBox32:Make;libWinBox:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
