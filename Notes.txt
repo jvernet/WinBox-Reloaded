@@ -1,26 +1,25 @@
 >  The project needs TeeChart for Delphi 10.3.
 
->  The Hard Disk Database is created by myself, based on:
+>  The Hard Disk Database has been made by myself, based on:
     CSC Hard Drive Bible
     computerhope.com (Maxtor, Western Digital, ...)
     Standard types: https://www.win.tue.nl/~aeb/linux/hdtypes/hdtypes-3.html
     and my own Hard Disk Collection
-   It can contain invalid values, to use with care, and without warranty.
+   It can contain invalid values, so use with care, and without warranty.
 
 >  The General VM templates are completely based on my ideas. 
      The supplied disks are driver disks from the internet, or 
      completely my creations, like the icon images.
 
->  The specific VM templates if also created by myself, including icon images.
+>  The specific VM templates are also created by myself, including icon images.
      The configuration disks, the base of the icons, and the specifications
-     are from various sources of the Internet.
-   These can contain invalid values, to use with care, and without warranty.
+     are from various sources from the internet.
+   These can contain invalid values, so use with care, and without warranty.
 
->  The images and icons are completely my drawings, many of them was used 
+>  The images and icons are completely my drawings, many of them were used 
      previously in szStart Reloaded (one of my older projects).
 
 >  The program uses code snippets from stackoverflow.com, but 
      mostly I marked these in the source.
 
 >  I used UPX to compress the result executables.
-  
