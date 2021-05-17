@@ -44,6 +44,7 @@ type
     Progress: TProgressBar;
     Shape1: TShape;
     State: TLabel;
+    lbFileName: TLabel;
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -70,6 +71,9 @@ type
     function Execute(const ByCommand: boolean = false): boolean; stdcall;
     function HasUpdate: boolean; stdcall;
     function AutoUpdate: boolean; stdcall;
+
+    procedure OnZipProgress(Sender: TObject; FileName: string;
+      Header: TZipHeader; Position: Int64);
   end;
 
 var
@@ -168,12 +172,14 @@ begin
     end;
     httpsGet(Temp, FEmulator);
     Progress.Position := Progress.Position + 1;
+    lbFileName.Caption := ExtractFileName(FEmulator);
 
     LogFmt(StrROMképekLetöltése, [Def86RomsRepo]);
     FRoms := TPath.GetTempFileName;
     LogFmt(StrROMképekFájlainak, [ExtractFileName(FRoms)]);
     gitClone(Def86RomsRepo, FRoms);
     Progress.Position := Progress.Position + 1;
+    lbFileName.Caption := ExtractFileName(FRoms);
 
     if FGetSource <> 0 then begin
       LogFmt(StrForráskódLetöltés2, [Def86SrcRepo]);
@@ -181,12 +187,14 @@ begin
       LogFmt(StrForráskódLetöltése, [ExtractFileName(FSource)]);
       gitClone(Def86SrcRepo, FSource);
       Progress.Position := Progress.Position + 1;
+      lbFileName.Caption := ExtractFileName(FSource);
     end;
   except
     on E: Exception do begin
       Log(StrHibaTörténtAFájl2);
       Log(#9 + E.Message);
       Result := false;
+      lbFileName.Caption := '-';
     end;
   end;
 end;
@@ -213,6 +221,7 @@ begin
   try
     with TZipFile.Create do begin
       try
+        OnProgress := OnZipProgress;
         Log(StrBinárisokKibontása);
         Open(FEmulator, zmRead);
         ExtractAll(Root);
@@ -257,6 +266,7 @@ begin
     on E: Exception do begin
       Log(StrHibaTörténtAFájlo);
       Log(#9 + E.Message);
+      lbFileName.Caption := '-';
       Result := false;
     end;
   end;
@@ -321,11 +331,20 @@ begin
     Text, Args)), PChar(StrWinBox), Flags);
 end;
 
+procedure TUpdateForm.OnZipProgress(Sender: TObject; FileName: string;
+  Header: TZipHeader; Position: Int64);
+begin
+  lbFileName.Caption := ExtractFileName(FileName);
+
+  Application.ProcessMessages;
+end;
+
 function TUpdateForm.VersionCheck: boolean;
 var
   DateLocal, DateOnline: TDateTime;
   I: integer;
 begin
+  lbFileName.Caption := '-';
   if FileExists(FPaths[0]) then begin
     DateLocal := GetFileTime(FPaths[0]);
     if DateLocal = 0 then
@@ -405,6 +424,7 @@ begin
   if FileExists(FSource) then
     DeleteFile(FSource);
   Progress.Position := 0;
+  lbFileName.Caption := '-';
 
   if FMode = 0 then
     Close

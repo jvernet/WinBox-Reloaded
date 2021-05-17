@@ -29,8 +29,6 @@ object UpdateForm: TUpdateForm
     Anchors = [akLeft, akTop, akRight, akBottom]
     Brush.Color = clWindow
     Pen.Style = psClear
-    ExplicitWidth = 430
-    ExplicitHeight = 268
   end
   object Label1: TLabel
     Left = 8
@@ -57,11 +55,20 @@ object UpdateForm: TUpdateForm
     Anchors = [akLeft, akBottom]
     Caption = #220'resj'#225'rat'
   end
+  object lbFileName: TLabel
+    Left = 428
+    Top = 286
+    Width = 4
+    Height = 13
+    Alignment = taRightJustify
+    Anchors = [akRight, akBottom]
+    Caption = '-'
+  end
   object LogBox: TListBox
     Left = 8
     Top = 27
     Width = 424
-    Height = 240
+    Height = 238
     Anchors = [akLeft, akTop, akRight, akBottom]
     ItemHeight = 13
     TabOrder = 0
