@@ -22,6 +22,7 @@
 program WinBox32;
 
 uses
+  MidasLib,
   Windows,
   uCommUtil,
   Vcl.Forms,

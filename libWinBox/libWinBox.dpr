@@ -22,6 +22,7 @@
 library libWinBox;
 
 uses
+  MidasLib,
   SysUtils,
   Classes,
   Forms,
