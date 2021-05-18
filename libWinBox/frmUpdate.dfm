@@ -15,6 +15,7 @@ object UpdateForm: TUpdateForm
   OldCreateOrder = False
   Position = poOwnerFormCenter
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnShow = FormShow
   DesignSize = (
     440

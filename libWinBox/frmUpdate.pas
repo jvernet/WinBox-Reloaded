@@ -49,6 +49,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure LogBoxDblClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     procedure WMStartup(var Msg: TMessage); message WM_USER;
   protected
@@ -72,6 +73,7 @@ type
     function HasUpdate: boolean; stdcall;
     function AutoUpdate: boolean; stdcall;
 
+    procedure OnDownloadProgress(Sender: TObject);
     procedure OnZipProgress(Sender: TObject; FileName: string;
       Header: TZipHeader; Position: Int64);
   end;
@@ -285,6 +287,13 @@ begin
     if FGetSource <> 0 then
       Progress.Max := 6;
   end;
+
+  uWebUtils.DownloadProgress := OnDownloadProgress;
+end;
+
+procedure TUpdateForm.FormDestroy(Sender: TObject);
+begin
+  uWebUtils.DownloadProgress := nil;
 end;
 
 procedure TUpdateForm.FormShow(Sender: TObject);
@@ -329,6 +338,11 @@ function TUpdateForm.MessageBoxFmt(const Text: string;
 begin
   Result := Windows.MessageBox(Handle, PChar(format(
     Text, Args)), PChar(StrWinBox), Flags);
+end;
+
+procedure TUpdateForm.OnDownloadProgress(Sender: TObject);
+begin
+  Application.ProcessMessages;
 end;
 
 procedure TUpdateForm.OnZipProgress(Sender: TObject; FileName: string;

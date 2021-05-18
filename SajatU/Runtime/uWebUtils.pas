@@ -65,6 +65,9 @@ function XmlFind(const Tag, XML: string): string;
 function XmlFindEx(const Tag, XML: string; var Offset: integer): string;
 procedure XmlFindAll(const Tag, XML: string; List: TStringList);
 
+var
+  DownloadProgress: TNotifyEvent = nil;
+
 implementation
 
 resourcestring
@@ -297,7 +300,7 @@ end;
 
 constructor TDownloader.Create;
 begin
-  FProgress := nil;
+  FProgress := DownloadProgress;
   FBytesRead := 0;
   FDownloading := false;
 end;
