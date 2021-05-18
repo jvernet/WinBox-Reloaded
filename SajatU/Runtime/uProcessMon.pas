@@ -214,13 +214,13 @@ end;
 
 function GetProcessListEx(Filter: string; FWMIService: OleVariant): TArray<TProcess>;
 var
-  Buffer: array [0..1023] of DWORD;
+  Buffer: array [0..2048] of DWORD;
   Needed, I: DWORD;
 
   FExecutablePath: string;
   FWbemObjectSet: OleVariant;
 begin
-  EnumProcesses(@Buffer[0], 1024, Needed);
+  EnumProcesses(@Buffer[0], length(Buffer) * SizeOf(DWORD), Needed);
   Needed := Needed div 4;
 
   SetLength(Result, 0);
