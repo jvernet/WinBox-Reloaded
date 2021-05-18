@@ -93,7 +93,7 @@ var
   Temp: string;
 begin
   Temp := httpsGet(format(SJenkinsLastBuild, [URL]));
-  if not TryStrToInt(Temp, Result) then
+  if (Temp = '') or not TryStrToInt(Temp, Result) then
     Result := -1;
 end;
 
@@ -256,21 +256,20 @@ var
   BufferLen: DWORD;
 begin
    hSession := InternetOpen('', INTERNET_OPEN_TYPE_PRECONFIG, nil, nil, 0) ;
+   if hSession = nil then
+     exit(false);
 
-   // Establish the secure connection
-   InternetConnect (
-     hSession,
-     PChar(URL),
-     Port,
-     PChar(User),
-     PChar(Pass),
-     INTERNET_SERVICE_HTTP,
-     0,
-     0
-   );
+   InternetConnect(hSession, PChar(URL), Port, PChar(User), PChar(Pass),
+     INTERNET_SERVICE_HTTP, 0, 0);
 
   try
-    hURL := InternetOpenURL(hSession, PChar(URL), nil, 0, 0, 0) ;
+    hURL := InternetOpenURL(hSession, PChar(URL), nil, 0, 0, 0);
+
+    if hURL = nil then begin
+      InternetCloseHandle(hSession);
+      exit(false);
+    end;
+
     FBytesRead := 0;
     FDownloading := true;
     try

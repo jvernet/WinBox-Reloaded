@@ -99,11 +99,11 @@ type
     btnImgPrev: TButton;
     lbState: TLabel;
     Bevel1: TBevel;
-    Screenshots: TPicturePager;
     Label2: TLabel;
     TopPanel: TPanel;
     lbTitle: TLabel;
     btnWorkDir: TSpeedButton;
+    Screenshots: TPicturePager;
     procedure btnVMClick(Sender: TObject);
     procedure ScreenshotsMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);

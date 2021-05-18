@@ -4,8 +4,8 @@
     <Transaction>1899/12/30 00:00:00.000.659,=vcl.dcp</Transaction>
     <Transaction>1899/12/30 00:00:00.000.754,=rtl.dcp</Transaction>
     <Transaction>1899/12/30 00:00:00.000.317,C:\Users\laciba\Documents\Embarcadero\Studio\Projects\Package1.dproj=E:\SajatU\WinBox komponensek\pkgWinBox.dproj</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.641,=E:\SajatU\WinBox komponensek\uFolderMon.pas</Transaction>
     <Transaction>1899/12/30 00:00:00.000.870,=E:\SajatU\WinBox komponensek\uPicturePager.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.641,=E:\SajatU\WinBox komponensek\uFolderMon.pas</Transaction>
     <Transaction>2021/05/18 11:10:19.596,=E:\Projektek\WinBox-Reloaded\SajatU\Runtime\frmProfileDlg.pas</Transaction>
     <Transaction>2021/05/18 11:10:19.606,=E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uBaseProfile.pas</Transaction>
     <Transaction>2021/05/18 11:10:19.636,=E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uCommUtil.pas</Transaction>
@@ -13,5 +13,12 @@
     <Transaction>2021/05/18 11:10:19.676,=E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uProcProfile.pas</Transaction>
     <Transaction>2021/05/18 11:10:19.697,=E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uWebUtils.pas</Transaction>
     <Transaction>2021/05/18 11:10:19.720,=E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uWinBox.pas</Transaction>
+    <Transaction>2021/05/18 11:27:56.255,E:\Projektek\WinBox-Reloaded\SajatU\Runtime\frmProfileDlg.pas=</Transaction>
+    <Transaction>2021/05/18 11:27:56.285,E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uBaseProfile.pas=</Transaction>
+    <Transaction>2021/05/18 11:27:56.305,E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uCommUtil.pas=</Transaction>
+    <Transaction>2021/05/18 11:27:56.319,E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uProcessMon.pas=</Transaction>
+    <Transaction>2021/05/18 11:27:56.335,E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uProcProfile.pas=</Transaction>
+    <Transaction>2021/05/18 11:27:56.355,E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uWebUtils.pas=</Transaction>
+    <Transaction>2021/05/18 11:27:56.364,E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uWinBox.pas=</Transaction>
   </Transactions>
 </BorlandProject>

@@ -31,6 +31,10 @@ object ProgSettDlg: TProgSettDlg
     object TabSheet2: TTabSheet
       Caption = 'Alapvet'#337
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         427
         403)
@@ -203,6 +207,10 @@ object ProgSettDlg: TProgSettDlg
     object TabSheet1: TTabSheet
       Caption = 'Eszk'#246'z'#246'k'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object GroupBox3: TGroupBox
         Left = 18
         Top = 254

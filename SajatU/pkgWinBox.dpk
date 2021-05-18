@@ -54,13 +54,6 @@ requires
 
 contains
   uPicturePager in 'uPicturePager.pas',
-  uFolderMon in 'uFolderMon.pas',
-  frmProfileDlg in 'Runtime\frmProfileDlg.pas' {ProfileDialog},
-  uBaseProfile in 'Runtime\uBaseProfile.pas',
-  uCommUtil in 'Runtime\uCommUtil.pas',
-  uProcessMon in 'Runtime\uProcessMon.pas',
-  uProcProfile in 'Runtime\uProcProfile.pas',
-  uWebUtils in 'Runtime\uWebUtils.pas',
-  uWinBox in 'Runtime\uWinBox.pas';
+  uFolderMon in 'uFolderMon.pas';
 
 end.

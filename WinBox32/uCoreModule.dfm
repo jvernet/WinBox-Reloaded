@@ -508,6 +508,49 @@ object Core: TCore
         Action = acDiskCatalog
       end
     end
+    object miDebug: TMenuItem
+      Caption = '&Hibakeres'#233's'
+      object dbgCmdlWorkDir: TMenuItem
+        Tag = 1
+        Caption = 'Munkak'#246'nyvt'#225'r lek'#233'r'#233's sz'#246'vegb'#337'l...'
+        OnClick = miDebugFeature
+      end
+      object N31: TMenuItem
+        Caption = '-'
+      end
+      object dbgLogMonitor: TMenuItem
+        Tag = 2
+        AutoCheck = True
+        Caption = 'Napl'#243'z'#225's a folyamat monitorban'
+        OnClick = miDebugFeature
+      end
+      object Naplzsafolyamatmend1: TMenuItem
+        Tag = 3
+        AutoCheck = True
+        Caption = 'Napl'#243'z'#225's a folyamat feladatok kapcs'#225'n'
+        OnClick = miDebugFeature
+      end
+      object Frisstsekmonitorozsa1: TMenuItem
+        Tag = 6
+        AutoCheck = True
+        Caption = 'Monitor-friss'#237't'#233'sek napl'#243'z'#225'sa'
+        OnClick = miDebugFeature
+      end
+      object Naplzsafolyamat1: TMenuItem
+        Tag = 4
+        AutoCheck = True
+        Caption = 'Napl'#243'z'#225's a folyamat hozz'#225'rendel'#233'sekn'#233'l'
+        OnClick = miDebugFeature
+      end
+      object N33: TMenuItem
+        Caption = '-'
+      end
+      object Folyamatlistakiratsa1: TMenuItem
+        Tag = 5
+        Caption = 'Folyamatlista ki'#237'rat'#225'sa'
+        OnClick = miDebugFeature
+      end
+    end
     object Sg1: TMenuItem
       Caption = '&S'#250'g'#243
       object Dokumentci86Box1: TMenuItem

@@ -482,7 +482,7 @@ end;
 
 function TDiskGeometry.Size: uint64;
 begin
-  Result := uint64(C) * H * S * 512;
+  Result := uint64(C) * word(H) * word(S) * 512;
 end;
 
 end.

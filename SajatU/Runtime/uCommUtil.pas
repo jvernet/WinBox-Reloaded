@@ -26,6 +26,9 @@ interface
 uses Windows, SysUtils, Classes, Graphics, ComObj, ShellAPI,
      ShlObj, ExtCtrls, ComCtrls, WinCodec;
 
+procedure dbgLogFmt(const S: string; const Data: array of const);
+procedure dbgLog(const S: string); inline;
+
 function GetFiles(dir: string; subdir: Boolean; List: TStringList): uint64;
 
 function FileSizeToStr(const Value: uint64; const Round: byte;
@@ -77,6 +80,16 @@ function GetWindowTitle(const hwnd: HWND): string;
 function GetWindowClass(const hwnd: HWND): string;
 
 implementation
+
+procedure dbgLogFmt(const S: string; const Data: array of const);
+begin
+  OutputDebugStringW(PChar(format(S, Data)));
+end;
+
+procedure dbgLog(const S: string);
+begin
+  OutputDebugStringW(PChar(S));
+end;
 
 function GetWindowTitle(const hwnd: HWND): string;
 var

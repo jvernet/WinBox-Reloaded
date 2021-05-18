@@ -382,9 +382,13 @@ begin
     Free;
   end;
 
+  {$WARN SYMBOL_PLATFORM OFF}
+
   BytesReturned := GetCompressedFileSize(PChar(Edit1.Text), @BytesReturned);
   Result := Result and ((FileGetAttr(Edit1.Text) and faSparseFile) = faSparseFile) and
       (BytesReturned < cbTestSize);
+
+  {$WARN SYMBOL_PLATFORM ON}
 
   if Result then
     with TFileStream.Create(Edit1.Text, fmCreate), FDiskData.dgTranslatedGeometry do begin
@@ -468,13 +472,13 @@ begin
     with FDiskData do
       Memo1.Text := Format(SDiskData1,
         [Edit1.Text,
-         FileSizeToStr(UInt64(dgTranslatedGeometry.C) * dgTranslatedGeometry.H * dgTranslatedGeometry.S * 512, 2, 1000),
+         FileSizeToStr(dgTranslatedGeometry.Size, 2, 1000),
          dgTranslatedGeometry.C, dgTranslatedGeometry.H,
          dgTranslatedGeometry.S, szConnector, dwWritePrecomp, dwLandZone])
   else with FDiskData do
       Memo1.Text := Format(SDiskData3,
         [Edit1.Text,
-         FileSizeToStr(UInt64(dgTranslatedGeometry.C) * dgTranslatedGeometry.H * dgTranslatedGeometry.S * 512, 2, 1000),
+         FileSizeToStr(dgTranslatedGeometry.Size, 2, 1000),
          dgTranslatedGeometry.C, dgTranslatedGeometry.H,
          dgTranslatedGeometry.S, dwWritePrecomp, dwLandZone]);
 
@@ -497,7 +501,7 @@ var
   FreeAvail,
   TotalSpace: Int64;
 begin
-  Result := false;
+  //Result := false;
 
   if (Edit1.Text = '') or DirectoryExists(Edit1.Text) then
     raise Exception.Create(SysErrorMessage(ERROR_PATH_NOT_FOUND));

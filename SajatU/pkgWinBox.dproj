@@ -98,16 +98,6 @@
         <DCCReference Include="vcl.dcp"/>
         <DCCReference Include="uPicturePager.pas"/>
         <DCCReference Include="uFolderMon.pas"/>
-        <DCCReference Include="Runtime\frmProfileDlg.pas">
-            <Form>ProfileDialog</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="Runtime\uBaseProfile.pas"/>
-        <DCCReference Include="Runtime\uCommUtil.pas"/>
-        <DCCReference Include="Runtime\uProcessMon.pas"/>
-        <DCCReference Include="Runtime\uProcProfile.pas"/>
-        <DCCReference Include="Runtime\uWebUtils.pas"/>
-        <DCCReference Include="Runtime\uWinBox.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

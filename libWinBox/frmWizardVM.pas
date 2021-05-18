@@ -251,7 +251,7 @@ procedure TWizardVM.Button3Click(Sender: TObject);
 var
   Directory: string;
 begin
-  ForceDirectories(Path.Text);
+  SysUtils.ForceDirectories(Path.Text);
   Directory := ExcludeTrailingPathDelimiter(Path.Text);
   if SelectDirectory(StrVálasszaKiAHaszná, '', Directory, [sdNewUI], Self) then
     Path.Text := IncludeTrailingPathDelimiter(Directory);
@@ -259,7 +259,7 @@ end;
 
 procedure TWizardVM.Button4Click(Sender: TObject);
 begin
-  ForceDirectories(Path.Text);
+  SysUtils.ForceDirectories(Path.Text);
   ShellExecute(Handle, 'open', PChar(ExcludeTrailingPathDelimiter(Path.Text)),
     nil, nil, SW_SHOWNORMAL);
 end;
@@ -401,7 +401,7 @@ var
   Sample: TVMSample;
   Config: TIniFile;
 begin
-  Result := false;
+  //Result := false;
 
   if ListBox2.ItemIndex = -1 then
     raise Exception.Create(ENincsKiválasztottS);
@@ -410,7 +410,7 @@ begin
 
   with TZipFile.Create do
     try
-      ForceDirectories(Path.Text);
+      SysUtils.ForceDirectories(Path.Text);
       ExtractZipFile(Sample.FileName, Path.Text);
       DeleteFile(Path.Text + 'winbox.inf');
 

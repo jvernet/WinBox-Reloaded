@@ -120,6 +120,10 @@ resourcestring
   STR_PROCESS_STATE_RUN_PENDING    = 'Indítás...';
   STR_PROCESS_STATE_SAVED          = 'Altatva';
 
+var
+  AssignmentLogging: boolean = false;
+  ProcessLogging: boolean = false;
+
 implementation
 
 resourcestring
@@ -228,7 +232,17 @@ begin
   Result := CreateProcess(nil, @szCmdLine[1], nil, nil, false, 0, nil,
                  @szWorkDir[1], siStartup, piProcess);
 
-  FStarting := true; //a monitor visszajelzéséig "indítás folyamatban" állapot
+  if ProcessLogging then begin
+    if Result then
+      dbgLog('CreateProcess: Success')
+    else
+      dbgLogFmt('CreateProcess: Failed!. Reason: %s.', [SysErrorMessage(GetLastError)]);
+
+    dbgLogFmt('CommandLine: %s, PID: %d, TID: %d',
+          [szCmdLine, piProcess.dwProcessID, piProcess.dwThreadID]);
+  end;
+
+  FStarting := Result; //a monitor visszajelzéséig "indítás folyamatban" állapot, ha sikerült az indítás
   CloseHandle(piProcess.hProcess);
   CloseHandle(piProcess.hThread);
 end;
@@ -252,6 +266,10 @@ var
 begin
   for I in FIndexMap do begin
     KillProcess(FMonitor[I].ProcessID);
+
+    if ProcessLogging then
+      dbgLogFmt('Kill process PID %d', [FMonitor[I].ProcessID]);
+
     if not All then
       break;
   end;
@@ -269,6 +287,11 @@ begin
       if CheckProcess(FMonitor[I]) then begin
         SetLength(FIndexMap, length(FIndexMap) + 1);
         FIndexMap[High(FIndexMap)] := I;
+
+        if AssignmentLogging then
+          dbgLogFmt('PID %d, HWND %.8x is Profile %s (%s)',
+            [FMonitor[I].ProcessID, FMonitor[I].Data, FriendlyName, ProfileID]);
+
       end;
 end;
 

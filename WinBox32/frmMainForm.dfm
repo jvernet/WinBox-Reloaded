@@ -2,7 +2,7 @@ object WinBoxMain: TWinBoxMain
   Left = 0
   Top = 0
   Caption = 'WinBox Reloaded R2 - Release Preview'
-  ClientHeight = 345
+  ClientHeight = 305
   ClientWidth = 670
   Color = clBtnFace
   DoubleBuffered = True
@@ -20,7 +20,7 @@ object WinBoxMain: TWinBoxMain
   object Splitter: TSplitter
     Left = 209
     Top = 104
-    Height = 222
+    Height = 182
     ExplicitLeft = 192
     ExplicitTop = -126
     ExplicitHeight = 426
@@ -30,7 +30,7 @@ object WinBoxMain: TWinBoxMain
     Left = 3
     Top = 107
     Width = 206
-    Height = 216
+    Height = 176
     Margins.Right = 0
     Style = lbOwnerDrawFixed
     Align = alLeft
@@ -43,7 +43,7 @@ object WinBoxMain: TWinBoxMain
     Left = 212
     Top = 104
     Width = 458
-    Height = 222
+    Height = 182
     ActivePage = TabSheet1
     Align = alClient
     TabOrder = 1
@@ -51,12 +51,12 @@ object WinBoxMain: TWinBoxMain
       Caption = 'Kezd'#337'lap'
       DesignSize = (
         450
-        194)
+        154)
       object Label10: TLabel
         Left = 19
         Top = 38
         Width = 255
-        Height = 146
+        Height = 106
         Anchors = [akLeft, akTop, akRight, akBottom]
         AutoSize = False
         Caption = 
@@ -103,7 +103,7 @@ object WinBoxMain: TWinBoxMain
         Left = 10
         Top = 10
         Width = 430
-        Height = 127
+        Height = 87
         Margins.Left = 10
         Margins.Top = 10
         Margins.Right = 10
@@ -111,6 +111,7 @@ object WinBoxMain: TWinBoxMain
         ActivePage = TabSheet2
         Align = alClient
         TabOrder = 0
+        ExplicitHeight = 127
         object TabSheet4: TTabSheet
           Caption = 'Gazdag'#233'p processzor'
           ExplicitLeft = 0
@@ -211,6 +212,10 @@ object WinBoxMain: TWinBoxMain
         object TabSheet2: TTabSheet
           Caption = 'Fut'#243' virtu'#225'lis g'#233'pek'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object ChartVMs: TChart
             Left = 0
             Top = 0
@@ -253,7 +258,7 @@ object WinBoxMain: TWinBoxMain
       end
       object pnpBottom: TPanel
         Left = 0
-        Top = 147
+        Top = 107
         Width = 450
         Height = 47
         Align = alBottom
@@ -320,6 +325,10 @@ object WinBoxMain: TWinBoxMain
     object tab86Box: TTabSheet
       Caption = '86Box VM-ek'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
     object TabSheet1: TTabSheet
       Caption = 'Egy'#233'b VM-ek'
@@ -328,7 +337,7 @@ object WinBoxMain: TWinBoxMain
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 326
+    Top = 286
     Width = 670
     Height = 19
     Panels = <>

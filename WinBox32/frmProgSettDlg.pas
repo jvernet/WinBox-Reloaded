@@ -24,7 +24,7 @@ unit frmProgSettDlg;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls,
   Vcl.Imaging.pngimage, Vcl.ExtCtrls, ShellAPI, FileCtrl, uBaseProfile,
   Registry, uCoreModule, u86Box, IOUtils;
@@ -129,7 +129,7 @@ begin
             PChar(Application.Title), MB_YESNO or MB_ICONQUESTION) = mrYes) then
               Button9.Click;
 
-  ForceDirectories(Path.Text);
+  SysUtils.ForceDirectories(Path.Text);
   with TRegIniFile.Create(SRegRootKey) do
     try
       WriteString(SRegConfigKey, StrRootDirectory, Path.Text);
@@ -153,7 +153,7 @@ procedure TProgSettDlg.Button3Click(Sender: TObject);
 var
   Directory: string;
 begin
-  ForceDirectories(Path.Text);
+  SysUtils.ForceDirectories(Path.Text);
   Directory := ExcludeTrailingPathDelimiter(Path.Text);
   if SelectDirectory(StrVálasszaKiAzÚjVi, '', Directory, [sdNewUI], Self) then
     Path.Text := IncludeTrailingPathDelimiter(Directory);
@@ -161,7 +161,7 @@ end;
 
 procedure TProgSettDlg.Button4Click(Sender: TObject);
 begin
-  ForceDirectories(Path.Text);
+  SysUtils.ForceDirectories(Path.Text);
   ShellExecute(Handle, 'open', PChar(ExcludeTrailingPathDelimiter(Path.Text)),
     nil, nil, SW_SHOWNORMAL);
 end;

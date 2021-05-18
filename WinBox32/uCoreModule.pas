@@ -212,6 +212,15 @@ type
     ToolsSep: TMenuItem;
     acVogonsDrivers: TBrowseURL;
     BrowseURL1: TMenuItem;
+    miDebug: TMenuItem;
+    dbgCmdlWorkDir: TMenuItem;
+    dbgLogMonitor: TMenuItem;
+    N31: TMenuItem;
+    Naplzsafolyamatmend1: TMenuItem;
+    Naplzsafolyamat1: TMenuItem;
+    N33: TMenuItem;
+    Folyamatlistakiratsa1: TMenuItem;
+    Frisstsekmonitorozsa1: TMenuItem;
     procedure MonitorTimerTimer(Sender: TObject);
     procedure ReloadProfiles(Sender: TObject);
     procedure acDirExecute(Sender: TObject);
@@ -234,6 +243,7 @@ type
     procedure acProgSettingsExecute(Sender: TObject);
     procedure ReloadTools(Sender: TObject);
     procedure acAutoUpdateUpdate(Sender: TObject);
+    procedure miDebugFeature(Sender: TObject);
   private
     FRelProf: TNotifyEvent;
     FUpdate: TNotifyEvent;
@@ -262,9 +272,12 @@ var
 resourcestring
   StrWinBox = 'WinBox';
 
+var
+  UpdateLogging: boolean = false;
+
 implementation
 
-uses frmMainForm, uCommUtil, frmProgSettDlg, frmAbout;
+uses frmMainForm, uCommUtil, frmProgSettDlg, frmAbout, uProcessMon;
 
 resourcestring
   StrEnsureHardStopCmd = 'A virtuális gép(ek) ilyen módon történõ leállítása adatvesztést okozhat. Biztos benne?';
@@ -587,6 +600,12 @@ begin
                   Icons16.Height * Screen.PixelsPerInch div 96);
   Icons32.SetSize(Icons32.Width * Screen.PixelsPerInch div 96,
                   Icons32.Height * Screen.PixelsPerInch div 96);
+
+  {$IFNDEF DEBUG}
+  miDebug.Visible := IsDebuggerPresent;
+  {$ELSE}
+  miDebug.Visible := true;
+  {$ENDIF}
 end;
 
 destructor TCore.Destroy;
@@ -640,22 +659,56 @@ end;
 
 procedure TCore.MonitorTimerTimer(Sender: TObject);
 begin
-  Monitor.Update;
+  if not Monitor.IsUpdating then begin
+    if UpdateLogging then
+      dbgLog('Monitor Update Started');
+
+    Monitor.Update;
+  end;
 end;
 
 procedure TCore.MonitorUpdate(Sender: TObject);
 begin
+  if UpdateLogging then
+    dbgLog('Monitor Update Responded');
+
   UpdatePIDs(Profiles);
 
   if FirstUpdate then begin
     FirstUpdate := false;
-    with CreateAutoUpdate(nil) do
+    with CreateAutoUpdate(nil) do begin
       if HasUpdate and IsAllStopped then
         Execute(false);
+    end;
   end;
 
   if Assigned(FUpdate) then
     FUpdate(Self);
+
+  if UpdateLogging then
+    dbgLog('Monitor Update Done');
+end;
+
+procedure TCore.miDebugFeature(Sender: TObject);
+var
+  P: TProcess;
+  I: integer;
+begin
+  case (Sender as TComponent).Tag of
+    1: begin
+         P.CommandLine := InputBox('P.CommandLine', 'P.CommandLine = ', '');
+         ShowMessage(T86Box.GetWorkingDirectory(P));
+       end;
+    2: MonitorLogging := (Sender as TMenuItem).Checked;
+    3: ProcessLogging := (Sender as TMenuItem).Checked;
+    4: AssignmentLogging := (Sender as TMenuItem).Checked;
+    5: for I := 0 to Monitor.Count - 1 do begin
+         P := Monitor[I];
+         dbgLogFmt('PID: %d, HWND: 0x%.8x, %s, %s',
+           [P.ProcessID, P.Data, P.ExecutablePath, P.CommandLine]);
+       end;
+    6: UpdateLogging := (Sender as TMenuItem).Checked;
+  end;
 end;
 
 end.

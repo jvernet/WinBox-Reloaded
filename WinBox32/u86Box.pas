@@ -24,7 +24,7 @@ unit u86Box;
 interface
 
 uses
-  Windows, SysUtils, Classes, IniFiles, Registry, uProcessMon,
+  Types, Windows, SysUtils, Classes, IniFiles, Registry, uProcessMon,
   uBaseProfile, uProcProfile, uWinBox, uCommUtil, Generics.Collections;
 
 type
@@ -402,18 +402,20 @@ var
   I: integer;
 begin
   Result := '';
-  with CommandLineToArgs(Process.CommandLine) do begin
-     for I := 0 to Count - 1 do
-      if ((UpperCase(Strings[I]) = SPathParamUpper1) or
-          (UpperCase(Strings[I]) = SPathParamUpper2))
-         and (I < Count - 1) then begin
-           Result := IncludeTrailingPathDelimiter(
-             ExpandFileNameTo(
-               ExcludeTrailingPathDelimiter(Strings[I + 1]),
-               ExtractFilePath(Process.ExecutablePath)));
-      end;
-    Free;
-  end;
+  with CommandLineToArgs(Process.CommandLine) do
+    try
+       for I := 0 to Count - 1 do
+        if ((UpperCase(Strings[I]) = SPathParamUpper1) or
+            (UpperCase(Strings[I]) = SPathParamUpper2))
+           and (I < Count - 1) then begin
+             Result := IncludeTrailingPathDelimiter(
+               ExpandFileNameTo(
+                 ExcludeTrailingPathDelimiter(Strings[I + 1]),
+                 ExtractFilePath(Process.ExecutablePath)));
+           end;
+    finally
+      Free;
+    end;
   if Result = '' then
      Result := ExtractFilePath(Process.ExecutablePath);
 end;
@@ -473,7 +475,8 @@ function T86BoxProfile.CheckProcess(const Process: TProcess): boolean;
 begin
   Result := WideUpperCase(
     IncludeTrailingPathDelimiter(T86Box.GetWorkingDirectory(Process))) =
-           WideUpperCase(WorkingDirectory);
+           WideUpperCase(
+    IncludeTrailingPathDelimiter(WorkingDirectory));
 end;
 
 function T86BoxProfile.GetState: integer;
