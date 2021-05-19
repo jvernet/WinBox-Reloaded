@@ -97,7 +97,9 @@ type
   public
     //Lista kirajzolásához szükséges cuccok
     HalfCharHeight, BorderThickness: integer;
-    clHighlight1, clHighlight2: TColor;
+
+    clHighlight1, clHighlight2,
+    clDisabled1, clDisabled2: TColor;
 
     //Átméretezés aránytartása
     Ratio: extended;
@@ -113,6 +115,8 @@ type
 
     procedure WMEnterSizeMove(var Message: TMessage); message WM_ENTERSIZEMOVE;
   end;
+
+function FindPrevInst: boolean;
 
 var
   WinBoxMain: TWinBoxMain;
@@ -144,6 +148,18 @@ const
   DefRatio = 0.28;
   MaxPoints = 60;
   ScrollPoints = 1;
+
+function FindPrevInst: boolean;
+var
+  Handle: HWND;
+begin
+  Result := false;
+  Handle := FindWindow('TWinBoxMain', nil);
+  if (Handle <> 0) then begin
+    BringWindowToFront(Handle);
+    Result := true;
+  end;
+end;
 
 procedure TWinBoxMain.AddSeries(Chart: TChart; AColor: TColor;
   const FriendlyName: string);
@@ -278,8 +294,11 @@ begin
 
   clHighlight1 := ColorToRGB(clHighlight);
   ColorRGBToHLS(clHighlight1, H, L, S);
+  clDisabled1 := ColorHLSToRGB(H, L, 0);
+
   L := L * 10 div 8;
   clHighlight2 := ColorHLSToRGB(H, L, S);
+  clDisabled2 := ColorHLSToRGB(H, L, 0);
 
   Ratio := DefRatio;
 
@@ -363,10 +382,15 @@ var
   StateText: string;
 begin
   with Control as TListBox, Canvas do begin
-    if odSelected in State then begin
+    if Enabled and (odSelected in State) then begin
       Brush.Color := clHighlight;
       Font.Color := clHighlightText;
       GradientFillCanvas(Canvas, clHighlight2, clHighlight1, Rect, gdVertical);
+    end
+    else if (odSelected in State) then begin
+      Brush.Color := cl3DDkShadow;
+      Font.Color := cl3DLight;
+      GradientFillCanvas(Canvas, clDisabled2, clDisabled1, Rect, gdVertical);
     end
     else begin
       Brush.Color := clWindow;

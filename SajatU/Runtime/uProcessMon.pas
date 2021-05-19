@@ -221,7 +221,7 @@ var
   FWbemObjectSet: OleVariant;
 begin
   EnumProcesses(@Buffer[0], length(Buffer) * SizeOf(DWORD), Needed);
-  Needed := Needed div 4;
+  Needed := Needed div SizeOf(DWORD);
 
   SetLength(Result, 0);
   for I := 0 to Needed - 1 do

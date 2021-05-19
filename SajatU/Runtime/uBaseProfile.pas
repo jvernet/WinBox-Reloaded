@@ -23,7 +23,8 @@ unit uBaseProfile;
 
 interface
 
-uses Windows, SysUtils, Classes, Graphics, IniFiles, Registry, IOUtils;
+uses Windows, SysUtils, Classes, Graphics, IniFiles, Registry, IOUtils,
+     uCommUtil;
 
 const
   SRegBaseKey      = 'Software\Laci bá''\WinBox\Profiles';
@@ -273,7 +274,7 @@ end;
 procedure TProfile.SetExecutablePath(const Value: string);
 begin
   if not FileExists(Value) then
-    raise Exception.Create(SysErrorMessage(ERROR_FILE_NOT_FOUND));
+    dbgLog('While setting TProfile.ExecutablePath: ' + SysErrorMessage(ERROR_FILE_NOT_FOUND));
 
   FExecutablePath := Value;
 end;

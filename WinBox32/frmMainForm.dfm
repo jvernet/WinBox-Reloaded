@@ -2,7 +2,7 @@ object WinBoxMain: TWinBoxMain
   Left = 0
   Top = 0
   Caption = 'WinBox Reloaded R2 - Release Preview'
-  ClientHeight = 305
+  ClientHeight = 265
   ClientWidth = 670
   Color = clBtnFace
   DoubleBuffered = True
@@ -20,7 +20,7 @@ object WinBoxMain: TWinBoxMain
   object Splitter: TSplitter
     Left = 209
     Top = 104
-    Height = 182
+    Height = 142
     ExplicitLeft = 192
     ExplicitTop = -126
     ExplicitHeight = 426
@@ -30,10 +30,11 @@ object WinBoxMain: TWinBoxMain
     Left = 3
     Top = 107
     Width = 206
-    Height = 176
+    Height = 136
     Margins.Right = 0
     Style = lbOwnerDrawFixed
     Align = alLeft
+    Enabled = False
     ItemHeight = 48
     TabOrder = 0
     OnDrawItem = ListDrawItem
@@ -43,20 +44,24 @@ object WinBoxMain: TWinBoxMain
     Left = 212
     Top = 104
     Width = 458
-    Height = 182
+    Height = 142
     ActivePage = TabSheet1
     Align = alClient
     TabOrder = 1
     object tabHome: TTabSheet
       Caption = 'Kezd'#337'lap'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         450
-        154)
+        114)
       object Label10: TLabel
         Left = 19
         Top = 38
         Width = 255
-        Height = 106
+        Height = 66
         Anchors = [akLeft, akTop, akRight, akBottom]
         AutoSize = False
         Caption = 
@@ -98,12 +103,16 @@ object WinBoxMain: TWinBoxMain
     object tabPerfMon: TTabSheet
       Caption = 'Teljes'#237'tm'#233'nyfigyel'#337
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object pgCharts: TPageControl
         AlignWithMargins = True
         Left = 10
         Top = 10
         Width = 430
-        Height = 87
+        Height = 67
         Margins.Left = 10
         Margins.Top = 10
         Margins.Right = 10
@@ -111,7 +120,6 @@ object WinBoxMain: TWinBoxMain
         ActivePage = TabSheet2
         Align = alClient
         TabOrder = 0
-        ExplicitHeight = 127
         object TabSheet4: TTabSheet
           Caption = 'Gazdag'#233'p processzor'
           ExplicitLeft = 0
@@ -122,7 +130,7 @@ object WinBoxMain: TWinBoxMain
             Left = 0
             Top = 0
             Width = 422
-            Height = 119
+            Height = 39
             Legend.CheckBoxes = True
             Title.Text.Strings = (
               'A virtu'#225'lis g'#233'pek okozta processzorterhel'#233's a gazdag'#233'pen')
@@ -171,7 +179,7 @@ object WinBoxMain: TWinBoxMain
             Left = 0
             Top = 0
             Width = 422
-            Height = 119
+            Height = 39
             Legend.CheckBoxes = True
             Title.Text.Strings = (
               'A virtu'#225'lis g'#233'pek '#225'ltal haszn'#225'lt mem'#243'ria a gazdag'#233'pen')
@@ -220,7 +228,7 @@ object WinBoxMain: TWinBoxMain
             Left = 0
             Top = 0
             Width = 422
-            Height = 99
+            Height = 39
             Legend.CheckBoxes = True
             Title.Text.Strings = (
               'Az egyidej'#369'leg fut'#243' virtu'#225'lis g'#233'pek sz'#225'ma')
@@ -258,7 +266,7 @@ object WinBoxMain: TWinBoxMain
       end
       object pnpBottom: TPanel
         Left = 0
-        Top = 107
+        Top = 87
         Width = 450
         Height = 47
         Align = alBottom
@@ -337,7 +345,7 @@ object WinBoxMain: TWinBoxMain
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 286
+    Top = 246
     Width = 670
     Height = 19
     Panels = <>

@@ -106,6 +106,7 @@ object Core: TCore
       OnUpdate = acVMUpdate
     end
     object acUpdateList: TAction
+      Tag = -1
       Category = 'N'#233'zet'
       Caption = 'Virtu'#225'lis g'#233'pek &list'#225'j'#225'nak friss'#237't'#233'se'
       ImageIndex = 16
@@ -113,8 +114,10 @@ object Core: TCore
       OnExecute = ReloadProfiles
     end
     object acAbout: TAction
+      Tag = -1
       Category = 'S'#250'g'#243
       Caption = '&N'#233'vjegy...'
+      Enabled = False
       ImageIndex = 12
       ShortCut = 112
       OnExecute = acAboutExecute
@@ -158,12 +161,14 @@ object Core: TCore
       OnUpdate = acVMUpdate
     end
     object acDiskCatalog: TAction
+      Tag = -1
       Category = 'Eszk'#246'z'#246'k'
       Caption = '&Merevlemez adatb'#225'zis megnyit'#225'sa...'
       ImageIndex = 10
       OnExecute = acDiskCatalogExecute
     end
     object acAutoUpdate: TAction
+      Tag = -1
       Category = 'Eszk'#246'z'#246'k'
       Caption = '&Emul'#225'tor friss'#237't'#233'sek keres'#233'se...'
       ImageIndex = 27
@@ -214,6 +219,7 @@ object Core: TCore
       ShortCut = 32883
     end
     object acNewHDD: TAction
+      Tag = -1
       Category = 'F'#225'jl'
       Caption = #218'j virtu'#225'lis &merevlemez l'#233'trehoz'#225'sa...'
       ImageIndex = 28
@@ -236,6 +242,7 @@ object Core: TCore
       OnUpdate = acStopAllUpdate
     end
     object acNewVM: TAction
+      Tag = -1
       Category = 'F'#225'jl'
       Caption = #218'j virtu'#225'lis g'#233'p l'#233'trehoz'#225'sa...'
       ImageIndex = 14
@@ -252,6 +259,7 @@ object Core: TCore
       OnUpdate = acVMUpdate
     end
     object acProgSettings: TAction
+      Tag = -1
       Category = 'Eszk'#246'z'#246'k'
       Caption = 'P&rogrambe'#225'll'#237't'#225'sok...'
       ImageIndex = 29

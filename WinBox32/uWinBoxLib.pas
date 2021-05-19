@@ -59,6 +59,7 @@ type
     ['{768238E2-A485-4DE5-AEA8-51E506DD81BC}']
     function Execute(const ByCommand: boolean = false): boolean; stdcall;
     function HasUpdate: boolean; stdcall;
+    function AutoUpdate: boolean; stdcall;
   end;
 
   IWizardHDD = interface

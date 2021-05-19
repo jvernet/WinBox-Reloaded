@@ -276,7 +276,9 @@ begin
       if DiskTool.Execute(false) then begin
         ADiskData := DiskTool.DiskData;
         UpdateCHS;
-      end;
+      end
+      else if String(DiskTool.FileName) = '' then
+        DiskTool.FileName := PChar(Path.Text + 'vdisk00.img');;
     end;
 end;
 

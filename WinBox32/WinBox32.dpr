@@ -23,8 +23,6 @@ program WinBox32;
 
 uses
   MidasLib,
-  Windows,
-  uCommUtil,
   Vcl.Forms,
   frmMainForm in 'frmMainForm.pas' {WinBoxMain},
   uCoreModule in 'uCoreModule.pas' {Core: TDataModule},
@@ -36,15 +34,9 @@ uses
 
 {$R *.res}
 
-var
-  Handle: HWND;
-
 begin
-  Handle := FindWindow('TWinBoxMain', nil);
-  if Handle <> 0 then begin
-    BringWindowToFront(Handle);
-    halt(1);
-  end;
+  if FindPrevInst then
+    Halt(1);
 
   Application.Initialize;
   Application.ActionUpdateDelay := 50;

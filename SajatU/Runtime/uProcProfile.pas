@@ -128,6 +128,9 @@ implementation
 
 resourcestring
   EInvalidProcessIndex = 'Érvénytelen folyamat-index, vagy definíálatlan monitor (%s.Processes[%d]).';
+  StrAMegadottElérésiÚ = 'A megadott elérési útvonalon nem található az emul' +
+  'átor.'#13#10#13#10'Ellenõrizze hogy letöltötte-e már az emulátort, vagy egyéni beállít' +
+  'ásoknál hogy a profilbeállítások érvényes adatokat tartalmaznak.';
 
 { TProcessProfile }
 
@@ -214,7 +217,7 @@ var
 begin
   if not (FileExists(ExecutablePath) and //létezzen a mappa és a progi
     DirectoryExists(ExcludeTrailingPathDelimiter(WorkingDirectory))) then
-      exit(false);
+      raise Exception.Create(StrAMegadottElérésiÚ);
 
   if length(FIndexMap) > 0 then //csak 1x lehet elindítani
     exit(false);

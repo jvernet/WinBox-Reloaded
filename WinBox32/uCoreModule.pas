@@ -262,6 +262,8 @@ type
     function IsAllStopped: boolean;
     function ValidateIndex: boolean;
 
+    procedure EnableUI(const Value: boolean);
+
     property OnReloadProfiles: TNotifyEvent read FRelProf write FRelProf;
     property OnMonitorUpdate: TNotifyEvent read FUpdate write FUpdate;
   end;
@@ -337,7 +339,7 @@ end;
 
 procedure TCore.acAutoUpdateUpdate(Sender: TObject);
 begin
-  (Sender as TAction).Enabled := IsAllStopped;
+  (Sender as TAction).Enabled := not FirstUpdate and IsAllStopped;
 end;
 
 procedure TCore.acDeleteVMExecute(Sender: TObject);
@@ -606,6 +608,8 @@ begin
   {$ELSE}
   miDebug.Visible := true;
   {$ENDIF}
+
+  EnableUI(false);
 end;
 
 destructor TCore.Destroy;
@@ -613,6 +617,23 @@ begin
   Monitor.Free; //ezt KELL elõbb felszabadítani
   Profiles.Free;
   inherited;
+end;
+
+procedure TCore.EnableUI(const Value: boolean);
+var
+  I: Integer;
+begin
+  for I := 0 to Actions.ActionCount - 1 do
+    if Actions[I].Tag = -1 then
+      Actions[I].Enabled := Value;
+
+  if Assigned(WinBoxMain) then
+    WinBoxMain.List.Enabled := Value;
+
+  if Value then
+    Screen.Cursor := crDefault
+  else
+    Screen.Cursor := crAppStart;
 end;
 
 procedure TCore.FolderMonitorChange(Sender: TObject; FileName: string;
@@ -677,9 +698,10 @@ begin
   if FirstUpdate then begin
     FirstUpdate := false;
     with CreateAutoUpdate(nil) do begin
-      if HasUpdate and IsAllStopped then
+      if AutoUpdate and IsAllStopped and HasUpdate then
         Execute(false);
     end;
+    EnableUI(true);
   end;
 
   if Assigned(FUpdate) then
