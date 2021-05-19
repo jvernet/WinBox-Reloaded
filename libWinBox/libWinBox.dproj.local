@@ -1,35 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899/12/30 00:00:00.000.736,=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\uWaitForm.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.543,C:\Users\laciba\Documents\Embarcadero\Studio\Projects\WinBox.dproj=C:\Users\laciba\Documents\Embarcadero\Studio\Projects\libWinBox.dproj</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.637,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmWizardVM.pas=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.449,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmWizardVM.pas=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.815,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmWaitForm.pas=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\uWaitForm.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.874,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmWizardVM.pas=</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.428,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmSelectHDD.dfm=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\uHDSelect.dfm</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.436,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmUpdate.dfm=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.dfm</Transaction>
     <Transaction>1899/12/30 00:00:00.000.710,=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\uHDSelect.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.815,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\uWaitForm.pas=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmWaitForm.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.637,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.dfm=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmWizardVM.dfm</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.290,C:\Users\laciba\Documents\Embarcadero\Studio\Projects\Project2.dproj=C:\Users\laciba\Documents\Embarcadero\Studio\Projects\WinBox.dproj</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.176,C:\Users\laciba\Documents\Embarcadero\Studio\Projects\libWinBox.dproj=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\libWinBox.dproj</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.436,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmUpdate.pas=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.405,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\uWinBoxLib.pas=</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.648,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\uWinBoxLib.pas=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.554,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmWizardHDD.dfm=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.dfm</Transaction>
     <Transaction>1899/12/30 00:00:00.000.453,=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\u86Box.pas</Transaction>
     <Transaction>1899/12/30 00:00:00.000.991,E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\u86Box.pas=</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.405,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\uWinBoxLib.pas=</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.874,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmWizardVM.pas=</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.428,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\uHDSelect.pas=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmSelectHDD.pas</Transaction>
     <Transaction>1899/12/30 00:00:00.000.703,=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\uVMSample.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.428,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\uHDSelect.dfm=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmSelectHDD.dfm</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.449,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.dfm=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmWizardVM.dfm</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.637,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.pas=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmWizardVM.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.056,=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.217,=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.648,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.pas=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\uWinBoxLib.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.815,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\uWaitForm.dfm=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmWaitForm.dfm</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.449,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.pas=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmWizardVM.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.436,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.pas=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmUpdate.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.661,=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.436,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.dfm=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmUpdate.dfm</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.554,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.dfm=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmWizardHDD.dfm</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.431,=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.554,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.pas=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmWizardHDD.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.290,C:\Users\laciba\Documents\Embarcadero\Studio\Projects\WinBox.dproj=C:\Users\laciba\Documents\Embarcadero\Studio\Projects\Project2.dproj</Transaction>
     <Transaction>1899/12/30 00:00:00.000.733,=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.pas</Transaction>
     <Transaction>1899/12/30 00:00:00.000.064,=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.554,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmWizardHDD.pas=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.431,=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.056,=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.217,=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.661,=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.543,C:\Users\laciba\Documents\Embarcadero\Studio\Projects\libWinBox.dproj=C:\Users\laciba\Documents\Embarcadero\Studio\Projects\WinBox.dproj</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.428,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmSelectHDD.pas=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\uHDSelect.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.736,=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\uWaitForm.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.449,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmWizardVM.dfm=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.dfm</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.815,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmWaitForm.dfm=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\uWaitForm.dfm</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.176,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\libWinBox.dproj=C:\Users\laciba\Documents\Embarcadero\Studio\Projects\libWinBox.dproj</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.637,E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\frmWizardVM.dfm=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\Unit2.dfm</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="frmSelectHDD.pas"/>
