@@ -21,4 +21,6 @@ The program currently has 2 languages supported:
 If you want to add your language to the supported list, you can find the resource file under the Translations folder.
 Add your new language as a pull request and I will include it with the next release.
 
+The program is written in Delphi 10.3.
+
 The application is licensed under the GNU GPL v3.0 license.
