@@ -143,6 +143,8 @@ resourcestring
   StrTeljesLeállítás = 'Teljes &leállítás';
   StrÚjMerevlemez = 'Új merev&lemez';
   StrÚjGép = '&Új gép';
+  StrTheVirtualMachine = 'A virtuális gép munkakönyvtárát eltávolították.' +
+  #13#10#13#10'Kívánja a profilt is törölni?';
 
 const
   DefRatio = 0.28;
@@ -366,6 +368,19 @@ begin
       Core.ItemIndex := List.ItemIndex - 2;
 
       Core.FolderMonitor.Folder := Core.Profiles[Core.ItemIndex].WorkingDirectory;
+      if not DirectoryExists(Core.FolderMonitor.Folder) then
+        case MessageBox(Handle, PChar(StrTheVirtualMachine),
+               PChar(Application.Title), MB_ICONQUESTION or MB_YESNO) of
+          mrYes:
+            with Core do begin
+              TWinBoxProfile.DeleteProfile(Profiles[ItemIndex].ProfileID,
+                                           Profiles[ItemIndex].SectionKey);
+              ReloadProfiles(Self);
+              exit;
+            end
+          else ForceDirectories(Core.FolderMonitor.Folder);
+        end;
+
       Core.FolderMonitor.Active := true;
 
       Pages.ActivePageIndex := Core.Profiles[Core.ItemIndex].Tag;
