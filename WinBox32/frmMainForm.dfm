@@ -50,10 +50,6 @@ object WinBoxMain: TWinBoxMain
     TabOrder = 1
     object tabHome: TTabSheet
       Caption = 'Kezd'#337'lap'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         450
         114)
@@ -103,16 +99,12 @@ object WinBoxMain: TWinBoxMain
     object tabPerfMon: TTabSheet
       Caption = 'Teljes'#237'tm'#233'nyfigyel'#337
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object pgCharts: TPageControl
         AlignWithMargins = True
         Left = 10
         Top = 10
         Width = 430
-        Height = 67
+        Height = 47
         Margins.Left = 10
         Margins.Top = 10
         Margins.Right = 10
@@ -120,6 +112,7 @@ object WinBoxMain: TWinBoxMain
         ActivePage = TabSheet2
         Align = alClient
         TabOrder = 0
+        ExplicitHeight = 67
         object TabSheet4: TTabSheet
           Caption = 'Gazdag'#233'p processzor'
           ExplicitLeft = 0
@@ -266,7 +259,7 @@ object WinBoxMain: TWinBoxMain
       end
       object pnpBottom: TPanel
         Left = 0
-        Top = 87
+        Top = 67
         Width = 450
         Height = 47
         Align = alBottom

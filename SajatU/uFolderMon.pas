@@ -137,7 +137,7 @@ end;
 
 procedure TFolderMonitor.SetActive(const Value: Boolean);
 begin
-  if (Value = GetActive) then
+  if (Value = GetActive) and (Value = false) then
     exit
   else if Value then begin
     if FFilter = 0 then
