@@ -152,7 +152,7 @@ implementation
 uses uCommUtil;
 
 resourcestring
-  StrSamples = '\Samples';
+  StrSamples = '\Templates';
   StrANévNemLehetÜres = 'A név nem lehet üres.';
   ENincsKiválasztottS = 'Nincs kiválasztott sablon.';
   StrNincsSablonKiválas = 'Nincs sablon kiválasztva.';
@@ -316,10 +316,18 @@ begin
 end;
 
 procedure TWizardVM.FormShow(Sender: TObject);
+var
+  Path: string;
 begin
+  Path := ExcludeTrailingPathDelimiter(
+    ExtractFilePath(Application.ExeName)) + StrSamples;
+
+  if not SysUtils.DirectoryExists(Path) then
+      Path := IncludeTrailingPathDelimiter(
+    GetEnvironmentVariable(SAppDataEnvVar)) + SDefaultAppDataFolder + StrSamples;
+
   PageControl1.ActivePageIndex := 0;
-  Samples.Load(IncludeTrailingPathDelimiter(
-    GetEnvironmentVariable(SAppDataEnvVar)) + SDefaultAppDataFolder + StrSamples);
+  Samples.Load(Path);
   Samples.GetManufacturers(ListBox1.Items);
 
   FixItemIndex(ListBox1);

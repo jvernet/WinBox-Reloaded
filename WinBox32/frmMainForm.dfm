@@ -1,8 +1,8 @@
 object WinBoxMain: TWinBoxMain
   Left = 0
   Top = 0
-  Caption = 'WinBox Reloaded R2 - Release Preview'
-  ClientHeight = 265
+  Caption = 'WinBox Reloaded'
+  ClientHeight = 408
   ClientWidth = 670
   Color = clBtnFace
   DoubleBuffered = True
@@ -20,7 +20,7 @@ object WinBoxMain: TWinBoxMain
   object Splitter: TSplitter
     Left = 209
     Top = 104
-    Height = 142
+    Height = 285
     ExplicitLeft = 192
     ExplicitTop = -126
     ExplicitHeight = 426
@@ -30,7 +30,7 @@ object WinBoxMain: TWinBoxMain
     Left = 3
     Top = 107
     Width = 206
-    Height = 136
+    Height = 279
     Margins.Right = 0
     Style = lbOwnerDrawFixed
     Align = alLeft
@@ -44,7 +44,7 @@ object WinBoxMain: TWinBoxMain
     Left = 212
     Top = 104
     Width = 458
-    Height = 142
+    Height = 285
     ActivePage = TabSheet1
     Align = alClient
     TabOrder = 1
@@ -52,12 +52,12 @@ object WinBoxMain: TWinBoxMain
       Caption = 'Kezd'#337'lap'
       DesignSize = (
         450
-        114)
+        257)
       object Label10: TLabel
         Left = 19
         Top = 38
         Width = 255
-        Height = 66
+        Height = 209
         Anchors = [akLeft, akTop, akRight, akBottom]
         AutoSize = False
         Caption = 
@@ -104,7 +104,7 @@ object WinBoxMain: TWinBoxMain
         Left = 10
         Top = 10
         Width = 430
-        Height = 47
+        Height = 190
         Margins.Left = 10
         Margins.Top = 10
         Margins.Right = 10
@@ -259,7 +259,7 @@ object WinBoxMain: TWinBoxMain
       end
       object pnpBottom: TPanel
         Left = 0
-        Top = 67
+        Top = 210
         Width = 450
         Height = 47
         Align = alBottom
@@ -338,7 +338,7 @@ object WinBoxMain: TWinBoxMain
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 246
+    Top = 389
     Width = 670
     Height = 19
     Panels = <>

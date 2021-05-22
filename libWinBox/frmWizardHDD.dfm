@@ -868,10 +868,6 @@ object WizardHDD: TWizardHDD
       Caption = 'TabSheet5'
       ImageIndex = 4
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         329
         253)

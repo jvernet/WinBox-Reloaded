@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
+    <Transaction>1899/12/30 00:00:00.000.257,E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try5_dpi\Unit1.dfm=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try5_dpi\frmProgSettDlg.dfm</Transaction>
     <Transaction>1899/12/30 00:00:00.000.699,C:\Users\laciba\Documents\Embarcadero\Studio\Projects\Unit1.dfm=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\Unit1.dfm</Transaction>
     <Transaction>1899/12/30 00:00:00.000.015,=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\u86Box.pas</Transaction>
     <Transaction>1899/12/30 00:00:00.000.468,E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\Unit1.pas=E:\SajatU\WinBox\Runtime\frmProfileDlg.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.118,=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\Unit1.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.257,E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try5_dpi\Unit1.dfm=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try5_dpi\frmProgSettDlg.dfm</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.778,E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\u86BoxFrame.pas=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\frm86Box.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.946,=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try5\uWinBoxLib.pas</Transaction>
     <Transaction>1899/12/30 00:00:00.000.456,=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\Unit2.pas</Transaction>
     <Transaction>1899/12/30 00:00:00.000.225,E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\Unit2.pas=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\uCoreModule.pas</Transaction>
     <Transaction>1899/12/30 00:00:00.000.954,=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\u86BoxFrame.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.778,E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\u86BoxFrame.pas=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\frm86Box.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.118,=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\Unit1.pas</Transaction>
     <Transaction>1899/12/30 00:00:00.000.778,E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\u86BoxFrame.dfm=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\frm86Box.dfm</Transaction>
     <Transaction>1899/12/30 00:00:00.000.797,C:\Users\laciba\Documents\Embarcadero\Studio\Projects\Project1.dproj=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\Project1.dproj</Transaction>
     <Transaction>1899/12/30 00:00:00.000.703,E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\Unit1.dfm=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\frmMainForm.dfm</Transaction>
@@ -19,11 +20,10 @@
     <Transaction>1899/12/30 00:00:00.000.874,E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try5_dpi\frmAbout.pas=</Transaction>
     <Transaction>1899/12/30 00:00:00.000.042,=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try5_dpi\frmAbout.pas</Transaction>
     <Transaction>1899/12/30 00:00:00.000.337,E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try5_dpi\frmAbout.pas=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try5_dpi\Unit1.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.946,=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try5\uWinBoxLib.pas</Transaction>
     <Transaction>1899/12/30 00:00:00.000.699,C:\Users\laciba\Documents\Embarcadero\Studio\Projects\Unit1.pas=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\Unit1.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.854,=C:\Users\laciba\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.514,=C:\Users\laciba\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>1899/12/30 00:00:00.000.689,=C:\Users\laciba\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.113,=C:\Users\laciba\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.854,=C:\Users\laciba\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>1899/12/30 00:00:00.000.337,E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try5_dpi\frmAbout.dfm=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try5_dpi\Unit1.dfm</Transaction>
     <Transaction>1899/12/30 00:00:00.000.257,E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try5_dpi\Unit1.pas=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try5_dpi\frmProgSettDlg.pas</Transaction>
     <Transaction>1899/12/30 00:00:00.000.259,=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try5_dpi\Unit1.pas</Transaction>
@@ -34,12 +34,16 @@
     <Transaction>1899/12/30 00:00:00.000.225,E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\Unit2.dfm=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\uCoreModule.dfm</Transaction>
     <Transaction>1899/12/30 00:00:00.000.251,E:\SajatU\WinBox\Runtime\frmProfileDlg.pas=</Transaction>
     <Transaction>1899/12/30 00:00:00.000.609,E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\frm86Box.dfm=E:\Programok\WinBox\WinBox Rel Try2\winbox_rel_try4\frm86BoxFrame.dfm</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.514,=C:\Users\laciba\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.915,=C:\Users\laciba\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>1899/12/30 00:00:00.000.546,=C:\Users\laciba\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>1899/12/30 00:00:00.000.564,=C:\Users\laciba\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.915,=C:\Users\laciba\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.113,=C:\Users\laciba\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2021/05/19 11:45:21.000.809,=E:\Projektek\WinBox-Reloaded\WinBox32\Unit1.pas</Transaction>
     <Transaction>2021/05/19 11:51:10.000.527,=E:\Projektek\WinBox-Reloaded\WinBox32\Unit1.pas</Transaction>
+    <Transaction>2021/05/22 15:03:36.795,=E:\Projektek\WinBox-Reloaded\WinBox32\Unit1.pas</Transaction>
+    <Transaction>2021/05/22 15:03:42.040,=E:\Projektek\WinBox-Reloaded\WinBox32\Unit1.pas</Transaction>
+    <Transaction>2021/05/22 15:22:23.190,E:\Projektek\WinBox-Reloaded\WinBox32\frmSplash.dfm=E:\Projektek\WinBox-Reloaded\WinBox32\Unit1.dfm</Transaction>
+    <Transaction>2021/05/22 15:22:23.190,E:\Projektek\WinBox-Reloaded\WinBox32\frmSplash.pas=E:\Projektek\WinBox-Reloaded\WinBox32\Unit1.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="frm86Box.pas"/>
@@ -54,5 +58,7 @@
     <File Path="uCoreModule.pas"/>
     <File Path="uCoreModule.dfm"/>
     <File Path="uWinBoxLib.pas"/>
+    <File Path="frmSplash.pas"/>
+    <File Path="frmSplash.dfm"/>
   </ProjectSortOrder>
 </BorlandProject>

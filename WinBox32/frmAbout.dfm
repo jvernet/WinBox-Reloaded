@@ -33,9 +33,9 @@ object AboutFrm: TAboutFrm
   object Label1: TLabel
     Left = 104
     Top = 17
-    Width = 147
+    Width = 123
     Height = 19
-    Caption = 'WinBox Reloaded R2'
+    Caption = 'WinBox Reloaded'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
@@ -55,7 +55,7 @@ object AboutFrm: TAboutFrm
     Top = 49
     Width = 60
     Height = 13
-    Caption = '2021.05.14.'
+    Caption = '2021.05.22.'
   end
   object Label4: TLabel
     Left = 120
@@ -67,9 +67,9 @@ object AboutFrm: TAboutFrm
   object Label5: TLabel
     Left = 208
     Top = 68
-    Width = 104
+    Width = 22
     Height = 13
-    Caption = 'v1.0 Release Preview'
+    Caption = 'v1.0'
   end
   object Label6: TLabel
     Left = 104
@@ -142,7 +142,5 @@ object AboutFrm: TAboutFrm
     Caption = '&OK'
     ModalResult = 1
     TabOrder = 0
-    ExplicitLeft = 368
-    ExplicitTop = 250
   end
 end

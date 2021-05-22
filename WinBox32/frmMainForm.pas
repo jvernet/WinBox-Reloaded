@@ -116,8 +116,6 @@ type
     procedure WMEnterSizeMove(var Message: TMessage); message WM_ENTERSIZEMOVE;
   end;
 
-function FindPrevInst: boolean;
-
 var
   WinBoxMain: TWinBoxMain;
 
@@ -126,7 +124,7 @@ implementation
 {$R *.dfm}
 {$R 'Data\rcWinBoxMain.res'}
 
-uses uCoreModule, frm86Box, uCommUtil, uWinBoxLib, frmAbout;
+uses uCoreModule, frm86Box, uCommUtil, uWinBoxLib, frmAbout, frmSplash;
 
 resourcestring
   StrMemória1fS = 'Memória: %.1f%%'#13#10'(%s)';
@@ -150,18 +148,6 @@ const
   DefRatio = 0.28;
   MaxPoints = 60;
   ScrollPoints = 1;
-
-function FindPrevInst: boolean;
-var
-  Handle: HWND;
-begin
-  Result := false;
-  Handle := FindWindow('TWinBoxMain', nil);
-  if (Handle <> 0) then begin
-    BringWindowToFront(Handle);
-    Result := true;
-  end;
-end;
 
 procedure TWinBoxMain.AddSeries(Chart: TChart; AColor: TColor;
   const FriendlyName: string);

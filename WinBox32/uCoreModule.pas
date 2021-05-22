@@ -279,7 +279,7 @@ var
 
 implementation
 
-uses frmMainForm, uCommUtil, frmProgSettDlg, frmAbout, uProcessMon;
+uses frmMainForm, uCommUtil, frmProgSettDlg, frmAbout, uProcessMon, frmSplash;
 
 resourcestring
   StrEnsureHardStopCmd = 'A virtuális gép(ek) ilyen módon történõ leállítása adatvesztést okozhat. Biztos benne?';
@@ -697,6 +697,9 @@ begin
 
   if FirstUpdate then begin
     FirstUpdate := false;
+    WinBoxSplash.Close;
+    WinBoxSplash.Free;
+
     with CreateAutoUpdate(nil) do begin
       if AutoUpdate and IsAllStopped and HasUpdate then
         Execute(false);
