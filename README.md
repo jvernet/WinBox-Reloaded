@@ -4,6 +4,8 @@
 This program has been created to simplify the way I use PC Emulators.
 Currently it only supports *86Box*, but the rest of PCem forks are planned to be added later.
 
+![Screenshot](Screenshot.PNG)
+
 It's most noticeable features are:
 - It automatically updates the emulators from Jenkins.
 - It collects all your VMs in a slick brand new list, with some customization options.
@@ -15,8 +17,8 @@ It's most noticeable features are:
 - It has a large collection of custom made icons.
 
 The program currently has 2 languages supported:
-- EN_US
-- HU_HU
+- en-US
+- hu-HU
 
 If you want to add your language to the supported list, you can find the resource file under the Translations folder.
 Add your new language as a pull request and I will include it with the next release.
