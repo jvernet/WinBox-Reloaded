@@ -1,13 +1,13 @@
-[General]
+Ôªø[General]
 Manufacturer=Compaq
 Description=Compaq Portable 386
 Year=1988
 Type=86Box
 ConfigFile=86box.cfg
 Option0=&Processzor:|Intel i386DX (20 MHz)=i386|Cyrix Cx486DRx2 (40 MHz)=cx486
-Option1=&MemÛria:|Machine.mem_size
-option2=&EgÈr:|Input devices.mouse_type
-Option3=&MegjelenÌtÈs:|Video.gfxcard
+Option1=&Mem√≥ria:|Machine.mem_size
+option2=&Eg√©r:|Input devices.mouse_type
+Option3=&Megjelen√≠t√©s:|Video.gfxcard
 SupportedOS=Compaq MS-DOS 3.3 - 6.2, PC-DOS 3.1 - 6.1, OS/2 2.x, Windows 3.x, Linux
 
 [Option0.i386]
@@ -30,12 +30,12 @@ Machine.cpu = 4
 
 [Option2]
 (Nincs)=none
-Microsoft soros egÈr=msserial
-Logitech soros egÈr=ltserial
-Mouse Systems soros egÈr=mssystems
+Microsoft soros eg√©r=msserial
+Logitech soros eg√©r=ltserial
+Mouse Systems soros eg√©r=mssystems
 
 [Option3]
-GyˆmbÈr g·zplazma kijelzı=internal
+Gy√∂mb√©r g√°zplazma kijelz≈ë=internal
 
 [HDD]
 Connector=MFM

@@ -4,10 +4,10 @@ Description=Compaq Portable II
 Year=1986
 Type=86Box
 ConfigFile=86box.cfg
-Option0=&CPU sebessÈg:|Machine.cpu_speed
-Option1=&MemÛria:|640 kB=noisa2|1152 kB=1mb|1664 kB=1_5mb|2176 kB=2mb
-option2=&Floppy meghajtÛ:|Floppy and CD-ROM drives.fdd_01_type
-Option3=&Videok·rtya:|Video.gfxcard
+Option0=&CPU sebess√©g:|Machine.cpu_speed
+Option1=&Mem√≥ria:|640 kB=noisa2|1152 kB=1mb|1664 kB=1_5mb|2176 kB=2mb
+option2=&Floppy meghajt√≥:|Floppy and CD-ROM drives.fdd_01_type
+Option3=&Videok√°rtya:|Video.gfxcard
 SupportedOS=MS-DOS 2.12-3.30, PC-DOS 2.0-3.20, CP/M-86, UCSD-P, IBM BASIC, PC/IX, SCO Xenix, Minix
 
 [Option0]

@@ -1,14 +1,14 @@
-[General]
+ï»¿[General]
 Manufacturer=IBM
 Description=IBM PC/AT
 Type=86Box
 Year=1987
 ConfigFile=86box.cfg
-option0=&CPU sebesség:|Machine.cpu_speed
-option1=&Memória:|512 kB=noisa|1024 kB=1mb|1536 kB=1_5mb|2048 kB=2mb
-option2=&Floppy meghajtó:|Floppy and CD-ROM drives.fdd_01_type
-option3=&Videókártya:|Video.gfxcard
-SupportedOS=PC DOS 3.0 vagy újabb, OS/2 1.x, PC/IX 1.1, IBM-SCO Xenix, MS-DOS, CP/M-86, korai Windows verziók, egyéb (pl. UCSD-P)
+option0=&CPU sebessÃ©g:|Machine.cpu_speed
+option1=&MemÃ³ria:|512 kB=noisa|1024 kB=1mb|1536 kB=1_5mb|2048 kB=2mb
+option2=&Floppy meghajtÃ³:|Floppy and CD-ROM drives.fdd_01_type
+option3=&VideÃ³kÃ¡rtya:|Video.gfxcard
+SupportedOS=PC DOS 3.0 vagy Ãºjabb, OS/2 1.x, PC/IX 1.1, IBM-SCO Xenix, MS-DOS, CP/M-86, korai Windows verziÃ³k, egyÃ©b (pl. UCSD-P)
 
 [Option0]
 6 MHz=6000000

@@ -1,13 +1,13 @@
-[General]
+ï»¿[General]
 Manufacturer=IBM
 Description=IBM PC 330 (Model 6573)
 Year=1995
 Type=86Box
 ConfigFile=86box.cfg
 Option0=&Processzor:|Intel 486DX2 (50 MHz)=idx2|Intel 486DX2 (66 MHz)=idx2_66|Intel iDX4 (100 MHz)=idx4
-Option1=&Memória:|Machine.mem_size
+Option1=&MemÃ³ria:|Machine.mem_size
 SupportedOS=PC-DOS 6.30, Windows 3.1, Windows for Workgroups 3.11, OS/2 2.x, Linux
-NoteForCDROM=Csatoló: Sound Blaster 16
+NoteForCDROM=CsatolÃ³: Sound Blaster 16
 DescOfCDROM=8x ATAPI
 
 [Option0.idx2]

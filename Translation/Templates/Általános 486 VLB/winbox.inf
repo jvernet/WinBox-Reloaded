@@ -1,16 +1,16 @@
-[General]
-Manufacturer=(¡ltal·nos PC)
-Description=¡ltal·nos 486-alap˙ ISA/VLB rendszer
+Ôªø[General]
+Manufacturer=(√Åltal√°nos PC)
+Description=√Åltal√°nos 486-alap√∫ ISA/VLB rendszer
 Year=1992
 Type=86Box
 ConfigFile=86box.cfg
 Option0=&Processzor:|Intel i486SX (33 MHz)=i486|AMD Am486DX2 (50 MHz)=am486|Cyrix Cx486DX2 (80 MHz)=cx486|Intel iDX4 (100 MHz)=idx4
-Option1=&MemÛria:|Machine.mem_size
-Option2=&KiÈpÌtÈs:|AlapkiÈpÌtÈs=basic|MultimÈdia kiÈpÌtÈs=multi|H·lÛzati kiÈpÌtÈs=netw|Teljes kiÈpÌtÈs=full
-Option3=&NyomtatÛ:|Ports (COM & LPT).lpt1_device
+Option1=&Mem√≥ria:|Machine.mem_size
+Option2=&Ki√©p√≠t√©s:|Alapki√©p√≠t√©s=basic|Multim√©dia ki√©p√≠t√©s=multi|H√°l√≥zati ki√©p√≠t√©s=netw|Teljes ki√©p√≠t√©s=full
+Option3=&Nyomtat√≥:|Ports (COM & LPT).lpt1_device
 OptionCDROM=0
 DescOfCDROM=8x SCSI
-NoteForCDROM=CsatolÛ: Adaptec AHA-154xB (ISA)
+NoteForCDROM=Csatol√≥: Adaptec AHA-154xB (ISA)
 SupportedOS=MS-DOS 3.30-6.22, Windows for Workgroups 3.x, OS/2 2.x, Windows NT 3.x, Windows NT 4, Windows 95, Linux
 
 [Option0.i486]
@@ -68,7 +68,7 @@ Sound.sndcard=sb16
 EPSON LQ-2500=dot_matrix
 Apple LaserWriter IIf=postscript
 Apple Color LW 12/660 PS=postscript
-Szˆveges m·trixnyomtatÛ=text_prt
+Sz√∂veges m√°trixnyomtat√≥=text_prt
 (Nincs)=none
 
 [HDD]

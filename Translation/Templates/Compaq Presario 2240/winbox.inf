@@ -1,11 +1,11 @@
-[General]
+﻿[General]
 Manufacturer=Compaq
 Description=Compaq Presario 2240
 Year=1995
 Type=86Box
 ConfigFile=86box.cfg
 DescOfCDROM=20x ATAPI
-SupportedOS=Windows 95 �s Internet Explorer 4.0, Windows 98, OS/2 Warp 3, Linux
+SupportedOS=Windows 95 és Internet Explorer 4.0, Windows 98, OS/2 Warp 3, Linux
 
 [HDD]
 Connector=IDE

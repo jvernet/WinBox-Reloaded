@@ -1,13 +1,13 @@
-[General]
-Manufacturer=(¡ltal·nos PC)
-Description=¡ltal·nos 486-alap˙ PCI/ISA rendszer
+Ôªø[General]
+Manufacturer=(√Åltal√°nos PC)
+Description=√Åltal√°nos 486-alap√∫ PCI/ISA rendszer
 Year=1993
 Type=86Box
 ConfigFile=86box.cfg
 Option0=&Processzor:|Intel i486DX2 (66 MHz)=idx2|AMD Am486DX4+ (75 MHz)=amdx4|Cyrix Cx5x86 (80 MHz)=cxdx5|Intel Pentium OverDrive (83 MHz)=pentium
-Option1=&MemÛria:|Machine.mem_size
-Option2=&KiÈpÌtÈs:|MultimÈdia kiÈpÌtÈs=multi|H·lÛzati kiÈpÌtÈs=netw|Teljes kiÈpÌtÈs=full|AlapkiÈpÌtÈs=basic
-Option3=&NyomtatÛ:|Ports (COM & LPT).lpt1_device
+Option1=&Mem√≥ria:|Machine.mem_size
+Option2=&Ki√©p√≠t√©s:|Multim√©dia ki√©p√≠t√©s=multi|H√°l√≥zati ki√©p√≠t√©s=netw|Teljes ki√©p√≠t√©s=full|Alapki√©p√≠t√©s=basic
+Option3=&Nyomtat√≥:|Ports (COM & LPT).lpt1_device
 OptionCDROM=0
 DescOfCDROM=16x ATAPI
 SupportedOS=Windows 95, Windows NT 4, OS/2 Warp 3, MS-DOS 3.30-6.22, Windows 3.x, Windows for Workgroups 3.x, Linux
@@ -63,7 +63,7 @@ Sound.sndcard=sb16_pnp
 EPSON LQ-2500=dot_matrix
 Apple LaserWriter IIf=postscript
 Apple Color LW 12/660 PS=postscript
-Szˆveges m·trixnyomtatÛ=text_prt
+Sz√∂veges m√°trixnyomtat√≥=text_prt
 (Nincs)=none
 
 [HDD]

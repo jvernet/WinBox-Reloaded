@@ -1,14 +1,14 @@
-[General]
+Ôªø[General]
 Manufacturer=Tandy
 Description=Tandy 1000 (86Box)
 Type=86Box
 Year=1984
 ConfigFile=86box.cfg
-option0=&CPU sebessÈg:|Machine.cpu_speed
-option1=&MemÛria:|Machine.mem_size
-option2=&VideÛk·rtya:|Video.gfxcard
-option3=&MegjelenÌtı:|Tandy 1000.display_type
-SupportedOS=MS-DOS 2.11, DeskMate 1.0 Ès GW Microsoft Basic
+option0=&CPU sebess√©g:|Machine.cpu_speed
+option1=&Mem√≥ria:|Machine.mem_size
+option2=&Vide√≥k√°rtya:|Video.gfxcard
+option3=&Megjelen√≠t≈ë:|Tandy 1000.display_type
+SupportedOS=MS-DOS 2.11, DeskMate 1.0 √©s GW Microsoft Basic
 
 [Option0]
 4,77 MHz=4772728
@@ -26,4 +26,4 @@ Tandy Graphics Adapter=internal
 
 [Option3]
 Monitor (RGBI)=0
-TelevÌziÛ (NTSC)=1
+Telev√≠zi√≥ (NTSC)=1

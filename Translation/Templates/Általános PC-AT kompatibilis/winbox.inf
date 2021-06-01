@@ -1,14 +1,14 @@
-[General]
-Manufacturer=(¡ltal·nos PC)
-Description=¡ltal·nos PC/AT kompatibilis
+Ôªø[General]
+Manufacturer=(√Åltal√°nos PC)
+Description=√Åltal√°nos PC/AT kompatibilis
 Type=86Box
 Year=1984
 ConfigFile=86box.cfg
-option0=&CPU sebessÈg:|Machine.cpu_speed
-option1=&MemÛria:|1024 kB=1mb|512 kB=noisa|640 kB=noisa_max|1640 kB=1_6mb|2048 kB=2mb
-option2=&Floppy meghajtÛ:|Floppy and CD-ROM drives.fdd_01_type
-option3=&VideÛk·rtya:|Video.gfxcard
-SupportedOS=PC DOS 3.0 vagy ˙jabb, OS/2 1.x, PC/IX 1.1, IBM-SCO Xenix, MS-DOS, CP/M-86, korai Windows verziÛk, egyÈb (pl. UCSD-P)
+option0=&CPU sebess√©g:|Machine.cpu_speed
+option1=&Mem√≥ria:|1024 kB=1mb|512 kB=noisa|640 kB=noisa_max|1640 kB=1_6mb|2048 kB=2mb
+option2=&Floppy meghajt√≥:|Floppy and CD-ROM drives.fdd_01_type
+option3=&Vide√≥k√°rtya:|Video.gfxcard
+SupportedOS=PC DOS 3.0 vagy √∫jabb, OS/2 1.x, PC/IX 1.1, IBM-SCO Xenix, MS-DOS, CP/M-86, korai Windows verzi√≥k, egy√©b (pl. UCSD-P)
 
 [Option0]
 8 MHz=8000000
