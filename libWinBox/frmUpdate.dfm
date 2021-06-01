@@ -58,7 +58,7 @@ object UpdateForm: TUpdateForm
   end
   object lbFileName: TLabel
     Left = 428
-    Top = 286
+    Top = 284
     Width = 4
     Height = 13
     Alignment = taRightJustify
@@ -94,5 +94,11 @@ object UpdateForm: TUpdateForm
     Anchors = [akLeft, akRight, akBottom]
     Max = 4
     TabOrder = 2
+  end
+  object Timer1: TTimer
+    Interval = 25
+    OnTimer = Timer1Timer
+    Left = 208
+    Top = 184
   end
 end

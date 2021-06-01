@@ -83,10 +83,6 @@ object WizardVM: TWizardVM
     object TabSheet1: TTabSheet
       Caption = 'TabSheet1'
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -125,10 +121,6 @@ object WizardVM: TWizardVM
       Caption = 'TabSheet7'
       ImageIndex = 6
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -153,10 +145,10 @@ object WizardVM: TWizardVM
         Caption = '&N'#233'v:'
       end
       object Label18: TLabel
-        Left = 16
+        Left = 18
         Top = 45
         Width = 287
-        Height = 26
+        Height = 34
         Anchors = [akLeft, akTop, akRight]
         AutoSize = False
         Caption = 
@@ -225,10 +217,6 @@ object WizardVM: TWizardVM
       Caption = 'TabSheet2'
       ImageIndex = 1
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -303,10 +291,6 @@ object WizardVM: TWizardVM
       Caption = 'TabSheet3'
       ImageIndex = 4
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -899,10 +883,6 @@ object WizardVM: TWizardVM
       Caption = 'TabSheet5'
       ImageIndex = 4
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -947,10 +927,6 @@ object WizardVM: TWizardVM
       ImageIndex = 5
       ParentDoubleBuffered = False
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
     end
   end
 end

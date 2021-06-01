@@ -64,6 +64,8 @@ type
 
   IWizardHDD = interface
     ['{57E94996-C896-45BD-811D-08BA692D0B49}']
+    function GetIsVHD: boolean; stdcall;
+    procedure SetIsVHD(const Value: boolean); stdcall;
     function GetSparse: boolean; stdcall;
     procedure SetSparse(const Value: boolean); stdcall;
     function GetFileName: PChar; stdcall;
@@ -101,10 +103,14 @@ type
     property OpenSettings: boolean read GetOpenSettings;
   end;
 
-function CreateWizardVM(const AOwner: TComponent): IWizardVM; stdcall; external 'libWinBox.dll';
-function CreateWizardHDD(const AOwner: TComponent): IWizardHDD; stdcall; external 'libWinBox.dll';
-function CreateSelectHDD(const AOwner: TComponent): ISelectHDD; stdcall; external 'libWinBox.dll';
-function CreateAutoUpdate(const AOwner: TComponent): IAutoUpdate; stdcall; external 'libWinBox.dll';
+const
+  libWinBox = 'libWinBox.dll';
+
+function CreateWizardVM(const AOwner: TComponent): IWizardVM; stdcall; external libWinBox;
+function CreateWizardHDD(const AOwner: TComponent): IWizardHDD; stdcall; external libWinBox;
+function CreateSelectHDD(const AOwner: TComponent): ISelectHDD; stdcall; external libWinBox;
+function CreateAutoUpdate(const AOwner: TComponent): IAutoUpdate; stdcall; external libWinBox;
+procedure SetLanguage(const AFileName, ALocale: PChar); stdcall; external libWinBox;
 
 implementation
 

@@ -26,7 +26,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, IOUtils,
   Dialogs, StdCtrls, ComCtrls, ExtCtrls, Registry, DateUtils, Zip,
-  uBaseProfile;
+  uBaseProfile, uLang;
 
 type
   IAutoUpdate = interface
@@ -36,7 +36,9 @@ type
     function AutoUpdate: boolean; stdcall;
   end;
 
-  TUpdateForm = class(TForm, IAutoUpdate)
+  TUpdateThread = class;
+
+  TUpdateForm = class(TForm, IAutoUpdate, ILanguageSupport)
     Label1: TLabel;
     LogBox: TListBox;
     Button1: TButton;
@@ -45,35 +47,51 @@ type
     Shape1: TShape;
     State: TLabel;
     lbFileName: TLabel;
+    Timer1: TTimer;
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure LogBoxDblClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
     procedure WMStartup(var Msg: TMessage); message WM_USER;
   protected
+    Updater: TUpdateThread;
+  public
+    function Execute(const ByCommand: boolean = false): boolean; stdcall;
+    function HasUpdate: boolean; stdcall;
+    function AutoUpdate: boolean; stdcall;
+
+    procedure GetTranslation(Language: TLanguage); stdcall;
+    procedure Translate; stdcall;
+  end;
+
+  TUpdateThread = class(TThread)
+  private
+    function CheckCancel: boolean;
+    function VersionCheck: boolean;
+    function Download: boolean;
+    function Extract: boolean;
+  protected
+    procedure Execute; override;
+
     procedure Log(const S: string);
     procedure LogFmt(const S: string; const Args: array of const);
     function MessageBox(const Text: string; const Flags: longword): longword;
     function MessageBoxFmt(const Text: string; const Args: array of const; const Flags: longword): longword;
   public
+    Form: TUpdateForm;
+
+    FProgress, FProgressMax: integer;
+    FState, FFileName: string;
+
     FMode, FAutoUpdate, FGetSource: integer;
     FRepositories: array [0..1] of string;
     FPaths: array [0..0] of string;
-    FCancelled: boolean;
-    FBuild: integer;
+    FCancelled, FBuild: integer;
     FEmulator, FRoms, FSource: string;
 
-    function CheckCancel: boolean;
-    function VersionCheck: boolean;
-    function Download: boolean;
-    function Extract: boolean;
-    function Execute(const ByCommand: boolean = false): boolean; stdcall;
-    function HasUpdate: boolean; stdcall;
-    function AutoUpdate: boolean; stdcall;
-
-    procedure OnDownloadProgress(Sender: TObject);
     procedure OnZipProgress(Sender: TObject; FileName: string;
       Header: TZipHeader; Position: Int64);
   end;
@@ -96,187 +114,36 @@ resourcestring
   StrWinBox = 'WinBox';
   StrAutoUpdate = 'AutoUpdate';
   StrDownloadSource = 'DownloadSource';
-  StrAJelenlegiVerzióN = 'A jelenlegi verzió nem lekérhetõ. Kívánja folytatn' +
-  'i?';
-  StrJelenlegiVerzióS = 'Jelenlegi 86Box verzió: %s';
-  StrLegfrisebbVerzióKe = 'Frissítések keresése itt: %s';
-  StrElérhetõVerzióS = 'Elérhetõ 86Box verzió: %s';
-  StrATelepítettVerzió = 'A telepített verzió azonos vagy frissebb mint a le' +
-  'tölthetõ.'#13#10'Kívánja mégis letölteni?';
-  StrFrissítésElérhetõ = 'Frissítés elérhetõ (build: %d, dátum: %s).'#13#10'Kívánja le' +
-  'tölteni?';
-  EATávoliKiszolgáló = 'A távoli kiszolgáló nem elérhetõ, ellenõrizze az int' +
-  'ernetkapcsolatot!';
-  StrJelenlegNincsEgyet = 'Jelenleg nincs egyetlen telepített verzió sem.';
-  StrAFolyamatotAFelha = 'A folyamatot a felhasználó megszakította.';
-  StrKilépés = '&Kilépés';
-  StrLegfrisebbVáltozáso = 'Legfrisebb változások: ';
-  StrVerziókEllenõrzése = 'Verziók ellenõrzése...';
-  StrÜresjárat = 'Üresjárat';
-  StrMegszakítás = '&Megszakítás';
-  StrFájlokLetöltése = 'Fájlok letöltése...';
-  StrFájlokKibontása = 'Fájlok kibontása...';
-  StrIdeiglenesFájlokEl = 'Ideiglenes fájlok eltávolítása...';
-  StrHibaTörténtAFájlo = 'Hiba történt a fájlok kibontása során.';
-  StrÁtnevezésKözbenHib = 'Átnevezés közben hiba történt.';
-  StrKönyvtárÁtnevezése = 'Könyvtár átnevezése: 86Box-master';
-  StrKönyvtárÁtnevezés2 = 'Könyvtár átnevezése: roms-master';
-  StrForráskódKibontása = 'Forráskód kibontása...';
-  StrDFájlKibontva = '%d fájl kibontva.';
-  StrROMképekKibontása = 'ROM-képek kibontása...';
-  StrBinárisokKibontása = 'Binárisok kibontása...';
-  StrHibaTörténtAKoráb = 'Hiba történt a korábbi verzió eltávolítása során.';
-  StrAKorábbiVerzióElt = 'A korábbi verzió eltávolítása...';
-  StrHibaTörténtAFájl2 = 'Hiba történt a fájlok letöltése során.';
-  StrForráskódLetöltése = 'Forráskód letöltése ide: "%s"';
-  StrForráskódLetöltés2 =  'Forráskód letöltése innen: "%s"';
-  StrROMképekFájlainak = 'ROM-képek fájlainak letöltése ide: "%s"';
-  StrROMképekLetöltése = 'ROM-képek letöltése innen: "%s"';
-  StrAzEmulátorFájlaina = 'Az emulátor fájlainak letöltése ide: "%s"';
+
 
 {$R *.dfm}
 
 function TUpdateForm.AutoUpdate: boolean;
 begin
-  Result := FAutoUpdate <> 0;
+  Result := Updater.FAutoUpdate <> 0;
 end;
 
 procedure TUpdateForm.Button1Click(Sender: TObject);
 begin
-  if Button1.Caption = StrKilépés then
+  if Button1.Caption = _T('StrKilépés') then
     Close
   else
-    FCancelled := true;
-end;
-
-function TUpdateForm.CheckCancel: boolean;
-begin
-  Result := FCancelled;
-  if Result then begin
-    Log(StrAFolyamatotAFelha);
-    State.Caption := StrÜresjárat;
-  end;
-end;
-
-function TUpdateForm.Download: boolean;
-var
-  Temp: string;
-begin
-  Result := true;
-
-  try
-    FEmulator := TPath.GetTempFileName;
-    LogFmt(StrAzEmulátorFájlaina, [ExtractFileName(FEmulator)]);
-    Temp := jenkinsGetBuild(FRepositories[0], FBuild);
-    if Temp = '' then begin
-      Log(EATávoliKiszolgáló);
-      exit(false);
-    end;
-    httpsGet(Temp, FEmulator);
-    Progress.Position := Progress.Position + 1;
-    lbFileName.Caption := ExtractFileName(FEmulator);
-
-    LogFmt(StrROMképekLetöltése, [Def86RomsRepo]);
-    FRoms := TPath.GetTempFileName;
-    LogFmt(StrROMképekFájlainak, [ExtractFileName(FRoms)]);
-    gitClone(Def86RomsRepo, FRoms);
-    Progress.Position := Progress.Position + 1;
-    lbFileName.Caption := ExtractFileName(FRoms);
-
-    if FGetSource <> 0 then begin
-      LogFmt(StrForráskódLetöltés2, [Def86SrcRepo]);
-      FSource := TPath.GetTempFileName;
-      LogFmt(StrForráskódLetöltése, [ExtractFileName(FSource)]);
-      gitClone(Def86SrcRepo, FSource);
-      Progress.Position := Progress.Position + 1;
-      lbFileName.Caption := ExtractFileName(FSource);
-    end;
-  except
-    on E: Exception do begin
-      Log(StrHibaTörténtAFájl2);
-      Log(#9 + E.Message);
-      Result := false;
-      lbFileName.Caption := '-';
-    end;
-  end;
+    InterlockedExchange(Updater.FCancelled, 1);
 end;
 
 function TUpdateForm.Execute(const ByCommand: boolean): boolean;
 begin
-  FMode := ord(ByCommand);
+  Updater.FMode := ord(ByCommand);
   Result := ShowModal = mrOK;
-end;
-
-function TUpdateForm.Extract: boolean;
-var
-  Root: string;
-begin
-  Result := true;
-  Root := ExtractFilePath(FPaths[0]);
-  Log(StrAKorábbiVerzióElt);
-  if DirectoryExists(Root) and not DeleteToBin(ExcludeTrailingPathDelimiter(Root)) then begin
-    Log(StrHibaTörténtAKoráb);
-    exit(false);
-  end;
-  ForceDirectories(Root);
-
-  try
-    with TZipFile.Create do begin
-      try
-        OnProgress := OnZipProgress;
-        Log(StrBinárisokKibontása);
-        Open(FEmulator, zmRead);
-        ExtractAll(Root);
-        Log(format(StrDFájlKibontva, [length(FileInfos)]));
-        Close;
-        Progress.Position := Progress.Position + 1;
-
-        Log(StrROMképekKibontása);
-        Open(FRoms, zmRead);
-        ExtractAll(Root);
-        Log(format(StrDFájlKibontva, [length(FileInfos)]));
-        Close;
-        Progress.Position := Progress.Position + 1;
-
-        if FGetSource <> 0 then begin
-          Log(StrForráskódKibontása);
-          Open(FSource, zmRead);
-          ExtractAll(Root);
-          Log(format(StrDFájlKibontva, [length(FileInfos)]));
-          Close;
-          Progress.Position := Progress.Position + 1;
-        end;
-      finally
-        Free;
-      end;
-    end;
-
-    Log(StrKönyvtárÁtnevezés2);
-    if not RenameFile(Root + 'roms-master', Root + 'roms') then begin
-      Log(StrÁtnevezésKözbenHib);
-      Result := false;
-    end;
-
-    if FGetSource <> 0 then begin
-      Log(StrKönyvtárÁtnevezése);
-      if not RenameFile(Root + '86box-master', Root + 'source') then begin
-        Log(StrÁtnevezésKözbenHib);
-        Result := false;
-      end;
-    end;
-  except
-    on E: Exception do begin
-      Log(StrHibaTörténtAFájlo);
-      Log(#9 + E.Message);
-      lbFileName.Caption := '-';
-      Result := false;
-    end;
-  end;
 end;
 
 procedure TUpdateForm.FormCreate(Sender: TObject);
 begin
-  with TRegIniFile.Create(SRegRootKey, KEY_READ) do begin
+  Updater := TUpdateThread.Create(true);
+  Updater.Form := Self;
+
+  Translate;
+  with Updater, TRegIniFile.Create(SRegRootKey, KEY_READ) do begin
     FRepositories[0] := ReadString(SRegConfigKey + '.86Box', StrRepository, Def86BoxRepo);
     FAutoUpdate := ReadInteger(SRegConfigKey + '.86Box', StrAutoUpdate, 1);
     FGetSource := ReadInteger(SRegConfigKey + '.86Box', StrDownloadSource, 0);
@@ -285,165 +152,325 @@ begin
     Free;
 
     if FGetSource <> 0 then
-      Progress.Max := 6;
+      Self.Progress.Max := 6;
   end;
-
-  uWebUtils.DownloadProgress := OnDownloadProgress;
 end;
 
 procedure TUpdateForm.FormDestroy(Sender: TObject);
 begin
-  uWebUtils.DownloadProgress := nil;
+  Updater.Free;
 end;
 
 procedure TUpdateForm.FormShow(Sender: TObject);
 begin
   LogBox.Clear;
-  FCancelled := false;
-  Button1.Caption := StrMegszakítás;
+  Updater.FCancelled := 0;
+  Button1.Caption := _T('StrMegszakítás');
 
   PostMessage(Handle, WM_USER, 0, 0);
   OnShow := nil;
 end;
 
-function TUpdateForm.HasUpdate: boolean;
+procedure TUpdateForm.GetTranslation(Language: TLanguage);
 begin
-  Result := (not FileExists(FPaths[0])) or
-     (jenkinsCheckUpdate(FRepositories[0], GetFileTime(FPaths[0])));
+  if Assigned(Language) then
+    Language.GetTranslation('UpdateFrm', Self);
 end;
 
-procedure TUpdateForm.Log(const S: string);
+function TUpdateForm.HasUpdate: boolean;
 begin
-  LogBox.ItemIndex := LogBox.Items.Add(S);
+  Result := (not FileExists(Updater.FPaths[0])) or
+     (jenkinsCheckUpdate(Updater.FRepositories[0], GetFileTime(Updater.FPaths[0])));
 end;
 
 procedure TUpdateForm.LogBoxDblClick(Sender: TObject);
 begin
-  if LogBox.ItemIndex <> -1 then
-    ShowMessage(LogBox.Items[LogBox.ItemIndex]);
+   if LogBox.ItemIndex <> -1 then
+     ShowMessage(LogBox.Items[LogBox.ItemIndex]);
 end;
 
-procedure TUpdateForm.LogFmt(const S: string; const Args: array of const);
+procedure TUpdateForm.Timer1Timer(Sender: TObject);
 begin
-  LogBox.ItemIndex := LogBox.Items.Add(format(S, Args));
+  if Assigned(Updater) and not Updater.Suspended then
+    Updater.Synchronize(procedure
+                        begin
+                          Progress.Position := Updater.FProgress;
+                          Progress.Max := Updater.FProgressMax;
+                          State.Caption := Updater.FState;
+                          lbFileName.Caption := Updater.FFileName;
+                        end);
 end;
 
-function TUpdateForm.MessageBox(const Text: string; const Flags: longword): longword;
+procedure TUpdateForm.Translate;
 begin
-  Result := Windows.MessageBox(Handle, PChar(Text), PChar(StrWinBox), Flags);
+  if Assigned(Language) then
+    Language.Translate('UpdateFrm', Self);
 end;
 
-function TUpdateForm.MessageBoxFmt(const Text: string;
-  const Args: array of const; const Flags: longword): longword;
+procedure TUpdateForm.WMStartup(var Msg: TMessage);
 begin
-  Result := Windows.MessageBox(Handle, PChar(format(
-    Text, Args)), PChar(StrWinBox), Flags);
+  Updater.Suspended := false;
 end;
 
-procedure TUpdateForm.OnDownloadProgress(Sender: TObject);
+{ TUpdateThread }
+
+function TUpdateThread.CheckCancel: boolean;
 begin
-  Application.ProcessMessages;
+  Result := FCancelled <> 0;
+  if Result then begin
+    Log(_T('StrAFolyamatotAFelha'));
+    FState := _T('StrÜresjárat');
+  end;
 end;
 
-procedure TUpdateForm.OnZipProgress(Sender: TObject; FileName: string;
-  Header: TZipHeader; Position: Int64);
+function TUpdateThread.Download: boolean;
+var
+  Temp: string;
 begin
-  lbFileName.Caption := ExtractFileName(FileName);
+  Result := true;
 
-  Application.ProcessMessages;
+  try
+    FEmulator := TPath.GetTempFileName;
+    LogFmt(_T('StrAzEmulátorFájlaina'), [ExtractFileName(FEmulator)]);
+    Temp := jenkinsGetBuild(FRepositories[0], FBuild);
+    if Temp = '' then begin
+      Log(SysErrorMessage(ERROR_REM_NOT_LIST));
+      exit(false);
+    end;
+    httpsGet(Temp, FEmulator);
+    FProgress := FProgress + 1;
+    FFileName := (ExtractFileName(FEmulator));
+
+    LogFmt(_T('StrROMképekLetöltése'), [Def86RomsRepo]);
+    FRoms := TPath.GetTempFileName;
+    LogFmt(_T('StrROMképekFájlainak'), [ExtractFileName(FRoms)]);
+    gitClone(Def86RomsRepo, FRoms);
+    FProgress := FProgress + 1;
+    FFileName := (ExtractFileName(FRoms));
+
+    if FGetSource <> 0 then begin
+      LogFmt(_T('StrForráskódLetöltés2'), [Def86SrcRepo]);
+      FSource := TPath.GetTempFileName;
+      LogFmt(_T('StrForráskódLetöltése'), [ExtractFileName(FSource)]);
+      gitClone(Def86SrcRepo, FSource);
+      FProgress := FProgress + 1;
+      FFileName := (ExtractFileName(FSource));
+    end;
+  except
+    on E: Exception do begin
+      Log(_T('StrHibaTörténtAFájl2'));
+      Log(#9 + E.Message);
+      Result := false;
+      FFileName := ('-');
+    end;
+  end;
 end;
 
-function TUpdateForm.VersionCheck: boolean;
+
+function TUpdateThread.Extract: boolean;
+var
+  Root: string;
+begin
+  Result := true;
+  Root := ExtractFilePath(FPaths[0]);
+  Log(_T('StrAKorábbiVerzióElt'));
+  if DirectoryExists(Root) and not DeleteWithShell(ExcludeTrailingPathDelimiter(Root)) then begin
+    Log(_T('StrHibaTörténtAKoráb'));
+    exit(false);
+  end;
+  ForceDirectories(Root);
+
+  try
+    with TZipFile.Create do begin
+      try
+        OnProgress := OnZipProgress;
+        Log(_T('StrBinárisokKibontása'));
+        Open(FEmulator, zmRead);
+        ExtractAll(Root);
+        LogFmt(_T('StrDFájlKibontva'), [length(FileInfos)]);
+        Close;
+        FProgress := FProgress + 1;
+
+        Log(_T('StrROMképekKibontása'));
+        Open(FRoms, zmRead);
+        ExtractAll(Root);
+        LogFmt(_T('StrDFájlKibontva'), [length(FileInfos)]);
+        Close;
+        FProgress := FProgress + 1;
+
+        if FGetSource <> 0 then begin
+          Log(_T('StrForráskódKibontása'));
+          Open(FSource, zmRead);
+          ExtractAll(Root);
+          LogFmt(_T('StrDFájlKibontva'), [length(FileInfos)]);
+          Close;
+          FProgress := FProgress + 1;
+        end;
+      finally
+        Free;
+      end;
+    end;
+
+    Log(_T('StrKönyvtárÁtnevezés2'));
+    if not RenameFile(Root + 'roms-master', Root + 'roms') then begin
+      Log(_T('StrÁtnevezésKözbenHib'));
+      Result := false;
+    end;
+
+    if FGetSource <> 0 then begin
+      Log(_T('StrKönyvtárÁtnevezése'));
+      if not RenameFile(Root + '86box-master', Root + 'source') then begin
+        Log(_T('StrÁtnevezésKözbenHib'));
+        Result := false;
+      end;
+    end;
+  except
+    on E: Exception do begin
+      Log(_T('StrHibaTörténtAFájlo'));
+      Log(#9 + E.Message);
+      FFileName := ('-');
+      Result := false;
+    end;
+  end;
+end;
+
+function TUpdateThread.VersionCheck: boolean;
 var
   DateLocal, DateOnline: TDateTime;
   I: integer;
 begin
-  lbFileName.Caption := '-';
+  FFileName := ('-');
   if FileExists(FPaths[0]) then begin
     DateLocal := GetFileTime(FPaths[0]);
     if DateLocal = 0 then
-      Result := MessageBox(StrAJelenlegiVerzióN, MB_ICONQUESTION or MB_YESNO) = mrYes
+      Result := MessageBox(_T('StrAJelenlegiVerzióN'), MB_ICONQUESTION or MB_YESNO) = mrYes
     else begin
-      LogFmt(StrJelenlegiVerzióS, [DateTimeToStr(DateLocal)]);
-      LogFmt(StrLegfrisebbVerzióKe, [FRepositories[0]]);
+      LogFmt(_T('StrJelenlegiVerzióS'), [DateTimeToStr(DateLocal)]);
+      LogFmt(_T('StrLegfrisebbVerzióKe'), [FRepositories[0]]);
       try
          FBuild := jenkinsLastBuild(FRepositories[0]);
          if FBuild <> -1 then begin
            DateOnline := jenkinsGetDate(FRepositories[0], FBuild);
-           LogFmt(StrElérhetõVerzióS, [DateTimeToStr(DateOnline)]);
+           LogFmt(_T('StrElérhetõVerzióS'), [DateTimeToStr(DateOnline)]);
            Result := CompareDate(DateLocal, DateOnline) < 0;
            if not Result then begin
              Result := (FMode = 1) and (MessageBox(
-               StrATelepítettVerzió,
+               _T('StrATelepítettVerzió'),
                MB_ICONWARNING or MB_YESNO) = mrYes);
              if not Result then begin
-               FCancelled := true;
+               FCancelled := 1;
                CheckCancel;
              end;
            end
            else with jenkinsGetChangelog(FRepositories[0], FBuild) do begin
-             Log(StrLegfrisebbVáltozáso);
+             Log(_T('StrLegfrisebbVáltozáso'));
              for I := 0 to Count - 1 do
                Log(#9 + Strings[I]);
-             Result := MessageBoxFmt(StrFrissítésElérhetõ,
+             Result := MessageBoxFmt(_T('StrFrissítésElérhetõ'),
                  [FBuild, DateTimeToStr(DateOnline)],
                  MB_ICONQUESTION or MB_YESNO) = mrYes;
              if not Result then begin
-               FCancelled := true;
+               FCancelled := 1;
                CheckCancel;
              end;
              Free;
            end;
          end
          else begin
-           Log(EATávoliKiszolgáló);
+           Log(SysErrorMessage(ERROR_REM_NOT_LIST));
            Result := false;
          end;
       except
-         Log(EATávoliKiszolgáló);
+         Log(SysErrorMessage(ERROR_REM_NOT_LIST));
          Result := false;
       end;
     end;
   end
   else begin
     Result := true;
-    Log(StrJelenlegNincsEgyet);
+    Log(_T('StrJelenlegNincsEgyet'));
     FBuild := jenkinsLastBuild(FRepositories[0]);
   end;
 end;
 
-procedure TUpdateForm.WMStartup(var Msg: TMessage);
+procedure TUpdateThread.Execute;
 begin
   repeat
-    State.Caption := StrVerziókEllenõrzése;
+    FState := (_T('StrVerziókEllenõrzése'));
     if not VersionCheck then break;
     if CheckCancel then break;
 
-    State.Caption := StrFájlokLetöltése;
+    FState := (_T('StrFájlokLetöltése'));
     Application.ProcessMessages;
     if not Download then break;
     if CheckCancel then break;
 
-    State.Caption := StrFájlokKibontása;
+    FState := (_T('StrFájlokKibontása'));
     if not Extract then break;
     break;
   until false;
 
-  State.Caption := StrÜresjárat;
-  Log(StrIdeiglenesFájlokEl);
+  FState := (_T('StrÜresjárat'));
+  Log(_T('StrIdeiglenesFájlokEl'));
   if FileExists(FEmulator) then
     DeleteFile(FEmulator);
   if FileExists(FRoms) then
     DeleteFile(FRoms);
   if FileExists(FSource) then
     DeleteFile(FSource);
-  Progress.Position := 0;
-  lbFileName.Caption := '-';
+  FProgress := (0);
+  FFileName := ('-');
 
   if FMode = 0 then
-    Close
+    Synchronize(procedure
+                begin
+                  Form.Close
+                end)
   else
-    Button1.Caption := StrKilépés;
+    Synchronize(procedure
+                begin
+                  Form.Button1.Caption := _T('StrKilépés');
+                end);
+
+  Terminate;
+  EndThread(0);
+end;
+
+procedure TUpdateThread.Log(const S: string);
+begin
+  Synchronize(procedure
+              begin
+                Form.LogBox.ItemIndex := Form.LogBox.Items.Add(S);
+              end);
+end;
+
+
+procedure TUpdateThread.LogFmt(const S: string; const Args: array of const);
+begin
+  Log(format(S, Args));
+end;
+
+function TUpdateThread.MessageBox(const Text: string; const Flags: longword): longword;
+var
+  RetVal: integer;
+begin
+  Synchronize(procedure
+              begin
+                RetVal := Windows.MessageBox(Form.Handle, PChar(Text), PChar(StrWinBox), Flags);
+              end);
+  Result := RetVal;
+end;
+
+function TUpdateThread.MessageBoxFmt(const Text: string;
+  const Args: array of const; const Flags: longword): longword;
+begin
+  Result := MessageBox(format(Text, Args), Flags);
+end;
+
+procedure TUpdateThread.OnZipProgress(Sender: TObject; FileName: string;
+  Header: TZipHeader; Position: Int64);
+begin
+  FFileName := ExtractFileName(FileName);
 end;
 
 end.

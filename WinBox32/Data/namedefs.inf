@@ -1,35 +1,41 @@
 [global]
-none=Nincs
-internal=Integrált
+none=None
+internal=Integrated
 ems5150=Micro Mainframe EMS-5150(T)
 
 ev159=Everex EV-159 RAM 3000 Deluxe
-ibmat=IBM PC/AT bõvített memória
-ibmxt=IBM PC/XT bõvített memória
+ibmat=IBM PC/AT expanded memory
+ibmxt=IBM PC/XT expanded memory
 p5pak=Paradise Systems 5-PAK
 
 dtk_pii151b=DTK PII-151B (MiniMicro) FDC
 dtk_pii158b=DTK PII-158B (MiniMicro4) FDC
 
-esdi_at=Western Digital WD1007V-SE1 PC/AT ESDI merevlemez-vezérlõ
-esdi_mca=IBM MCA PS/2 ESDI merevlemez-vezérlõ
+esdi_at=Western Digital WD1007V-SE1 PC/AT ESDI hard disk controller
+esdi_mca=IBM MCA PS/2 ESDI hard disk controller
 
-ide_isa=ISA PC/AT IDE merevlemez-vezérlõ
-ide_isa_2ch=ISA PC/AT IDE merevlemez-vezérlõ (két csatorna)
-vlb_isa=VLB PC/AT IDE merevlemez-vezérlõ
-vlb_isa_2ch=VLB PC/AT IDE merevlemez-vezérlõ (két csatorna)
-ide_pci=PCI IDE merevlemez-vezérlõ
-ide_pci_2ch=PCI IDE merevlemez-vezérlõ (két csatorna)
+ide_isa=ISA PC/AT IDE hard disk controller
+ide_isa_2ch=ISA PC/AT IDE hard disk controller (dual channel)
+ide_vlb=VLB PC/AT IDE hard disk controller
+ide_vlb_2ch=VLB PC/AT IDE hard disk controller (dual channel)
+vlb_isa=VLB PC/AT IDE hard disk controller
+vlb_isa_2ch=VLB PC/AT IDE hard disk controller (dual channel)
+ide_pci=PCI IDE hard disk controller
+ide_pci_2ch=PCI IDE hard disk controller (dual channel)
 
-st506_at=Western Digital WD1003 PC/AT MFM/RLL vezérlõ
-st506_xt=IBM PC MFM merevlemez-vezérlõ
-st506_xt_dtc5150x=DTC 5150X MFM merevlemez-vezérlõ
-st506_xt_st11_m=ST-11M MFM merevlemez-vezérlõ
+mfm_at=Western Digital WD1003 PC/AT MFM/RLL controller
+mfm_xt=IBM PC MFM hard disk controller
+mfm_xt_dtc5150x=DTC 5150X MFM hard disk controller
+
+st506_at=Western Digital WD1003 PC/AT MFM/RLL controller
+st506_xt=IBM PC MFM hard disk controller
+st506_xt_dtc5150x=DTC 5150X MFM hard disk controller
+st506_xt_st11_m=ST-11M MFM hard disk controller
 st506_xt_st11_r=ST-11R RLL Fixed Disk Adapter
-st506_xt_wd1002a_27x=WD1002A-27X RLL merevlemez-vezérlõ
-st506_xt_wd1002a_wx1=WD1002A-WX1 MFM merevlemez-vezérlõ
+st506_xt_wd1002a_27x=WD1002A-27X RLL hard disk controller
+st506_xt_wd1002a_wx1=WD1002A-WX1 MFM hard disk controller
 
-xta_wdxt150=WDXT-150 IDE (XTA) merevlemez-vezérlõ
+xta_wdxt150=WDXT-150 IDE (XTA) hard disk controller
 
 xtide=PC/XT XTIDE
 xtide_acculogic=Acculogic XTIDE
@@ -39,27 +45,27 @@ xtide_at_ps2=PS/2 AT XTIDE (1.1.5)
 dot_matrix=EPSON LQ-2500
 dss=Disney Sound Source
 lpt_dac=LPT DAC/Covox Speech Thing
-lpt_dac_stereo=Sztereó LPT DAC
-plip=PLIP hálózat
+lpt_dac_stereo=Stereo LPT DAC
+plip=PLIP Network
 postscript=Apple Color LW 12/660 PS
-text_prt=Szöveges mátrixnyomtató
+text_prt=Text-Only Matrix Printer
 
-cm32l=Roland CM-32L emuláció
+cm32l=Roland CM-32L emulation
 fluidsynth=FluidSynth
-mt32=Roland MT-32 emuláció
-system_midi=Továbbítás MIDI kimenetre
+mt32=Roland MT-32 emulation
+system_midi=Pass to MIDI output
 
-logibus=Logitech/Microsoft busz egér
-ltserial=Logitech soros egér
-msbus=Microsoft busz egér (InPort)
-msserial=Microsoft soros egér
-mssystems=Mouse Systems soros egér
-ps2=Szabványos PS/2 egér
+logibus=Logitech/Microsoft bus mouse
+ltserial=Logitech serial mouse
+msbus=Microsoft bus mouse (InPort)
+msserial=Microsoft serial mouse
+mssystems=Mouse Systems serial mouse
+ps2=Szabványos PS/2 mouse
 
 3c503=3Com EtherLink II (3C503)
 ethernextmc=NetWorth Ethernet/MC
-ne1k=Novell NE1000 kompatibilis
-ne2k=Novell NE2000 kompatibilis
+ne1k=Novell NE1000 compatible
+ne2k=Novell NE2000 compatible
 ne2kpci=Realtek RTL8029AS
 ne2kpnp=Realtek RTL8019AS
 
@@ -68,37 +74,37 @@ pcnetisa=AMD Am79c960 (PCnet-ISA)
 pcnetpci=AMD Am79c970a (PCnet-PCI II)
 pcnetracal=Racal Interlan EtherBlaster
 pcnetvlb=AMD Am79c960 (PCnet-VL)
-plip=PLIP hálózat
+plip=PLIP Network
 wd8003e=Western Digital WD8003E
 wd8003ea=Western Digital WD8003E/A
 wd8003eb=Western Digital WD8003EB
 wd8003eta=Western Digital WD8003ET/A
 wd8013ebt=Western Digital WD8013EBT
 
-aha154xa=Adaptec AHA-154xA SCSI gazdaadapter
-aha154xb=Adaptec AHA-154xB SCSI gazdaadapter
-aha154xc=Adaptec AHA-154xC SCSI gazdaadapter
-aha154xcf=Adaptec AHA-154xCF SCSI gazdaadapter
-aha1640=Adaptec AHA-1640 SCSI gazdaadapter
-bt445s=Buslogic BT-445S VLB SCSI gazdaadapter
-bt542b=Buslogic BT-542B ISA SCSI gazdaadapter
-bt542bh=Buslogic BT-542BH ISA SCSI gazdaadapter
-bt545s=Buslogic BT-545S ISA SCSI gazdaadapter
-bt640a=Buslogic BT-640A MCA SCSI gazdaadapter
-bt958d=Buslogic BT-958D PCI SCSI gazdaadapter
-dc390=Tekram DC-390 PCI SCSI gazdaadapter
-lcs6821n=Longshine LCS-6821N SCSI gazdaadapter
-ncr53c810=Symbios Logic/NCR 53c810 SCSI gazdaadapter
-ncr53c815=Symbios Logic/NCR 53c815 SCSI gazdaadapter
-ncr53c820=Symbios Logic/NCR 53c820 SCSI gazdaadapter
-ncr53c825a=Symbios Logic/NCR 53c825A SCSI gazdaadapter
-ncr53c860=Symbios Logic/NCR 53c860 SCSI gazdaadapter
-ncr53c875=Symbios Logic/NCR 53c875 SCSI gazdaadapter
-rt1000b=Rancho RT1000B SCSI gazdaadapter
-scsiat=Sumo SCSI AT SCSI gazdaadapter
-spock=IBM PS/2 SCSI Adapter (Spock) SCSI gazdaadapter
-t130b=Trantor T130B SCSI gazdaadapter
-wd33c93=Western Digital WDC33C93 SCSI gazdaadapter
+aha154xa=Adaptec AHA-154xA SCSI host adapter
+aha154xb=Adaptec AHA-154xB SCSI host adapter
+aha154xc=Adaptec AHA-154xC SCSI host adapter
+aha154xcf=Adaptec AHA-154xCF SCSI host adapter
+aha1640=Adaptec AHA-1640 SCSI host adapter
+bt445s=Buslogic BT-445S VLB SCSI host adapter
+bt542b=Buslogic BT-542B ISA SCSI host adapter
+bt542bh=Buslogic BT-542BH ISA SCSI host adapter
+bt545s=Buslogic BT-545S ISA SCSI host adapter
+bt640a=Buslogic BT-640A MCA SCSI host adapter
+bt958d=Buslogic BT-958D PCI SCSI host adapter
+dc390=Tekram DC-390 PCI SCSI host adapter
+lcs6821n=Longshine LCS-6821N SCSI host adapter
+ncr53c810=Symbios Logic/NCR 53c810 SCSI host adapter
+ncr53c815=Symbios Logic/NCR 53c815 SCSI host adapter
+ncr53c820=Symbios Logic/NCR 53c820 SCSI host adapter
+ncr53c825a=Symbios Logic/NCR 53c825A SCSI host adapter
+ncr53c860=Symbios Logic/NCR 53c860 SCSI host adapter
+ncr53c875=Symbios Logic/NCR 53c875 SCSI host adapter
+rt1000b=Rancho RT1000B SCSI host adapter
+scsiat=Sumo SCSI AT SCSI host adapter
+spock=IBM PS/2 SCSI Adapter (Spock) SCSI host adapter
+t130b=Trantor T130B SCSI host adapter
+wd33c93=Western Digital WDC33C93 SCSI host adapter
 
 adlib=AdLib
 adlibgold=AdLib Gold
@@ -556,14 +562,14 @@ c3_eden=VIA Eden Model 7
 35_2ed=3.5" 2.88M
 [voodoo]
 0=3dfx Voodoo Graphics
-1=Quantum3D Obsidian SB50 bõv. Amethyst
+1=Quantum3D Obsidian SB50 w. Amethyst
 2=3dfx Voodoo 2
 [joystick]
-0=Nincs
-1=Szabványos 2-gombos játékvezérlõ(k)
-2=Szabványos 4-gombos játékvezérlõ
-3=Szabványos 6-gombos játékvezérlõ
-4=Szabványos 8-gombos játékvezérlõ
+0=None
+1=Standard 2-button joystick(s)
+2=Standard 4-button joystick
+3=Standard 6-button joystick
+4=Standard 8-button joystick
 5=CH Flightstick Pro
 6=Microsoft SideWinder Pad
 7=Thrustmaster Flight Control System

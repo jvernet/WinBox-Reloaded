@@ -163,7 +163,7 @@ object Core: TCore
     object acDiskCatalog: TAction
       Tag = -1
       Category = 'Eszk'#246'z'#246'k'
-      Caption = '&Merevlemez adatb'#225'zis megnyit'#225'sa...'
+      Caption = 'Mere&vlemez adatb'#225'zis megnyit'#225'sa...'
       ImageIndex = 10
       OnExecute = acDiskCatalogExecute
     end
@@ -521,7 +521,7 @@ object Core: TCore
       object dbgCmdlWorkDir: TMenuItem
         Tag = 1
         Caption = 'Munkak'#246'nyvt'#225'r lek'#233'r'#233's sz'#246'vegb'#337'l...'
-        OnClick = miDebugFeature
+        OnClick = miDebugClick
       end
       object N31: TMenuItem
         Caption = '-'
@@ -530,25 +530,25 @@ object Core: TCore
         Tag = 2
         AutoCheck = True
         Caption = 'Napl'#243'z'#225's a folyamat monitorban'
-        OnClick = miDebugFeature
+        OnClick = miDebugClick
       end
       object Naplzsafolyamatmend1: TMenuItem
         Tag = 3
         AutoCheck = True
         Caption = 'Napl'#243'z'#225's a folyamat feladatok kapcs'#225'n'
-        OnClick = miDebugFeature
+        OnClick = miDebugClick
       end
       object Frisstsekmonitorozsa1: TMenuItem
         Tag = 6
         AutoCheck = True
         Caption = 'Monitor-friss'#237't'#233'sek napl'#243'z'#225'sa'
-        OnClick = miDebugFeature
+        OnClick = miDebugClick
       end
       object Naplzsafolyamat1: TMenuItem
         Tag = 4
         AutoCheck = True
         Caption = 'Napl'#243'z'#225's a folyamat hozz'#225'rendel'#233'sekn'#233'l'
-        OnClick = miDebugFeature
+        OnClick = miDebugClick
       end
       object N33: TMenuItem
         Caption = '-'
@@ -556,7 +556,32 @@ object Core: TCore
       object Folyamatlistakiratsa1: TMenuItem
         Tag = 5
         Caption = 'Folyamatlista ki'#237'rat'#225'sa'
-        OnClick = miDebugFeature
+        OnClick = miDebugClick
+      end
+      object N34: TMenuItem
+        Caption = '-'
+      end
+      object Nyelvifjlksztse1: TMenuItem
+        Caption = '&Nyelvi f'#225'jl k'#233'sz'#237't'#233'se'
+        OnClick = miLangClick
+      end
+      object Nvdefinciklekrse1: TMenuItem
+        Tag = 9
+        Caption = 'N'#233'&vdefin'#237'ci'#243's f'#225'jl k'#233'sz'#237't'#233'se'
+        OnClick = miDebugClick
+      end
+      object N35: TMenuItem
+        Caption = '-'
+      end
+      object Programnyelvneklekrdezse1: TMenuItem
+        Tag = 7
+        Caption = 'Program nyelv'#233'nek lek'#233'rdez'#233'se...'
+        OnClick = miDebugClick
+      end
+      object Rendszernyelvneklekrdezse1: TMenuItem
+        Tag = 8
+        Caption = 'Rendszer nyelv'#233'nek lek'#233'rdez'#233'se...'
+        OnClick = miDebugClick
       end
     end
     object Sg1: TMenuItem
@@ -667,7 +692,6 @@ object Core: TCore
     end
     object Akijelltvirtulisgpeltvoltsa1: TMenuItem
       Action = acDeleteVM
-      Caption = 'Virtu'#225'lis g'#233'p &elt'#225'vol'#237't'#225'sa...'
     end
     object N27: TMenuItem
       Caption = '-'

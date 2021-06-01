@@ -26,7 +26,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Datasnap.DBClient, Vcl.Grids,
-  Vcl.DBGrids, Vcl.StdCtrls, Vcl.DBCtrls, Vcl.ExtCtrls, Vcl.Samples.Spin;
+  Vcl.DBGrids, Vcl.StdCtrls, Vcl.DBCtrls, Vcl.ExtCtrls, Vcl.Samples.Spin, uLang;
 
 type
   TDiskGeometry = record
@@ -58,7 +58,7 @@ type
     property DiskData: TDiskData read GetDiskData write SetDiskData;
   end;
 
-  THDSelect = class(TForm, ISelectHDD)
+  THDSelect = class(TForm, ISelectHDD, ILanguageSupport)
     CDS: TClientDataSet;
     DBGrid1: TDBGrid;
     GroupBox1: TGroupBox;
@@ -115,6 +115,9 @@ type
     function LocateTransCHS: boolean; stdcall;
   public
     procedure LoadTable;
+
+    procedure GetTranslation(Language: TLanguage); stdcall;
+    procedure Translate; stdcall;
   end;
 
 var
@@ -128,8 +131,7 @@ implementation
 {$R 'Data\rcWinBoxLib.res'}
 
 resourcestring
-  StrBármelyGyártó = '(Bármely gyártó)';
-  StrBármelyCsatoló = '(Bármely csatoló)';
+  StrSzabványos = 'Szabványos';
   ENemSikerültASort = 'Nem sikerült a sort hozzáadni: "%s", sor: %d';
   EHibásRekordAFájlb = 'Hibás rekord a fájlban: sor: %d, mezõ: %d, %s';
 
@@ -244,6 +246,7 @@ var
 const
   HiddenColumns: set of byte = [0];
 begin
+  Translate;
   if CDS.State = dsInactive then
     CDS.CreateDataSet;
 
@@ -272,6 +275,18 @@ end;
 function THDSelect.GetDiskData: TDiskData;
 begin
   Result := FDiskData;
+end;
+
+procedure THDSelect.GetTranslation(Language: TLanguage);
+var
+  I: integer;
+begin
+  if Assigned(Language) then begin
+    Language.GetTranslation('SelectHDD', Self);
+    for I := 0 to CDS.FieldDefs.Count - 1 do
+      Language.WriteString('Strings', 'CDS.FieldDefs[' + IntToStr(I) + ']',
+        EscapeString(CDS.FieldDefs[I].Name));
+  end;
 end;
 
 function DownCase(Ch: Char): Char;
@@ -326,9 +341,9 @@ begin
   CDS.DisableControls;
 
   cbGyartoFilter.Clear;
-  cbGyartoFilter.Items.Add(StrBármelyGyártó);
+  cbGyartoFilter.Items.Add(_T('StrBármelyGyártó'));
   cbCsatoloFilter.Clear;
-  cbCsatoloFilter.Items.Add(StrBármelyCsatoló);
+  cbCsatoloFilter.Items.Add(_T('StrBármelyCsatoló'));
 
   List := TStringList.Create;
   try
@@ -342,6 +357,9 @@ begin
       for I := 0 to List.Count - 1 do begin
         Rec.Clear;
         ExtractStrings([';'],[], PChar(List[I]), Rec);
+
+        if (Rec.Count >= 2) then
+          Rec[1] := StringReplace(Rec[1], StrSzabványos, _T('StrSzabványos'), []);
 
         if (Rec.Count >= 10) then begin
           if (cbGyartoFilter.Items.IndexOf(Rec[1]) = -1) then
@@ -451,6 +469,17 @@ end;
 procedure THDSelect.SetDiskData(const Data: TDiskData);
 begin
   FDiskData := Data;
+end;
+
+procedure THDSelect.Translate;
+var
+  I: integer;
+begin
+  if Assigned(Language) then begin
+    Language.Translate('SelectHDD', Self);
+    for I := 0 to CDS.FieldDefs.Count - 1 do
+      CDS.FieldDefs[I].Name := _T('CDS.FieldDefs[' + IntToStr(I) + ']');
+  end;
 end;
 
 procedure THDSelect.FilterChange(Sender: TObject);

@@ -53,16 +53,12 @@ object WizardHDD: TWizardHDD
     Top = 0
     Width = 337
     Height = 263
-    ActivePage = TabSheet5
+    ActivePage = TabSheet7
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'TabSheet1'
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -97,14 +93,103 @@ object WizardHDD: TWizardHDD
         ExplicitHeight = 184
       end
     end
+    object TabSheet7: TTabSheet
+      Caption = 'TabSheet7'
+      ImageIndex = 6
+      TabVisible = False
+      ExplicitTop = 24
+      ExplicitHeight = 235
+      object Label28: TLabel
+        Left = 16
+        Top = 16
+        Width = 173
+        Height = 13
+        Caption = 'K'#233'pf'#225'jl form'#225'tum kiv'#225'laszt'#225'sa'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label29: TLabel
+        Left = 16
+        Top = 48
+        Width = 297
+        Height = 41
+        AutoSize = False
+        Caption = 
+          'Ezen a f'#252'l'#246'n eld'#246'ntheti hogy a WinBox milyen form'#225'tumot haszn'#225'lj' +
+          'on az '#250'j virtu'#225'lis merevlemez l'#233'trehoz'#225'sakor.'
+        WordWrap = True
+      end
+      object Label30: TLabel
+        Left = 28
+        Top = 111
+        Width = 285
+        Height = 42
+        AutoSize = False
+        Caption = 
+          'Ez a form'#225'tum k'#246'zvetlen'#252'l felcsatolhat'#243' meghajt'#243'k'#233'nt, '#233's lehet'#337's' +
+          #233'get ad linkelt kl'#243'nok k'#233'sz'#237't'#233's'#233're is. '
+        WordWrap = True
+      end
+      object Label31: TLabel
+        Left = 28
+        Top = 171
+        Width = 285
+        Height = 54
+        AutoSize = False
+        Caption = 
+          'Ezt a form'#225'tumot a legt'#246'bb emul'#225'tor t'#225'mogatja, viszont ImDisk, W' +
+          'inImage vagy m'#225's szoftverrel m'#243'dos'#237'that'#243'. '
+        WordWrap = True
+      end
+      object RadioButton1: TRadioButton
+        Left = 16
+        Top = 88
+        Width = 297
+        Height = 17
+        Caption = 'Virtu'#225'lis merevlemez (*.vhd)'
+        Checked = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+        TabStop = True
+        OnClick = RadioButton1Click
+      end
+      object RadioButton2: TRadioButton
+        Left = 16
+        Top = 148
+        Width = 289
+        Height = 17
+        Caption = 'Nyers merevlemez k'#233'pf'#225'jl (*.img)'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 1
+        OnClick = RadioButton1Click
+      end
+      object CheckBox1: TCheckBox
+        Left = 16
+        Top = 219
+        Width = 297
+        Height = 17
+        Caption = '&Dinamikusan b'#337'v'#252'l'#337' helyfoglal'#225's (csak IDE/SCSI eset'#233'n!)'
+        TabOrder = 2
+      end
+    end
     object TabSheet2: TTabSheet
       Caption = 'TabSheet2'
       ImageIndex = 1
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -131,19 +216,19 @@ object WizardHDD: TWizardHDD
       end
       object Label5: TLabel
         Left = 16
-        Top = 48
-        Width = 281
-        Height = 13
+        Top = 50
+        Width = 297
+        Height = 34
         Anchors = [akLeft, akTop, akRight]
         AutoSize = False
-        Caption = 'Adja meg azt a helyet, ahol a lemezk'#233'pf'#225'jlt t'#225'rolni k'#237'v'#225'nja.'
+        Caption = 'Adja meg a helyet, ahol a lemezk'#233'pf'#225'jlt t'#225'rolni k'#237'v'#225'nja.'
         WordWrap = True
       end
       object Label6: TLabel
         Left = 16
         Top = 123
         Width = 289
-        Height = 26
+        Height = 38
         Anchors = [akLeft, akTop, akRight]
         AutoSize = False
         Caption = 
@@ -160,10 +245,10 @@ object WizardHDD: TWizardHDD
         FocusControl = ComboBox1
       end
       object Label10: TLabel
-        Left = 58
-        Top = 212
-        Width = 236
-        Height = 26
+        Left = 56
+        Top = 210
+        Width = 251
+        Height = 38
         Anchors = [akLeft, akTop, akRight]
         AutoSize = False
         Caption = 
@@ -556,10 +641,6 @@ object WizardHDD: TWizardHDD
       Caption = 'TabSheet3'
       ImageIndex = 2
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -584,8 +665,8 @@ object WizardHDD: TWizardHDD
         Anchors = [akLeft, akTop, akRight]
         AutoSize = False
         Caption = 
-          'Miel'#337'tt kiv'#225'lasztan'#225' a k'#233'pf'#225'jl m'#233'ret'#233't, adja meg megfelel'#337' a par' +
-          'am'#233'terek gener'#225'l'#225's'#225'hoz a csatol'#243'fel'#252'let t'#237'pus'#225't.'
+          'Miel'#337'tt kiv'#225'lasztan'#225' a k'#233'pf'#225'jl m'#233'ret'#233't, adja meg a param'#233'terek g' +
+          'ener'#225'l'#225's'#225'hoz a csatol'#243'fel'#252'let t'#237'pus'#225't.'
         WordWrap = True
       end
       object Label11: TLabel
@@ -710,10 +791,6 @@ object WizardHDD: TWizardHDD
       Caption = 'TabSheet4'
       ImageIndex = 3
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -744,7 +821,7 @@ object WizardHDD: TWizardHDD
       end
       object Label19: TLabel
         Left = 16
-        Top = 175
+        Top = 171
         Width = 281
         Height = 42
         Anchors = [akLeft, akTop, akRight]
@@ -855,19 +932,12 @@ object WizardHDD: TWizardHDD
         TabOrder = 5
         OnClick = Button4Click
       end
-      object CheckBox1: TCheckBox
-        Left = 16
-        Top = 216
-        Width = 265
-        Height = 17
-        Caption = 'Lefoglal'#225's &ritka f'#225'jlk'#233'nt (csak IDE/SCSI eset'#233'n!)'
-        TabOrder = 6
-      end
     end
     object TabSheet5: TTabSheet
       Caption = 'TabSheet5'
       ImageIndex = 4
       TabVisible = False
+      OnShow = TabSheet5Show
       DesignSize = (
         329
         253)
@@ -895,8 +965,8 @@ object WizardHDD: TWizardHDD
       object Label27: TLabel
         Left = 64
         Top = 211
-        Width = 240
-        Height = 26
+        Width = 249
+        Height = 40
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
         Caption = 
@@ -1294,10 +1364,6 @@ object WizardHDD: TWizardHDD
       ImageIndex = 5
       ParentDoubleBuffered = False
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
     end
   end
   object Button1: TButton

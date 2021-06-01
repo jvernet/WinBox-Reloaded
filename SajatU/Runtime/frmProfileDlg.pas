@@ -26,7 +26,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, GDIPAPI, GDIPOBJ, GDIPUTIL, IOUtils,
-  uWinBox, uCommUtil, ExtDlgs, Menus;
+  uWinBox, uCommUtil, ExtDlgs, Menus, uLang;
 
 type
   TProfileDialog = class(TForm)
@@ -102,7 +102,7 @@ begin
     if FileExists(Profile.WorkingDirectory + SVmIconPng) then begin
       MessageBox(Handle, PChar(StrAKorábbanHasznált),
         PChar(Application.Title), MB_ICONINFORMATION or MB_OK);
-      DeleteToBin(Profile.WorkingDirectory + SVmIconPng);
+      DeleteWithShell(Profile.WorkingDirectory + SVmIconPng);
     end;
     if not IsFactoryIcon then
       Profile.SaveIcon;
@@ -201,6 +201,12 @@ end;
 
 procedure TProfileDialog.FormShow(Sender: TObject);
 begin
+  Language.Translate('ProfileDlg', Self);
+  Language.Translate('pmIcon', pmIcon.Items);
+
+  OpenExeDialog.Filter := _T('OpenExeDialog');
+  OpenPicDlg.Filter := _T('OpenPicDlg');
+
   lbInternalID.Caption := Profile.ProfileID;
   edName.Text := Profile.FriendlyName;
   edEmulator.Text := Profile.ExecutablePath;

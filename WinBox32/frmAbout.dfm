@@ -3,7 +3,7 @@ object AboutFrm: TAboutFrm
   Top = 0
   BorderStyle = bsDialog
   Caption = 'N'#233'vjegy'
-  ClientHeight = 282
+  ClientHeight = 288
   ClientWidth = 403
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,19 +16,17 @@ object AboutFrm: TAboutFrm
   OnCreate = FormCreate
   DesignSize = (
     403
-    282)
+    288)
   PixelsPerInch = 96
   TextHeight = 13
   object Shape1: TShape
     Left = 0
     Top = 0
     Width = 403
-    Height = 230
+    Height = 235
     Anchors = [akLeft, akTop, akRight, akBottom]
     Brush.Color = clWindow
     Pen.Style = psClear
-    ExplicitWidth = 465
-    ExplicitHeight = 225
   end
   object Label1: TLabel
     Left = 104
@@ -50,12 +48,12 @@ object AboutFrm: TAboutFrm
     Height = 13
     Caption = 'Kiad'#225'si d'#225'tum: '
   end
-  object Label3: TLabel
+  object lbDate: TLabel
     Left = 208
     Top = 49
     Width = 60
     Height = 13
-    Caption = '2021.05.22.'
+    Caption = '2021.05.27.'
   end
   object Label4: TLabel
     Left = 120
@@ -64,12 +62,12 @@ object AboutFrm: TAboutFrm
     Height = 13
     Caption = 'Verzi'#243'sz'#225'm:'
   end
-  object Label5: TLabel
+  object lbVersion: TLabel
     Left = 208
     Top = 68
     Width = 22
     Height = 13
-    Caption = 'v1.0'
+    Caption = 'v1.1'
   end
   object Label6: TLabel
     Left = 104
@@ -109,7 +107,7 @@ object AboutFrm: TAboutFrm
   end
   object Label9: TLabel
     Left = 104
-    Top = 161
+    Top = 180
     Width = 126
     Height = 16
     Caption = 'Kapcsol'#243'd'#243' projektek:'
@@ -122,7 +120,7 @@ object AboutFrm: TAboutFrm
   end
   object Label10: TLabel
     Left = 120
-    Top = 193
+    Top = 202
     Width = 226
     Height = 13
     Caption = 'Egyel'#337're "csak" az 86Box, folytat'#225's a j'#246'v'#337'ben.'
@@ -133,9 +131,29 @@ object AboutFrm: TAboutFrm
     Width = 73
     Height = 73
   end
+  object Label11: TLabel
+    Left = 120
+    Top = 148
+    Width = 43
+    Height = 13
+    Caption = 'Ford'#237't'#225's:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object lbTranslatedBy: TLabel
+    Left = 208
+    Top = 148
+    Width = 122
+    Height = 13
+    Caption = 'Ez a program alapnyelve.'
+  end
   object Button1: TButton
     Left = 306
-    Top = 242
+    Top = 248
     Width = 75
     Height = 25
     Anchors = [akRight, akBottom]

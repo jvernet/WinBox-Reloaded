@@ -4154,7 +4154,7 @@ object HDSelect: THDSelect
     end
     object ComboBox3: TComboBox
       Left = 106
-      Top = 11
+      Top = 9
       Width = 145
       Height = 21
       Style = csDropDownList

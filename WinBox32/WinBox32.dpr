@@ -57,8 +57,7 @@ begin
 
   Application.ActionUpdateDelay := 50;
   Application.MainFormOnTaskbar := True;
-  Application.Title := 'WinBox Reloaded R2 Release Preview';
-
+  Application.Title := 'WinBox Reloaded';
   Application.CreateForm(TCore, Core);
   Application.CreateForm(TWinBoxMain, WinBoxMain);
   Application.CreateForm(TAboutFrm, AboutFrm);

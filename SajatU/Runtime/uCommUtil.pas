@@ -44,7 +44,8 @@ function GetLinkColor(Color: TColor): TColor;
 function RandomColor: TColor;
 
 function FileVersion(const FileName: string): string;
-function DeleteToBin(FileName: string): boolean;
+//function DeleteToBin(FileName: string): boolean;
+function DeleteWithShell(FileName: string; const AllowUndo: boolean = true): boolean;
 
 function GetFileTime(const FileName: string): TDateTime;
 
@@ -79,7 +80,21 @@ procedure BringWindowToFront(const Handle: HWND);
 function GetWindowTitle(const hwnd: HWND): string;
 function GetWindowClass(const hwnd: HWND): string;
 
+function CanLockFile(const FileName: string): boolean;
+
 implementation
+
+function CanLockFile(const FileName: string): boolean;
+var
+  Handle: THandle;
+begin
+  Handle := CreateFile(PChar(FileName), GENERIC_READ or GENERIC_WRITE,
+                       0, nil, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
+
+  Result := (Handle <> 0) and (Handle <> INVALID_HANDLE_VALUE);
+  if Result then
+    CloseHandle(Handle);
+end;
 
 procedure dbgLogFmt(const S: string; const Data: array of const);
 begin
@@ -193,6 +208,24 @@ begin
        Result := 0;
 end;
 
+function DeleteWithShell(FileName: string; const AllowUndo: boolean): boolean;
+var
+  FileOp: TSHFileOpStruct;
+begin
+  FillChar(FileOp, SizeOf(FileOp), #0);
+  FileName := FileName + #0#0;
+  with FileOp do begin
+    wFunc := FO_DELETE;
+    pFrom := @FileName[1];
+    fFlags := FOF_SILENT or FOF_NOCONFIRMATION;
+
+    if AllowUndo then
+      fFlags := fFlags or FOF_ALLOWUNDO;
+  end;
+  Result := SHFileOperation(FileOp) = 0;
+end;
+
+(*
 function DeleteToBin(FileName: string): boolean;
 var
   FileOp: TSHFileOpStruct;
@@ -203,13 +236,14 @@ begin
     with FileOp do begin
       wFunc := FO_DELETE;
       pFrom := @FileName[1];
-      fFlags := FOF_ALLOWUNDO or FOF_SILENT or FOF_NOCONFIRMATION;
+      fFlags := FOF_SILENT or FOF_NOCONFIRMATION or FOF_ALLOWUNDO;
     end;
     Result := SHFileOperation(FileOp) = 0;
   end
   else
     Result := false;
 end;
+*)
 
 function FileVersion(const FileName: string): string;
 var

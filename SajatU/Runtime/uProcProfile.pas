@@ -24,7 +24,7 @@ unit uProcProfile;
 interface
 
 uses
-  Windows, Messages, SysUtils, uBaseProfile, uProcessMon, uCommUtil;
+  Windows, Messages, SysUtils, uBaseProfile, uProcessMon, uCommUtil, uLang;
 
 (* A TProcessMonitor egy adott feltétel szerint kapcsolja a megadott
    TProcessMonitor elemeit.
@@ -111,15 +111,6 @@ const
   PROCESS_STATE_SAVED          = 5; //Jelenleg egyik emulátor sem tud ilyet, de
                                     //késõbbi célokra fenntartva (pl. VirtualBox?).
 
-resourcestring
-  STR_PROCESS_STATE_UNKNOWN        = 'Ismeretlen';
-  STR_PROCESS_STATE_STOPPED        = 'Leállítva';
-  STR_PROCESS_STATE_RUNNING        = 'Fut';
-  STR_PROCESS_STATE_PAUSED         = 'Szüneteltetve';
-  STR_PROCESS_STATE_ERROR_MULTINST = 'Több példány!';
-  STR_PROCESS_STATE_RUN_PENDING    = 'Indítás...';
-  STR_PROCESS_STATE_SAVED          = 'Altatva';
-
 var
   AssignmentLogging: boolean = false;
   ProcessLogging: boolean = false;
@@ -127,10 +118,7 @@ var
 implementation
 
 resourcestring
-  EInvalidProcessIndex = 'Érvénytelen folyamat-index, vagy definíálatlan monitor (%s.Processes[%d]).';
-  StrAMegadottElérésiÚ = 'A megadott elérési útvonalon nem található az emul' +
-  'átor.'#13#10#13#10'Ellenõrizze hogy letöltötte-e már az emulátort, vagy egyéni beállít' +
-  'ásoknál hogy a profilbeállítások érvényes adatokat tartalmaznak.';
+  EInvalidProcessIndex = 'Invalid process index, or undefinied monitor (%s.Processes[%d]).';
 
 { TProcessProfile }
 
@@ -217,7 +205,7 @@ var
 begin
   if not (FileExists(ExecutablePath) and //létezzen a mappa és a progi
     DirectoryExists(ExcludeTrailingPathDelimiter(WorkingDirectory))) then
-      raise Exception.Create(StrAMegadottElérésiÚ);
+      raise Exception.Create(_T('StrAMegadottElérésiÚ'));
 
   if length(FIndexMap) > 0 then //csak 1x lehet elindítani
     exit(false);
@@ -253,13 +241,13 @@ end;
 class function TProcessProfile.StateToStr(const ProfileState: Integer): string;
 begin
   case ProfileState of
-    PROCESS_STATE_STOPPED:        Result := STR_PROCESS_STATE_STOPPED;
-    PROCESS_STATE_RUNNING:        Result := STR_PROCESS_STATE_RUNNING;
-    PROCESS_STATE_PAUSED:         Result := STR_PROCESS_STATE_PAUSED;
-    PROCESS_STATE_ERROR_MULTINST: Result := STR_PROCESS_STATE_ERROR_MULTINST;
-    PROCESS_STATE_RUN_PENDING:    Result := STR_PROCESS_STATE_RUN_PENDING;
+    PROCESS_STATE_STOPPED:        Result := _T('STR_PROCESS_STATE_STOPPED');
+    PROCESS_STATE_RUNNING:        Result := _T('STR_PROCESS_STATE_RUNNING');
+    PROCESS_STATE_PAUSED:         Result := _T('STR_PROCESS_STATE_PAUSED');
+    PROCESS_STATE_ERROR_MULTINST: Result := _T('STR_PROCESS_STATE_ERROR_MULTINST');
+    PROCESS_STATE_RUN_PENDING:    Result := _T('STR_PROCESS_STATE_RUN_PENDING');
     else
-      Result := STR_PROCESS_STATE_UNKNOWN;
+      Result := _T('STR_PROCESS_STATE_UNKNOWN');
   end;
 end;
 

@@ -25,7 +25,7 @@ object ProgSettDlg: TProgSettDlg
     Top = 8
     Width = 435
     Height = 431
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
     object TabSheet2: TTabSheet
@@ -53,15 +53,13 @@ object ProgSettDlg: TProgSettDlg
           Left = 60
           Top = 145
           Width = 331
-          Height = 26
+          Height = 38
           Anchors = [akLeft, akRight, akBottom]
           AutoSize = False
           Caption = 
             'Ez a be'#225'll'#237't'#225's csak az '#250'jonnan l'#233'trehozott virtu'#225'lis g'#233'peket '#233'ri' +
             'nti, a m'#225'r megl'#233'v'#337'ek hely'#233'n nem v'#225'ltoztat.'
           WordWrap = True
-          ExplicitTop = 104
-          ExplicitWidth = 269
         end
         object Image3: TImage
           Left = 18
@@ -286,7 +284,7 @@ object ProgSettDlg: TProgSettDlg
           Left = 64
           Top = 18
           Width = 303
-          Height = 39
+          Height = 48
           Anchors = [akLeft, akTop, akRight]
           AutoSize = False
           Caption = 
@@ -294,7 +292,6 @@ object ProgSettDlg: TProgSettDlg
             'ket gyakran haszn'#225'l a virtu'#225'lis g'#233'pek kapcs'#225'n, '#233's '#237'gy a WinBox m' +
             'en'#252'j'#233'b'#337'l k'#246'nnyen el'#337' tudja h'#237'vni majd azokat.'
           WordWrap = True
-          ExplicitWidth = 342
         end
         object ListView1: TListView
           Left = 18

@@ -24,7 +24,7 @@ unit uVMSample;
 interface
 
 uses Windows, SysUtils, Classes, IniFiles, frmSelectHDD, Zip, uCommUtil,
-     Generics.Collections, Generics.Defaults;
+     Generics.Collections, Generics.Defaults, uLang;
 
 type
   TVMSample = class
@@ -54,6 +54,8 @@ type
   public
     constructor Create;
     destructor Destroy; override;
+
+    function GetRenameList: TStringList;
 
     function GetOptionName(const Index: integer): string;
     procedure GetOptions(const Index: integer; List: TStrings);
@@ -169,6 +171,12 @@ begin
     end;
 end;
 
+function TVMSample.GetRenameList: TStringList;
+begin
+  Result := TStringList.Create;
+  Data.ReadSectionValues('RenameFiles', Result);
+end;
+
 procedure TVMSample.InternalReload;
 var
   I: Integer;
@@ -219,7 +227,10 @@ begin
     try
       Open(FFileName, zmRead);
       try
-        Read('winbox.inf', Stream, Header);
+        if IndexOf('winbox.' + Locale) <> -1 then
+          Read('winbox.' + Locale, Stream, Header)
+        else
+          Read('winbox.inf', Stream, Header);
         List := TStringList.Create;
         try
           Stream.Seek(0, soFromBeginning);

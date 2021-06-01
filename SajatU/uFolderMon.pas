@@ -94,7 +94,7 @@ const
   FILE_LIST_DIRECTORY = $0001;
 
 type
-  _FILE_NOTIFY_INFORMATION=packed record
+  _FILE_NOTIFY_INFORMATION = packed record
     NextEntryOffset: DWORD;
     Action: DWORD;
     FileNameLength: DWORD;

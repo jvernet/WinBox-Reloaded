@@ -124,25 +124,8 @@ implementation
 {$R *.dfm}
 {$R 'Data\rcWinBoxMain.res'}
 
-uses uCoreModule, frm86Box, uCommUtil, uWinBoxLib, frmAbout, frmSplash;
-
-resourcestring
-  StrMemória1fS = 'Memória: %.1f%%'#13#10'(%s)';
-  StrCPU1f = 'CPU: %.1f%%';
-  StrIndítás = '&Indítás...';
-  StrLeállítás = '&Leállítás...';
-  StrCtrlAltDel = 'Ctrl+Alt+&Del';
-  StrHWReset = 'H/W &Reset';
-  StrBeállítások = '&Beállítások';
-  StrElõtérbeHozás = '&Elõtérbe hozás';
-  StrNyomtatótálca = '&Nyomtatótálca';
-  StrNévjegy = 'Név&jegy...';
-  StrListaFrissítése = 'Lista &frissítése';
-  StrTeljesLeállítás = 'Teljes &leállítás';
-  StrÚjMerevlemez = 'Új merev&lemez';
-  StrÚjGép = '&Új gép';
-  StrTheVirtualMachine = 'A virtuális gép munkakönyvtárát eltávolították.' +
-  #13#10#13#10'Kívánja a profilt is törölni?';
+uses uCoreModule, frm86Box, uCommUtil, uWinBoxLib, frmAbout, frmSplash,
+     uLang;
 
 const
   DefRatio = 0.28;
@@ -217,12 +200,11 @@ begin
 
   pbCPU.Position := Round(SumCPU);
   ColorProgress(pbCPU);
-  lbHCPU.Caption := format(StrCPU1f, [SumCPU]);
+  lbHCPU.Caption := _T('StrCPU1f', [SumCPU]);
 
   pbRAM.Position := Round(SumRAM);
   ColorProgress(pbRAM);
-  lbHRAM.Caption := format(StrMemória1fS, [SumRAM,
-    FileSizeToStr(SumBytesOfRAM, 2)]);
+  lbHRAM.Caption := _T('StrMemória1fS', [SumRAM, FileSizeToStr(SumBytesOfRAM, 2)]);
 
   List.Invalidate;
   if Pages.ActivePageIndex > 1 then
@@ -277,6 +259,8 @@ var
   I: integer;
 begin
   inherited;
+  Language.Translate('WinBoxMain', Self);
+
   HalfCharHeight := Canvas.TextHeight('W');
   BorderThickness := (List.ItemHeight - ListImages.Height) div 2;
 
@@ -314,26 +298,23 @@ destructor TWinBoxMain.Destroy;
 begin
   Core.OnReloadProfiles := nil;
   Core.OnMonitorUpdate := nil;
+  WinBoxMain := nil;
   inherited;
 end;
 
 procedure TWinBoxMain.FormShow(Sender: TObject);
 begin
-  ToolButton1.Caption := StrIndítás;
-  ToolButton2.Caption := StrLeállítás;
-  ToolButton4.Caption := StrCtrlAltDel;
-  ToolButton5.Caption := StrHWReset;
-  ToolButton6.Caption := StrBeállítások;
-  ToolButton9.Caption := StrElõtérbeHozás;
-  ToolButton10.Caption := StrNyomtatótálca;
-  ToolButton8.Caption := StrNévjegy;
+  ChartCPU.Title.Text.Text := _T('ChartCPU');
+  ChartCPU.BottomAxis.Title.Caption := _T('ChartCPU_X');
+  ChartCPU.LeftAxis.Title.Caption := _T('ChartCPU_Y');
 
-  ToolButton12.Caption := StrÚjGép;
-  ToolButton13.Caption := StrÚjMerevlemez;
-  ToolButton15.Caption := StrTeljesLeállítás;
-  ToolButton16.Caption := StrListaFrissítése;
-  ToolButton17.Caption := StrBeállítások;
-  ToolButton22.Caption := StrNévjegy;
+  ChartRAM.Title.Text.Text := _T('ChartRAM');
+  ChartRAM.BottomAxis.Title.Caption := _T('ChartRAM_X');
+  ChartRAM.LeftAxis.Title.Caption := _T('ChartRAM_Y');
+
+  ChartVMs.Title.Text.Text := _T('ChartVMs');
+  ChartVMs.BottomAxis.Title.Caption := _T('ChartVMs_X');
+  ChartVMs.LeftAxis.Title.Caption := _T('ChartVMs_Y');
 
   ToolBar1.ShowCaptions := true;
   ToolBar2.ShowCaptions := true;
@@ -355,7 +336,7 @@ begin
 
       Core.FolderMonitor.Folder := Core.Profiles[Core.ItemIndex].WorkingDirectory;
       if not DirectoryExists(Core.FolderMonitor.Folder) then
-        case MessageBox(Handle, PChar(StrTheVirtualMachine),
+        case MessageBox(Handle, _P('StrTheVirtualMachine'),
                PChar(Application.Title), MB_ICONQUESTION or MB_YESNO) of
           mrYes:
             with Core do begin

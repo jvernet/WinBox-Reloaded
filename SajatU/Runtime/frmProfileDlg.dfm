@@ -83,12 +83,11 @@ object ProfileDialog: TProfileDialog
     object lbInternalID: TLabel
       Left = 120
       Top = 75
-      Width = 229
-      Height = 13
+      Width = 248
+      Height = 30
       Anchors = [akLeft, akTop, akRight]
       AutoSize = False
       Caption = 'lbInternalID'
-      ExplicitWidth = 264
     end
     object Label1: TLabel
       Left = 104

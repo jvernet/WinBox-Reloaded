@@ -24,7 +24,7 @@ unit uBaseProfile;
 interface
 
 uses Windows, SysUtils, Classes, Graphics, IniFiles, Registry, IOUtils,
-     uCommUtil;
+     uCommUtil, uLang;
 
 const
   SRegBaseKey      = 'Software\Laci bá''\WinBox\Profiles';
@@ -34,7 +34,6 @@ const
   SRegConfigKey    = 'Configuration';
 
 resourcestring
-  SDefaultDocumentsFolder = 'WinBox virtuális gépek';
   SDefaultAppDataFolder = 'Laci bá''\WinBox';
 
   StrExecutablePath = 'ExecutablePath';
@@ -113,7 +112,7 @@ begin
     Result := IncludeTrailingPathDelimiter(
         ReadString(SRegConfigKey, StrRootDirectory,
           IncludeTrailingPathDelimiter(TPath.GetDocumentsPath)
-          + SDefaultDocumentsFolder));
+          + _T('SDefaultDocumentsFolder')));
     Free;
   end;
 end;

@@ -88,6 +88,8 @@ const
 
 implementation
 
+uses uLang;
+
 const
   SGlobalNameDefs  = 'global';
   SConfigFile      = '86box.cfg';
@@ -113,19 +115,38 @@ resourcestring
   SVmIconPng = 'vm-icon.png';
   SRegSubKey = '.86Box';
   Str86Box = '86Box';
+  StrNameDefs = 'NameDefs.';
 
 function InitNameDefsMem: TMemIniFile;
 var
   Stream: TStream;
   List: TStringList;
+
+  Text: string;
+  I: Integer;
 begin
   Result := TMemIniFile.Create('');
 
   Stream := TResourceStream.Create(hInstance, SNameDefs, RT_RCDATA);
 
-  List := TStringList.Create;
-  List.LoadFromStream(Stream);
+  with TStringStream.Create do
+  try
+    LoadFromStream(Stream);
+    Text := DataString;
+  finally;
+    Free;
+  end;
 
+  List := TStringList.Create;
+  Language.ReadSectionValues('NameDefs', List);
+  for I := 0 to List.Count - 1 do
+    Text := StringReplace(Text,
+      List.Names[I],
+      List.ValueFromIndex[I],
+      [rfReplaceAll]);
+
+  List.Clear;
+  List.Text := Text;
   Result.SetStrings(List);
   Stream.Free;
   List.Free;
@@ -539,7 +560,27 @@ end;
 
 function T86BoxProfile.Start(const Parameters: string;
   const nShow: integer): boolean;
+var
+  Config: TCustomIniFile;
+  Temp: string;
+  FileName: array [0..7] of string; //Check for 8 HDD is unused by programs
+  I: integer;
 begin
+  if OpenConfig(Config) then
+    try
+      for I := Low(FileName) to High(FileName) do begin
+        T86Box.GetHDDData(Config, I, Temp, FileName[I]);
+        if FileName[I] <> '' then
+          FileName[I] := ExpandFileNameTo(FileName[I], WorkingDirectory);
+      end;
+
+      for I := Low(FileName) to High(FileName) do
+        if (FileName[I] <> '') and not CanLockFile(FileName[I]) then
+            raise Exception.Create(_T('StrLockedVdiskImg'));
+    finally
+      Config.Free;
+    end;
+
   Result := inherited Start(
     format(SCmdLine, [ExcludeTrailingPathDelimiter(WorkingDirectory),
                       Parameters]), nShow);

@@ -15,12 +15,16 @@ It's most noticeable features are:
 - It has a real time performance monitor so you can check if you're running too many machines at once.
 - It has a built in GUID based storing system for your machines, so you don't have to be aware of folder naming schemes.
 - It has a large collection of custom made icons.
+- It supports VHD and IMG formats for hard disk images (from v1.1).
 
-The program currently has 2 languages supported:
+The program currently has 2 languages supported (yet):
 - en-US
 - hu-HU
 
-If you want to add your language to the supported list, you can find the resource file under the Translations folder.
+If you want to add your language to the supported list, you can find the language files under the Translations folder.
+These files are simple C-style escape sequenced INI-files, can be created by any kind of text editor. 
+
+If you want to translate the progam to your language, and got stock, feel free to ask questions.
 Add your new language as a pull request and I will include it with the next release.
 
 The program is written in Delphi 10.3.

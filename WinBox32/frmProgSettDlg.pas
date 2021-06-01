@@ -89,21 +89,20 @@ var
 
 implementation
 
+uses uLang;
+
 resourcestring
-  StrVálasszaKiAzÚjVi = 'Válassza ki az új virtuális gépek tárolási helyét:';
   StrAutoUpdate = 'AutoUpdate';
   StrDownloadSource = 'DownloadSource';
   StrRepository = 'Repository';
   Def86BoxRepo = 'https://ci.86box.net/job/86Box';
-  StrMódosításokTörténte = 'Módosítások történtek az eszközlistán. Kívánja m' +
-  'enteni?';
 
 {$R *.dfm}
 
 procedure TProgSettDlg.Button11Click(Sender: TObject);
 begin
   Path.Text := IncludeTrailingPathDelimiter(
-    TPath.GetDocumentsPath + PathDelim + SDefaultDocumentsFolder);
+    TPath.GetDocumentsPath + PathDelim + _T('SDefaultDocumentsFolder'));
 end;
 
 procedure TProgSettDlg.Button2Click(Sender: TObject);
@@ -120,12 +119,12 @@ begin
       if ((Caption <> Edit1.Text) or
            ((SubItems.Count > 0) and (Memo1.Text <> SubItems[0]))) and
          (Edit1.Text <> '') and (Memo1.Text <> '') and
-         (MessageBox(Handle, PChar(StrMódosításokTörténte),
+         (MessageBox(Handle, _P('StrMódosításokTörténte'),
            PChar(Application.Title), MB_YESNO or MB_ICONQUESTION) = mrYes) then
             Button10.Click;
     end
   else if (Edit1.Text <> '') and (Memo1.Text <> '') and
-          (MessageBox(Handle, PChar(StrMódosításokTörténte),
+          (MessageBox(Handle, _P('StrMódosításokTörténte'),
             PChar(Application.Title), MB_YESNO or MB_ICONQUESTION) = mrYes) then
               Button9.Click;
 
@@ -155,7 +154,7 @@ var
 begin
   SysUtils.ForceDirectories(Path.Text);
   Directory := ExcludeTrailingPathDelimiter(Path.Text);
-  if SelectDirectory(StrVálasszaKiAzÚjVi, '', Directory, [sdNewUI], Self) then
+  if SelectDirectory(_T('StrVálasszaKiAzÚjVi'), '', Directory, [sdNewUI], Self) then
     Path.Text := IncludeTrailingPathDelimiter(Directory);
 end;
 
@@ -238,6 +237,8 @@ begin
   Core.Icons32.GetIcon(8, Image1.Picture.Icon);
   Core.Icons32.GetIcon(11, Image2.Picture.Icon);
   Core.Icons32.GetIcon(0, Image3.Picture.Icon);
+
+  Language.Translate('ProgSettDlg', Self);
 end;
 
 procedure TProgSettDlg.FormShow(Sender: TObject);

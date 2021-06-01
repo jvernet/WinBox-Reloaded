@@ -26,6 +26,7 @@ uses
   SysUtils,
   Classes,
   Forms,
+  uLang,
   frmSelectHDD in 'frmSelectHDD.pas' {HDSelect},
   frmUpdate in 'frmUpdate.pas' {UpdateForm},
   frmWizardHDD in 'frmWizardHDD.pas' {WizardHDD},
@@ -45,11 +46,18 @@ begin
   Result := TUpdateForm.Create(AOwner) as IAutoUpdate;
 end;
 
+procedure SetLanguage(const AFileName, ALocale: PChar); stdcall;
+begin
+  Locale := String(ALocale);
+  Language := TLanguage.Create(String(AFileName));
+end;
+
 exports
   CreateSelectHDD,
   CreateAutoUpdate,
   CreateWizardHDD,
-  CreateWizardVM;
+  CreateWizardVM,
+  SetLanguage;
 
 begin
 end.

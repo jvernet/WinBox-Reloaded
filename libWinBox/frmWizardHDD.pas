@@ -26,11 +26,13 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.StdCtrls, Vcl.ExtCtrls,
-  Vcl.Imaging.pngimage, Vcl.Samples.Spin, frmSelectHDD, Printers;
+  Vcl.Imaging.pngimage, Vcl.Samples.Spin, frmSelectHDD, Printers, uLang, uVirtDisk;
 
 type
   IWizardHDD = interface
     ['{57E94996-C896-45BD-811D-08BA692D0B49}']
+    function GetIsVHD: boolean; stdcall;
+    procedure SetIsVHD(const Value: boolean); stdcall;
     function GetSparse: boolean; stdcall;
     procedure SetSparse(const Value: boolean); stdcall;
     function GetFileName: PChar; stdcall;
@@ -46,7 +48,7 @@ type
     property DiskData: TDiskData read GetDiskData write SetDiskData;
   end;
 
-  TWizardHDD = class(TForm, IWizardHDD)
+  TWizardHDD = class(TForm, IWizardHDD, ILanguageSupport)
     Image1: TImage;
     PageControl1: TPageControl;
     Bevel1: TBevel;
@@ -96,7 +98,6 @@ type
     SpinEdit8: TSpinEdit;
     Button4: TButton;
     Bevel2: TBevel;
-    CheckBox1: TCheckBox;
     TabSheet5: TTabSheet;
     Label25: TLabel;
     Memo1: TMemo;
@@ -109,6 +110,14 @@ type
     SaveDialog1: TSaveDialog;
     SaveDialog2: TSaveDialog;
     PrintDialog1: TPrintDialog;
+    TabSheet7: TTabSheet;
+    Label28: TLabel;
+    Label29: TLabel;
+    RadioButton1: TRadioButton;
+    Label30: TLabel;
+    RadioButton2: TRadioButton;
+    Label31: TLabel;
+    CheckBox1: TCheckBox;
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -119,13 +128,18 @@ type
     procedure Button3Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
+    procedure RadioButton1Click(Sender: TObject);
   private
     FDiskData: TDiskData;
     FAutoCreate: boolean;
+    FDiskChanged, FFirst: boolean;
     procedure UpdateUI;
     function CreateSparseFile: boolean;
     function CreateRealFile: boolean;
+    function CreateVHD: boolean;
   public
+    function GetIsVHD: boolean; stdcall;
+    procedure SetIsVHD(const Value: boolean); stdcall;
     function GetSparse: boolean; stdcall;
     procedure SetSparse(const Value: boolean); stdcall;
     function GetFileName: PChar; stdcall;
@@ -135,6 +149,9 @@ type
     procedure SetConnectorFilter(const Lock: boolean); stdcall;
     function Execute(const AutoCreate: boolean): boolean; stdcall;
     function TryCreate: boolean; stdcall;
+
+    procedure GetTranslation(Language: TLanguage); stdcall;
+    procedure Translate; stdcall;
   end;
 
 var
@@ -149,26 +166,8 @@ implementation
 uses uCommUtil, frmWaitForm;
 
 resourcestring
-  StrAMegadottHelyenMá = 'A megadott helyen már létezik fájl, kívánja felülí' +
-  'rni?'#13#10#13#10'A mûvelet nem fordítható vissza.';
   StrWinBox = 'WinBox';
-
-  SDiskData2 = 'Fájlnév: %s'#13#10'Névleges kapacitás: %s'#13#10'Modellnév: %s %s'#13#10 +
-  'Fizikai geometria:  C: %d H: %d S: %d B: 512'#13#10'Megadandó geometria:  C: %d H: %d S: %d B: 512'#13#10 +
-  'Csatolófelület: %s'#13#10'Írás-elõkompenzáció (WPCom): %d'#13#10'Fej parkolópozíció (LZone): %d';
-  SDiskData1 = 'Fájlnév: %s'#13#10'Kapacitás: %s'#13#10'Geometria:  C: %d H: %d S: %d B: 512'#13#10 +
-  'Csatolófelület: %s'#13#10'Írás-elõkompenzáció (WPCom): %d'#13#10'Fej parkolópozíció (LZone): %d';
-  SDiskData3 = 'Fájlnév: %s'#13#10'Kapacitás: %s'#13#10'Geometria:  C: %d H: %d S: %d B: 512'#13#10 +
-  'Írás-elõkompenzáció (WPCom): %d'#13#10'Fej parkolópozíció (LZone): %d';
-
-  SDiskSparse = 'A lemezkép ritka fájlként kerül létrehozásra.';
-  StrAKötetNemTámogatj = 'A kötet nem támogatja a ritka fájlok létrehozását.'#13#10#13#10+
-  'A WinBox megkísérelheti a fájl szokványos létrehozását, de ez hosszabb ideig is eltarthat.'#13#10 +
-  #13#10'Kívánja szokványos módon létrehozni a képfájlt?';
-  StrLemezképfájlLétreho = 'Lemezképfájl létrehozása...';
   EHibaTörténtASzaba = 'Hiba történt a szabad terület lekérdezése közben.';
-  ENincsElegendõSzaba = 'Nincs elegendõ szabad hely a megadott helyen.'#13#10#13#10'Adjon meg más' +
-  'ik elérési utat a képfájl létrehozásához, vagy válasszon kisebb kapacitást.';
 
 function CreateWizardHDD(const AOwner: TComponent): IWizardHDD; stdcall;
 begin
@@ -181,15 +180,25 @@ var
 begin
   if Sender = Button1 then
     case PageControl1.ActivePageIndex of
-      0: begin
-           ComboBox2Change(Self);
-           TrackBar1.Position := 1024;
-           TrackBar1Change(Self);
+      0: if FFirst then begin
+            ComboBox2Change(Self);
+            TrackBar1.Position := 1024;
+            TrackBar1Change(Self);
+
+            CheckBox1.Checked := (FDiskData.szConnector = '') or
+                                 (pos('IDE', FDiskData.szConnector) <> 0) or
+                                 (pos('SCSI', FDiskData.szConnector) <> 0);
+
+            RadioButton1.Checked := CheckBox1.Checked;
+            RadioButton2.Checked := not CheckBox1.Checked;
+            RadioButton1Click(RadioButton1);
+
+            FFirst := false;
          end;
-      1: begin
+      2: begin
            if (Edit1.Text = '') or (DirectoryExists(Edit1.Text)) then
              raise Exception.Create(SysErrorMessage(ERROR_PATH_NOT_FOUND));
-           if FileExists(Edit1.Text) and (MessageBox(Handle, PChar(StrAMegadottHelyenMá),
+           if FileExists(Edit1.Text) and (MessageBox(Handle, _P('StrAMegadottHelyenMá'),
               PChar(StrWinBox), MB_YESNO or MB_ICONWARNING) <> mrYes) then exit;
            case ComboBox1.ItemIndex of
              2: PageControl1.ActivePageIndex := PageControl1.ActivePageIndex + 1;
@@ -204,8 +213,7 @@ begin
                   if SelectDlg.Execute(false) then begin
                     PageControl1.ActivePageIndex := PageControl1.ActivePageIndex + 2;
                     FDiskData := SelectDlg.DiskData;
-                    CheckBox1.Checked := (pos('IDE', FDiskData.szConnector) <> 0) or
-                                         (pos('SCSI', FDiskData.szConnector) <> 0);
+                    FDiskChanged := true;
                   end
                   else
                     exit;
@@ -213,7 +221,7 @@ begin
                 end;
            end;
          end;
-       2: begin
+       3: begin
             with FDiskData, dgTranslatedGeometry do begin
               C := SpinEdit1.Value;
               H := SpinEdit2.Value;
@@ -229,11 +237,11 @@ begin
                 6: szConnector := 'SCSI';
                 else szConnector := 'IDE';
               end;
-              CheckBox1.Checked := ComboBox2.ItemIndex <> 0;
+              FDiskChanged := true;
             end;
             PageControl1.ActivePageIndex := PageControl1.ActivePageIndex + 1;
           end;
-       3: with FDiskData, dgTranslatedGeometry do begin
+       4: with FDiskData, dgTranslatedGeometry do begin
             C := SpinEdit4.Value;
             H := SpinEdit5.Value;
             S := SpinEdit6.Value;
@@ -244,8 +252,9 @@ begin
             dwLandZone := SpinEdit8.Value;
             szConnector := '';
             szModel := '';
+            FDiskChanged := true;
           end;
-       4: if (not FAutoCreate) or TryCreate then
+       5: if (not FAutoCreate) or TryCreate then
             ModalResult := mrOK
           else
             exit;
@@ -253,8 +262,8 @@ begin
 
   if Sender = Button2 then
     case PageControl1.ActivePageIndex of
-      3: PageControl1.ActivePageIndex := PageControl1.ActivePageIndex - 1;
-      4: PageControl1.ActivePageIndex := PageControl1.ActivePageIndex - 2;
+      4: PageControl1.ActivePageIndex := PageControl1.ActivePageIndex - 1;
+      5: PageControl1.ActivePageIndex := PageControl1.ActivePageIndex - 2;
     end;
 
   PageControl1.ActivePageIndex := PageControl1.ActivePageIndex +
@@ -399,6 +408,82 @@ begin
     end;
 end;
 
+function HasOverlappedIoCompleted(const lpOverlapped: OVERLAPPED): BOOL;
+begin
+  Result := LONG(lpOverlapped.Internal) <> STATUS_PENDING;
+end;
+
+function TWizardHDD.CreateVHD: boolean;
+var
+  StorageType: TVirtualStorageType;
+  Params: TCreateVirtualDiskParameters;
+
+  Overlapped: TOverlapped;
+
+  RetVal: DWORD;
+  Handle: THandle;
+
+  FileName: string;
+const
+  Flags: array [boolean] of DWORD =
+    (CREATE_VIRTUAL_DISK_FLAG_FULL_PHYSICAL_ALLOCATION,
+     CREATE_VIRTUAL_DISK_FLAG_NONE);
+begin
+  FileName := Edit1.Text;
+
+  if FileExists(FileName) then
+    DeleteFile(FileName);
+
+  with StorageType do begin
+    DeviceId := VIRTUAL_STORAGE_TYPE_DEVICE_VHD;
+    VendorId := VIRTUAL_STORAGE_TYPE_VENDOR_MICROSOFT;
+  end;
+
+  FillChar(Params, SizeOf(Params), #0);
+  with Params do begin
+    Version:= CREATE_VIRTUAL_DISK_VERSION_1;
+    CreateGUID(UniqueID);
+    MaximumSize := FDiskData.dgTranslatedGeometry.Size;
+    BlockSizeInBytes := CREATE_VIRTUAL_DISK_PARAMETERS_DEFAULT_BLOCK_SIZE;
+    SectorSizeInBytes := CREATE_VIRTUAL_DISK_PARAMETERS_DEFAULT_SECTOR_SIZE;
+  end;
+
+  Handle := INVALID_HANDLE_VALUE;
+  FillChar(Overlapped, SizeOf(Overlapped), #0);
+  RetVal := CreateVirtualDisk(StorageType, PChar(FileName),
+       VIRTUAL_DISK_ACCESS_CREATE, nil,
+       Flags[CheckBox1.Checked], 0,
+       Params, @Overlapped, Handle);
+  if (RetVal <> ERROR_SUCCESS) and (RetVal <> ERROR_IO_PENDING) then begin
+    if (Handle <> 0) and (Handle <> INVALID_HANDLE_VALUE) then
+      CloseHandle(Handle);
+    RaiseLastOSError;
+  end;
+
+  case GetLastError of
+    ERROR_IO_PENDING:
+      with TWaitForm.Create(Self) do
+        try
+          ProgressBar.Style := pbstMarquee;
+          Show;
+          while not HasOverlappedIoCompleted(Overlapped) do
+            Application.ProcessMessages;
+        finally
+          Free;
+        end;
+    else begin
+      if (Handle <> 0) and (Handle <> INVALID_HANDLE_VALUE) then
+        CloseHandle(Handle);
+      RaiseLastOSError;
+    end;
+  end;
+
+  if (Handle <> 0) and (Handle <> INVALID_HANDLE_VALUE) then
+    CloseHandle(Handle);
+
+  Result := FileExists(FileName);
+end;
+
 function TWizardHDD.Execute(const AutoCreate: boolean): boolean;
 begin
   FAutoCreate := AutoCreate;
@@ -407,11 +492,15 @@ end;
 
 procedure TWizardHDD.FormCreate(Sender: TObject);
 begin
+  FDiskChanged := false;
+  FFirst := true;
   LoadImage('BANNER_HDD', Image1);
 end;
 
 procedure TWizardHDD.FormShow(Sender: TObject);
 begin
+  Translate;
+
   PageControl1.ActivePageIndex := 0;
   Button2.Enabled := false;
   Button1.Enabled := true;
@@ -427,9 +516,38 @@ begin
   Result := PChar(Edit1.Text);
 end;
 
+function TWizardHDD.GetIsVHD: boolean;
+begin
+  Result := RadioButton1.Checked;
+end;
+
 function TWizardHDD.GetSparse: boolean;
 begin
   Result := CheckBox1.Checked;
+end;
+
+procedure TWizardHDD.GetTranslation(Language: TLanguage);
+begin
+  if Assigned(Language) then begin
+    Language.GetTranslation('WizardHDD', Self);
+    Language.WriteString('Strings', 'SaveDialog1', EscapeString(SaveDialog1.Filter));
+    Language.WriteString('Strings', 'SaveDialog2', EscapeString(SaveDialog2.Filter));
+  end;
+end;
+
+procedure TWizardHDD.RadioButton1Click(Sender: TObject);
+begin
+  if RadioButton1.Checked then begin
+     SaveDialog1.Filter := _T('SaveDialog1_VHD');
+     SaveDialog1.DefaultExt := 'vhd';
+   end
+   else begin
+     SaveDialog1.Filter := _T('SaveDialog1');
+     SaveDialog1.DefaultExt := 'img';
+   end;
+
+   if (Edit1.Text <> '') and (Edit1.Text <> '\') then
+     Edit1.Text := ChangeFileExt(Edit1.Text, '.' + SaveDialog1.DefaultExt);
 end;
 
 procedure TWizardHDD.SetConnectorFilter(const Lock: boolean);
@@ -446,11 +564,24 @@ end;
 procedure TWizardHDD.SetDiskData(const Value: TDiskData);
 begin
   FDiskData := Value;
+
+  CheckBox1.Checked := (FDiskData.szConnector = '') or
+                       (pos('IDE', FDiskData.szConnector) <> 0) or
+                       (pos('SCSI', FDiskData.szConnector) <> 0);
+
+  SetIsVHD(CheckBox1.Checked);
 end;
 
 procedure TWizardHDD.SetFileName(const Value: PChar);
 begin
   Edit1.Text := Value;
+end;
+
+procedure TWizardHDD.SetIsVHD(const Value: boolean);
+begin
+  RadioButton1.Checked := CheckBox1.Checked;
+  RadioButton2.Checked := not CheckBox1.Checked;
+  RadioButton1Click(RadioButton1);
 end;
 
 procedure TWizardHDD.SetSparse(const Value: boolean);
@@ -463,27 +594,27 @@ begin
   Memo1.Clear;
   if (not FDiskData.dgPhysicalGeometry.IsEmpty) and (FDiskData.szModel <> '') then
     with FDiskData do
-      Memo1.Text := Format(SDiskData2,
+      Memo1.Text := _T('SDiskData2',
         [Edit1.Text, FileSizeToStr(UInt64(dwNominalSize) * 1000 * 1000, 2, 1000),
          szManufacturer, szModel, dgPhysicalGeometry.C, dgPhysicalGeometry.H,
          dgPhysicalGeometry.S, dgTranslatedGeometry.C, dgTranslatedGeometry.H,
          dgTranslatedGeometry.S, szConnector, dwWritePrecomp, dwLandZone])
   else if FDiskData.szConnector <> '' then
     with FDiskData do
-      Memo1.Text := Format(SDiskData1,
+      Memo1.Text := _T('SDiskData1',
         [Edit1.Text,
          FileSizeToStr(dgTranslatedGeometry.Size, 2, 1000),
          dgTranslatedGeometry.C, dgTranslatedGeometry.H,
          dgTranslatedGeometry.S, szConnector, dwWritePrecomp, dwLandZone])
   else with FDiskData do
-      Memo1.Text := Format(SDiskData3,
+      Memo1.Text := _T('SDiskData3',
         [Edit1.Text,
          FileSizeToStr(dgTranslatedGeometry.Size, 2, 1000),
          dgTranslatedGeometry.C, dgTranslatedGeometry.H,
          dgTranslatedGeometry.S, dwWritePrecomp, dwLandZone]);
 
   if CheckBox1.Checked then
-    Memo1.Lines.Add(SDiskSparse);
+    Memo1.Lines.Add(_T('SDiskSparse'));
 end;
 
 procedure TWizardHDD.TrackBar1Change(Sender: TObject);
@@ -494,6 +625,18 @@ begin
 
   Label13.Caption := IntToStr(Integer(Int64(SpinEdit1.Value) *
     SpinEdit2.Value * SpinEdit3.Value div 2048)) + ' MB';
+end;
+
+procedure TWizardHDD.Translate;
+begin
+  if Assigned(Language) then begin
+    Language.Translate('WizardHDD', Self);
+    if SaveDialog1.Filter = 'vhd' then
+      SaveDialog1.Filter := _T('SaveDialog1_VHD')
+    else
+      SaveDialog1.Filter := _T('SaveDialog1');
+    SaveDialog2.Filter := _T('SaveDialog2');
+  end;
 end;
 
 function TWizardHDD.TryCreate: boolean;
@@ -515,14 +658,24 @@ begin
 
   with FDiskData.dgTranslatedGeometry do
     if FreeAvail < Int64(C) * H * S * 512 then
-      raise Exception.Create(ENincsElegendõSzaba);
+      raise Exception.Create(SysErrorMessage(ERROR_DISK_FULL));
 
   try
-    if not CheckBox1.Checked then
+    if RadioButton1.Checked then begin
+      Result := CreateVHD;
+      if not Result and (MessageBox(Handle, _P('StrFailedToCreateVHD'), PChar(StrWinBox),
+        MB_YESNO or MB_ICONQUESTION) = mrYes) then begin
+          RadioButton1.Checked := false;
+          RadioButton2.Checked := true;
+          RadioButton1Click(RadioButton1);
+          exit(TryCreate);
+        end;
+    end
+    else if not CheckBox1.Checked then
       Result := CreateRealFile
     else begin
       Result := CreateSparseFile;
-      if not Result and (MessageBox(Handle, PChar(StrAKötetNemTámogatj), PChar(StrWinBox),
+      if not Result and (MessageBox(Handle, _P('StrAKötetNemTámogatj'), PChar(StrWinBox),
         MB_YESNO or MB_ICONQUESTION) = mrYes) then
           Result := CreateRealFile;
     end;
@@ -539,23 +692,30 @@ const
   DefCHS: TDiskGeometry = (C: 1024; H: 16; S: 63);
 var
   ACHS: TDiskGeometry;
+  Temp: boolean;
 begin
-  CheckBox1.Checked := false;
   if (pos('MFM', UpperCase(FDiskData.szConnector)) <> 0) or
      (pos('RLL', UpperCase(FDiskData.szConnector)) <> 0) or
      (pos('PS/2', UpperCase(FDiskData.szConnector)) <> 0) then
     ComboBox1.ItemIndex := 1
   else if pos('ESDI', UpperCase(FDiskData.szConnector)) <> 0 then
     ComboBox2.ItemIndex := 0
-  else if pos('SCSI', UpperCase(FDiskData.szConnector)) <> 0 then begin
-    ComboBox2.ItemIndex := 6;
-    CheckBox1.Checked := true;
-  end
-  else begin
+  else if pos('SCSI', UpperCase(FDiskData.szConnector)) <> 0 then
+    ComboBox2.ItemIndex := 6
+  else
     ComboBox2.ItemIndex := 5;
-    CheckBox1.Checked := true;
-  end;
   ComboBox2Change(Self);
+
+  Temp := (FDiskData.szConnector = '') or
+          (pos('IDE', FDiskData.szConnector) <> 0) or
+          (pos('SCSI', FDiskData.szConnector) <> 0);
+  if not Temp and CheckBox1.Checked and FDiskChanged then
+    if MessageBox(Handle, _P('StrRecommendedFixed'), PChar(StrWinBox),
+         MB_YESNO or MB_ICONQUESTION) = mrYes then begin
+           CheckBox1.Checked := Temp;
+           TabSheet5Show(TabSheet5);
+         end;
+  FDiskChanged := false;
 
   if not FDiskData.dgTranslatedGeometry.IsEmpty then
     ACHS := FDiskData.dgTranslatedGeometry

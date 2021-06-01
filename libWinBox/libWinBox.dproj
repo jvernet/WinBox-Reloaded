@@ -6,8 +6,8 @@
         <MainSource>libWinBox.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Release</Config>
-        <Platform Condition="'$(Platform)'==''">Win32</Platform>
-        <TargetedPlatforms>1</TargetedPlatforms>
+        <Platform Condition="'$(Platform)'==''">Win64</Platform>
+        <TargetedPlatforms>3</TargetedPlatforms>
         <AppType>Library</AppType>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
@@ -34,6 +34,12 @@
         <Cfg_1>true</Cfg_1>
         <Base>true</Base>
     </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win64)'!=''">
+        <Cfg_1_Win64>true</Cfg_1_Win64>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
         <Cfg_2>true</Cfg_2>
         <CfgParent>Base</CfgParent>
@@ -41,6 +47,12 @@
     </PropertyGroup>
     <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
         <Cfg_2_Win32>true</Cfg_2_Win32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win64)'!=''">
+        <Cfg_2_Win64>true</Cfg_2_Win64>
         <CfgParent>Cfg_2</CfgParent>
         <Cfg_2>true</Cfg_2>
         <Base>true</Base>
@@ -69,6 +81,11 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <DCC_UsePackage>FireDACTDataDriver;FireDACSqliteDriver;FireDACDSDriver;DBXSqliteDriver;FireDACPgDriver;fmx;IndySystem;TeeDB;tethering;vclib;DBXInterBaseDriver;DataSnapClient;DataSnapCommon;DataSnapServer;DataSnapProviderClient;DBXSybaseASEDriver;DbxCommonDriver;vclimg;dbxcds;DatasnapConnectorsFreePascal;vclshlctrls;appanalytics;vcldb;vcldsnap;fmxFireDAC;DBXDb2Driver;DBXOracleDriver;CustomIPTransport;vclribbon;dsnap;IndyIPServer;fmxase;vcl;IndyCore;DBXMSSQLDriver;CloudService;IndyIPCommon;FmxTeeUI;FireDACIBDriver;DataSnapFireDAC;FireDACDBXDriver;soapserver;inetdbxpress;dsnapxml;FireDACInfxDriver;FireDACDb2Driver;adortl;FireDACASADriver;bindcompfmx;FireDACODBCDriver;RESTBackendComponents;emsclientfiredac;rtl;dbrtl;DbxClientDriver;FireDACCommon;bindcomp;inetdb;Tee;DBXOdbcDriver;ibmonitor;vclFireDAC;xmlrtl;DataSnapNativeClient;ibxpress;IndyProtocols;DBXMySQLDriver;FireDACCommonDriver;bindcompdbx;bindengine;vclactnband;FMXTee;soaprtl;TeeUI;bindcompvcl;vclie;FireDACADSDriver;vcltouch;emsclient;VCLRESTComponents;FireDAC;DBXInformixDriver;FireDACMSSQLDriver;Intraweb;VclSmp;DataSnapConnectors;DataSnapServerMidas;DBXFirebirdDriver;dsnapcon;inet;fmxobj;FireDACMySQLDriver;soapmidas;vclx;DBXSybaseASADriver;FireDACOracleDriver;fmxdae;RESTComponents;dbexpress;FireDACMSAccDriver;DataSnapIndy10ServerTransport;IndyIPClient;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
+        <BT_BuildType>Debug</BT_BuildType>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -79,12 +96,18 @@
         <DCC_RemoteDebug>true</DCC_RemoteDebug>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <Debugger_HostApplication>.\..\Out\WinBox32.exe</Debugger_HostApplication>
+        <Debugger_HostApplication>..\Win32\Debug\WinBox32.exe</Debugger_HostApplication>
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
         <DCC_ExeOutput>..\$(Platform)\$(Config)</DCC_ExeOutput>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <DCC_DcuOutput>..\$(Platform)\$(Config)</DCC_DcuOutput>
+        <Debugger_RunParams>-lang en-US</Debugger_RunParams>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <Manifest_File>(None)</Manifest_File>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -95,9 +118,21 @@
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1038</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Laci bá&apos;;FileVersion=1.0.0.0;InternalName=WinBox Reloaded R2 Release Preview;LegalCopyright=Laci bá&apos;;LegalTrademarks=Laci bá&apos;;OriginalFilename=libWinBox.dll;ProductVersion=1.0.0.0;Comments=WinBox Reloaded R2 Release Preview;ProgramID=com.embarcadero.$(MSBuildProjectName);FileDescription=$(MSBuildProjectName);ProductName=$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Laci bá&apos;;FileVersion=1.1.0.0;InternalName=libWinBox;LegalCopyright=Laci bá&apos;;LegalTrademarks=Laci bá&apos;;OriginalFilename=libWinBox.dll;ProductVersion=1.1.0.0;Comments=WinBox Reloaded;ProgramID=com.embarcadero.$(MSBuildProjectName);FileDescription=$(MSBuildProjectName);ProductName=$(MSBuildProjectName)</VerInfo_Keys>
         <DCC_ExeOutput>..\$(Platform)\$(Config)</DCC_ExeOutput>
         <DCC_DcuOutput>..\$(Platform)\$(Config)</DCC_DcuOutput>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <VerInfo_DLL>true</VerInfo_DLL>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
+        <DCC_ExeOutput>..\$(Platform)\$(Config)</DCC_ExeOutput>
+        <DCC_DcuOutput>..\$(Platform)\$(Config)</DCC_DcuOutput>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1038</VerInfo_Locale>
+        <Manifest_File>(None)</Manifest_File>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <VerInfo_Keys>CompanyName=Laci bá&apos;;FileDescription=WinBox Reloaded;FileVersion=1.1.0.0;InternalName=libWinBox;LegalCopyright=Laci bá&apos;;LegalTrademarks=Laci bá&apos;;OriginalFilename=libWinBox.dll;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.1.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_DLL>true</VerInfo_DLL>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -105,24 +140,19 @@
         </DelphiCompile>
         <DCCReference Include="frmSelectHDD.pas">
             <Form>HDSelect</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="frmUpdate.pas">
             <Form>UpdateForm</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="frmWizardHDD.pas">
             <Form>WizardHDD</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="frmWaitForm.pas">
             <Form>WaitForm</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uVMSample.pas"/>
         <DCCReference Include="frmWizardVM.pas">
             <Form>WizardVM</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
@@ -145,7 +175,6 @@
                     <Source Name="MainSource">libWinBox.dpr</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\20.0\Bpl\pkgWinBox.bpl">(untitled)</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\bcboffice2k260.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\bcbofficexp260.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k260.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
@@ -856,7 +885,7 @@
             </Deployment>
             <Platforms>
                 <Platform value="Win32">True</Platform>
-                <Platform value="Win64">False</Platform>
+                <Platform value="Win64">True</Platform>
             </Platforms>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
