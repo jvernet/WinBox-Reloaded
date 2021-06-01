@@ -8,7 +8,7 @@ Option0=&CPU speed:|12 MHz=lo|16 MHz=hi
 Option1=&Memory:|640 kB=noisa2|1152 kB=1mb|1664 kB=1_5mb|2176 kB=2mb
 option2=&Mouse:|Input devices.mouse_type
 Option3=&Display:|Video.gfxcard
-SupportedOS=Compaq MS-DOS 3.1 - 6.2, PC-DOS 3.1 - 6.1, OS/2 1.x, korai Windows-verziók, Windows 3.x
+SupportedOS=Compaq MS-DOS 3.1 - 6.2, PC-DOS 3.1 - 6.1, OS/2 1.x, early Windows versions, Windows 3.x
 
 [Option0.lo]
 Machine.cpu_speed = 12500000

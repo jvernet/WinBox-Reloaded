@@ -11,7 +11,7 @@ Option3=&Printer:|Ports (COM & LPT).lpt1_device
 OptionCDROM=0
 DescOfCDROM=4x ATAPI
 NoteForCDROM=Contemporary hard drives don’t like it.
-SupportedOS=MS-DOS 3.30-6.22, korai Windows-verziók, OS/2 1.x, Windows 3.x, OS/2 2.x, Linux
+SupportedOS=MS-DOS 3.30-6.22, early Windows versions, OS/2 1.x, Windows 3.x, OS/2 2.x, Linux
 
 [Option0]
 8 MB=8192
