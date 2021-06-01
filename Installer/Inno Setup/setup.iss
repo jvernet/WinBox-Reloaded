@@ -2,10 +2,9 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "WinBox Reloaded"
-#define MyAppVersion "1.0"
+#define MyAppVersion "1.1"
 #define MyAppPublisher "Laci bá'"
-#define MyAppURL "https://users.atw.hu/laciba/"
-#define MyAppExeName "WinBox32.exe"
+#define MyAppURL "https://users.atw.hu/laciba/"    
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -33,7 +32,8 @@ WizardSmallImageFile=logo.bmp
 WizardImageStretch=true
 SolidCompression=yes
 WizardStyle=modern
-VersionInfoVersion=1.0.0.0
+VersionInfoVersion=1.1.0.0
+ArchitecturesInstallIn64BitMode=x64
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -43,16 +43,20 @@ Name: "hungarian"; MessagesFile: "compiler:Languages\Hungarian.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "hu-HU\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion; Languages: hungarian
-Source: "hu-HU\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Languages: hungarian         
-Source: "en-US\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion; Languages: english
-Source: "en-US\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Languages: english
+Source: "Win64\WinBox64.exe"; DestDir: "{app}"; Flags: ignoreversion; Check: Is64BitInstallMode       
+Source: "Win64\*"; DestDir: "{app}"; Flags: ignoreversion; Check: Is64BitInstallMode          
+Source: "Win32\WinBox32.exe"; DestDir: "{app}"; Flags: ignoreversion; Check: not Is64BitInstallMode       
+Source: "Win32\*"; DestDir: "{app}"; Flags: ignoreversion; Check: not Is64BitInstallMode   
+Source: "hu-HU\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs;       
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\WinBox64.exe"; Check: Is64BitInstallMode   
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\WinBox64.exe"; Tasks: desktopicon; Check: Is64BitInstallMode   
+Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\WinBox32.exe"; Check: not Is64BitInstallMode   
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\WinBox32.exe"; Tasks: desktopicon; Check: not Is64BitInstallMode   
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\WinBox32.exe"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent; Check: not Is64BitInstallMode    
+Filename: "{app}\WinBox64.exe"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent; Check: Is64BitInstallMode 
 
