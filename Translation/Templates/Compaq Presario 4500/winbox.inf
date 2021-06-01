@@ -1,0 +1,20 @@
+[General]
+Manufacturer=Compaq
+Description=Compaq Presario 4500
+Year=1995
+Type=86Box
+ConfigFile=86box.cfg
+DescOfCDROM=16x ATAPI
+SupportedOS=Windows 95 és Internet Explorer 4.0, Windows 98, OS/2 Warp 3, Linux
+
+[HDD]
+Connector=IDE
+Slot=0
+C=4092
+H=16
+S=63
+
+[CDROM]
+cdrom_01_speed = 16
+cdrom_01_parameters = 1, atapi
+cdrom_01_ide_channel = 0:1
