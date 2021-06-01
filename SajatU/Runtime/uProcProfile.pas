@@ -205,7 +205,7 @@ var
 begin
   if not (FileExists(ExecutablePath) and //létezzen a mappa és a progi
     DirectoryExists(ExcludeTrailingPathDelimiter(WorkingDirectory))) then
-      raise Exception.Create(_T('StrAMegadottElérésiÚ'));
+      raise Exception.Create(_T('StrAMegadottEleresiU'));
 
   if length(FIndexMap) > 0 then //csak 1x lehet elindítani
     exit(false);

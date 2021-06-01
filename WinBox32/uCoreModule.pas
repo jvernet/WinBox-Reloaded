@@ -395,7 +395,7 @@ begin
   if ValidateIndex then
     Directory := IncludeTrailingPathDelimiter(Profiles[ItemIndex].WorkingDirectory)
   else
-    Directory := DefWorkingRootDirectory + _T('StrEgyébLemezképek') + PathDelim;
+    Directory := DefWorkingRootDirectory + _T('StrEgyebLemezkepek') + PathDelim;
 
   AFileName := '';
   for I := 0 to 99 do begin
@@ -424,7 +424,7 @@ var
   I: integer;
 begin
   with CreateWizardVM(Self) do begin
-    FriendlyName := _P('StrÚjVirtuálisGépD', [Profiles.Count + 1]);
+    FriendlyName := _P('StrUjVirtualisGepD', [Profiles.Count + 1]);
     if Execute(true) then begin
       ReloadProfiles(Self);
       I := FindProfileByID(ProfileID, Profiles);

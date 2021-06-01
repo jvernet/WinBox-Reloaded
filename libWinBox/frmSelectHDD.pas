@@ -341,9 +341,9 @@ begin
   CDS.DisableControls;
 
   cbGyartoFilter.Clear;
-  cbGyartoFilter.Items.Add(_T('StrBármelyGyártó'));
+  cbGyartoFilter.Items.Add(_T('StrBarmelyGyarto'));
   cbCsatoloFilter.Clear;
-  cbCsatoloFilter.Items.Add(_T('StrBármelyCsatoló'));
+  cbCsatoloFilter.Items.Add(_T('StrBarmelyCsatolo'));
 
   List := TStringList.Create;
   try
@@ -359,7 +359,7 @@ begin
         ExtractStrings([';'],[], PChar(List[I]), Rec);
 
         if (Rec.Count >= 2) then
-          Rec[1] := StringReplace(Rec[1], StrSzabványos, _T('StrSzabványos'), []);
+          Rec[1] := StringReplace(Rec[1], StrSzabványos, _T('StrSzabvanyos'), []);
 
         if (Rec.Count >= 10) then begin
           if (cbGyartoFilter.Items.IndexOf(Rec[1]) = -1) then

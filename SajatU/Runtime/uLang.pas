@@ -116,7 +116,7 @@ begin
     FileName := '';
   end;
 
-  Language := TLanguage.Create(FileName);
+  Language := TLanguage.Create(FileName, TEncoding.UTF8);
 end;
 
 const

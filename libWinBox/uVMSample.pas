@@ -234,7 +234,7 @@ begin
         List := TStringList.Create;
         try
           Stream.Seek(0, soFromBeginning);
-          List.LoadFromStream(Stream);
+          List.LoadFromStream(Stream, TEncoding.UTF8);
           Data.SetStrings(List);
         finally
           List.Free;

@@ -119,12 +119,12 @@ begin
       if ((Caption <> Edit1.Text) or
            ((SubItems.Count > 0) and (Memo1.Text <> SubItems[0]))) and
          (Edit1.Text <> '') and (Memo1.Text <> '') and
-         (MessageBox(Handle, _P('StrMódosításokTörténte'),
+         (MessageBox(Handle, _P('StrModositasokTortente'),
            PChar(Application.Title), MB_YESNO or MB_ICONQUESTION) = mrYes) then
             Button10.Click;
     end
   else if (Edit1.Text <> '') and (Memo1.Text <> '') and
-          (MessageBox(Handle, _P('StrMódosításokTörténte'),
+          (MessageBox(Handle, _P('StrModositasokTortente'),
             PChar(Application.Title), MB_YESNO or MB_ICONQUESTION) = mrYes) then
               Button9.Click;
 
@@ -154,7 +154,7 @@ var
 begin
   SysUtils.ForceDirectories(Path.Text);
   Directory := ExcludeTrailingPathDelimiter(Path.Text);
-  if SelectDirectory(_T('StrVálasszaKiAzÚjVi'), '', Directory, [sdNewUI], Self) then
+  if SelectDirectory(_T('StrValasszaKiAzUjVi'), '', Directory, [sdNewUI], Self) then
     Path.Text := IncludeTrailingPathDelimiter(Directory);
 end;
 

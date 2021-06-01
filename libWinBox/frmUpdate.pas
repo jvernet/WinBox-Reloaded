@@ -125,7 +125,7 @@ end;
 
 procedure TUpdateForm.Button1Click(Sender: TObject);
 begin
-  if Button1.Caption = _T('StrKilépés') then
+  if Button1.Caption = _T('StrKilepes') then
     Close
   else
     InterlockedExchange(Updater.FCancelled, 1);
@@ -165,7 +165,7 @@ procedure TUpdateForm.FormShow(Sender: TObject);
 begin
   LogBox.Clear;
   Updater.FCancelled := 0;
-  Button1.Caption := _T('StrMegszakítás');
+  Button1.Caption := _T('StrMegszakitas');
 
   PostMessage(Handle, WM_USER, 0, 0);
   OnShow := nil;
@@ -205,6 +205,8 @@ procedure TUpdateForm.Translate;
 begin
   if Assigned(Language) then
     Language.Translate('UpdateFrm', Self);
+
+  Caption := Language.ReadString('UpdateFrm', 'UpdateForm_1', Caption);
 end;
 
 procedure TUpdateForm.WMStartup(var Msg: TMessage);
@@ -219,7 +221,7 @@ begin
   Result := FCancelled <> 0;
   if Result then begin
     Log(_T('StrAFolyamatotAFelha'));
-    FState := _T('StrÜresjárat');
+    FState := _T('StrUresjarat');
   end;
 end;
 
@@ -231,7 +233,7 @@ begin
 
   try
     FEmulator := TPath.GetTempFileName;
-    LogFmt(_T('StrAzEmulátorFájlaina'), [ExtractFileName(FEmulator)]);
+    LogFmt(_T('StrAzEmulatorFajlaina'), [ExtractFileName(FEmulator)]);
     Temp := jenkinsGetBuild(FRepositories[0], FBuild);
     if Temp = '' then begin
       Log(SysErrorMessage(ERROR_REM_NOT_LIST));
@@ -241,24 +243,24 @@ begin
     FProgress := FProgress + 1;
     FFileName := (ExtractFileName(FEmulator));
 
-    LogFmt(_T('StrROMképekLetöltése'), [Def86RomsRepo]);
+    LogFmt(_T('StrROMkepekLetoltese'), [Def86RomsRepo]);
     FRoms := TPath.GetTempFileName;
-    LogFmt(_T('StrROMképekFájlainak'), [ExtractFileName(FRoms)]);
+    LogFmt(_T('StrROMkepekFajlainak'), [ExtractFileName(FRoms)]);
     gitClone(Def86RomsRepo, FRoms);
     FProgress := FProgress + 1;
     FFileName := (ExtractFileName(FRoms));
 
     if FGetSource <> 0 then begin
-      LogFmt(_T('StrForráskódLetöltés2'), [Def86SrcRepo]);
+      LogFmt(_T('StrForraskodLetoltes2'), [Def86SrcRepo]);
       FSource := TPath.GetTempFileName;
-      LogFmt(_T('StrForráskódLetöltése'), [ExtractFileName(FSource)]);
+      LogFmt(_T('StrForraskodLetoltese'), [ExtractFileName(FSource)]);
       gitClone(Def86SrcRepo, FSource);
       FProgress := FProgress + 1;
       FFileName := (ExtractFileName(FSource));
     end;
   except
     on E: Exception do begin
-      Log(_T('StrHibaTörténtAFájl2'));
+      Log(_T('StrHibaTortentAFajl2'));
       Log(#9 + E.Message);
       Result := false;
       FFileName := ('-');
@@ -273,9 +275,9 @@ var
 begin
   Result := true;
   Root := ExtractFilePath(FPaths[0]);
-  Log(_T('StrAKorábbiVerzióElt'));
+  Log(_T('StrAKorabbiVerzioElt'));
   if DirectoryExists(Root) and not DeleteWithShell(ExcludeTrailingPathDelimiter(Root)) then begin
-    Log(_T('StrHibaTörténtAKoráb'));
+    Log(_T('StrHibaTortentAKorab'));
     exit(false);
   end;
   ForceDirectories(Root);
@@ -284,25 +286,25 @@ begin
     with TZipFile.Create do begin
       try
         OnProgress := OnZipProgress;
-        Log(_T('StrBinárisokKibontása'));
+        Log(_T('StrBinarisokKibontasa'));
         Open(FEmulator, zmRead);
         ExtractAll(Root);
-        LogFmt(_T('StrDFájlKibontva'), [length(FileInfos)]);
+        LogFmt(_T('StrDFajlKibontva'), [length(FileInfos)]);
         Close;
         FProgress := FProgress + 1;
 
-        Log(_T('StrROMképekKibontása'));
+        Log(_T('StrROMkepekKibontasa'));
         Open(FRoms, zmRead);
         ExtractAll(Root);
-        LogFmt(_T('StrDFájlKibontva'), [length(FileInfos)]);
+        LogFmt(_T('StrDFajlKibontva'), [length(FileInfos)]);
         Close;
         FProgress := FProgress + 1;
 
         if FGetSource <> 0 then begin
-          Log(_T('StrForráskódKibontása'));
+          Log(_T('StrForraskodKibontasa'));
           Open(FSource, zmRead);
           ExtractAll(Root);
-          LogFmt(_T('StrDFájlKibontva'), [length(FileInfos)]);
+          LogFmt(_T('StrDFajlKibontva'), [length(FileInfos)]);
           Close;
           FProgress := FProgress + 1;
         end;
@@ -311,22 +313,22 @@ begin
       end;
     end;
 
-    Log(_T('StrKönyvtárÁtnevezés2'));
+    Log(_T('StrKonyvtarAtnevezes2'));
     if not RenameFile(Root + 'roms-master', Root + 'roms') then begin
-      Log(_T('StrÁtnevezésKözbenHib'));
+      Log(_T('StrAtnevezesKozbenHib'));
       Result := false;
     end;
 
     if FGetSource <> 0 then begin
-      Log(_T('StrKönyvtárÁtnevezése'));
+      Log(_T('StrKonyvtarAtnevezese'));
       if not RenameFile(Root + '86box-master', Root + 'source') then begin
-        Log(_T('StrÁtnevezésKözbenHib'));
+        Log(_T('StrAtnevezesKozbenHib'));
         Result := false;
       end;
     end;
   except
     on E: Exception do begin
-      Log(_T('StrHibaTörténtAFájlo'));
+      Log(_T('StrHibaTortentAFajlo'));
       Log(#9 + E.Message);
       FFileName := ('-');
       Result := false;
@@ -343,19 +345,19 @@ begin
   if FileExists(FPaths[0]) then begin
     DateLocal := GetFileTime(FPaths[0]);
     if DateLocal = 0 then
-      Result := MessageBox(_T('StrAJelenlegiVerzióN'), MB_ICONQUESTION or MB_YESNO) = mrYes
+      Result := MessageBox(_T('StrAJelenlegiVerzioN'), MB_ICONQUESTION or MB_YESNO) = mrYes
     else begin
-      LogFmt(_T('StrJelenlegiVerzióS'), [DateTimeToStr(DateLocal)]);
-      LogFmt(_T('StrLegfrisebbVerzióKe'), [FRepositories[0]]);
+      LogFmt(_T('StrJelenlegiVerzioS'), [DateTimeToStr(DateLocal)]);
+      LogFmt(_T('StrLegfrisebbVerzioKe'), [FRepositories[0]]);
       try
          FBuild := jenkinsLastBuild(FRepositories[0]);
          if FBuild <> -1 then begin
            DateOnline := jenkinsGetDate(FRepositories[0], FBuild);
-           LogFmt(_T('StrElérhetõVerzióS'), [DateTimeToStr(DateOnline)]);
+           LogFmt(_T('StrElerhetoVerzioS'), [DateTimeToStr(DateOnline)]);
            Result := CompareDate(DateLocal, DateOnline) < 0;
            if not Result then begin
              Result := (FMode = 1) and (MessageBox(
-               _T('StrATelepítettVerzió'),
+               _T('StrATelepitettVerzio'),
                MB_ICONWARNING or MB_YESNO) = mrYes);
              if not Result then begin
                FCancelled := 1;
@@ -363,10 +365,10 @@ begin
              end;
            end
            else with jenkinsGetChangelog(FRepositories[0], FBuild) do begin
-             Log(_T('StrLegfrisebbVáltozáso'));
+             Log(_T('StrLegfrisebbValtozaso'));
              for I := 0 to Count - 1 do
                Log(#9 + Strings[I]);
-             Result := MessageBoxFmt(_T('StrFrissítésElérhetõ'),
+             Result := MessageBoxFmt(_T('StrFrissitesElerheto'),
                  [FBuild, DateTimeToStr(DateOnline)],
                  MB_ICONQUESTION or MB_YESNO) = mrYes;
              if not Result then begin
@@ -396,22 +398,22 @@ end;
 procedure TUpdateThread.Execute;
 begin
   repeat
-    FState := (_T('StrVerziókEllenõrzése'));
+    FState := (_T('StrVerziokEllenorzese'));
     if not VersionCheck then break;
     if CheckCancel then break;
 
-    FState := (_T('StrFájlokLetöltése'));
+    FState := (_T('StrFajlokLetoltese'));
     Application.ProcessMessages;
     if not Download then break;
     if CheckCancel then break;
 
-    FState := (_T('StrFájlokKibontása'));
+    FState := (_T('StrFajlokKibontasa'));
     if not Extract then break;
     break;
   until false;
 
-  FState := (_T('StrÜresjárat'));
-  Log(_T('StrIdeiglenesFájlokEl'));
+  FState := (_T('StrUresjarat'));
+  Log(_T('StrIdeiglenesFajlokEl'));
   if FileExists(FEmulator) then
     DeleteFile(FEmulator);
   if FileExists(FRoms) then
@@ -429,7 +431,7 @@ begin
   else
     Synchronize(procedure
                 begin
-                  Form.Button1.Caption := _T('StrKilépés');
+                  Form.Button1.Caption := _T('StrKilepes');
                 end);
 
   Terminate;

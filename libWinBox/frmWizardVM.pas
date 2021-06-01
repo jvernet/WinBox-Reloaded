@@ -255,7 +255,7 @@ var
 begin
   SysUtils.ForceDirectories(Path.Text);
   Directory := ExcludeTrailingPathDelimiter(Path.Text);
-  if SelectDirectory(_T('StrVálasszaKiAHaszná'), '', Directory, [sdNewUI], Self) then
+  if SelectDirectory(_T('StrValasszaKiAHaszna'), '', Directory, [sdNewUI], Self) then
     Path.Text := IncludeTrailingPathDelimiter(Directory);
 end;
 

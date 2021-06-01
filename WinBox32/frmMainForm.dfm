@@ -2,7 +2,7 @@ object WinBoxMain: TWinBoxMain
   Left = 0
   Top = 0
   Caption = 'WinBox Reloaded'
-  ClientHeight = 397
+  ClientHeight = 377
   ClientWidth = 670
   Color = clBtnFace
   DoubleBuffered = True
@@ -20,7 +20,7 @@ object WinBoxMain: TWinBoxMain
   object Splitter: TSplitter
     Left = 209
     Top = 104
-    Height = 274
+    Height = 254
     ExplicitLeft = 192
     ExplicitTop = -126
     ExplicitHeight = 426
@@ -30,7 +30,7 @@ object WinBoxMain: TWinBoxMain
     Left = 3
     Top = 107
     Width = 206
-    Height = 268
+    Height = 248
     Margins.Right = 0
     Style = lbOwnerDrawFixed
     Align = alLeft
@@ -44,7 +44,7 @@ object WinBoxMain: TWinBoxMain
     Left = 212
     Top = 104
     Width = 458
-    Height = 274
+    Height = 254
     ActivePage = tabPerfMon
     Align = alClient
     TabOrder = 1
@@ -56,12 +56,12 @@ object WinBoxMain: TWinBoxMain
       ExplicitHeight = 0
       DesignSize = (
         450
-        246)
+        226)
       object Label10: TLabel
         Left = 19
         Top = 38
         Width = 255
-        Height = 198
+        Height = 178
         Anchors = [akLeft, akTop, akRight, akBottom]
         AutoSize = False
         Caption = 
@@ -108,7 +108,7 @@ object WinBoxMain: TWinBoxMain
         Left = 10
         Top = 10
         Width = 430
-        Height = 179
+        Height = 159
         Margins.Left = 10
         Margins.Top = 10
         Margins.Right = 10
@@ -220,7 +220,7 @@ object WinBoxMain: TWinBoxMain
             Left = 0
             Top = 0
             Width = 422
-            Height = 151
+            Height = 131
             Legend.CheckBoxes = True
             Title.Text.Strings = (
               'Az egyidej'#369'leg fut'#243' virtu'#225'lis g'#233'pek sz'#225'ma')
@@ -258,7 +258,7 @@ object WinBoxMain: TWinBoxMain
       end
       object pnpBottom: TPanel
         Left = 0
-        Top = 199
+        Top = 179
         Width = 450
         Height = 47
         Align = alBottom
@@ -341,7 +341,7 @@ object WinBoxMain: TWinBoxMain
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 378
+    Top = 358
     Width = 670
     Height = 19
     Panels = <>

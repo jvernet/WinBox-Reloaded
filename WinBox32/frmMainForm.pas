@@ -204,7 +204,7 @@ begin
 
   pbRAM.Position := Round(SumRAM);
   ColorProgress(pbRAM);
-  lbHRAM.Caption := _T('StrMemória1fS', [SumRAM, FileSizeToStr(SumBytesOfRAM, 2)]);
+  lbHRAM.Caption := _T('StrMemoria1fS', [SumRAM, FileSizeToStr(SumBytesOfRAM, 2)]);
 
   List.Invalidate;
   if Pages.ActivePageIndex > 1 then

@@ -198,7 +198,7 @@ begin
       2: begin
            if (Edit1.Text = '') or (DirectoryExists(Edit1.Text)) then
              raise Exception.Create(SysErrorMessage(ERROR_PATH_NOT_FOUND));
-           if FileExists(Edit1.Text) and (MessageBox(Handle, _P('StrAMegadottHelyenMá'),
+           if FileExists(Edit1.Text) and (MessageBox(Handle, _P('StrAMegadottHelyenMa'),
               PChar(StrWinBox), MB_YESNO or MB_ICONWARNING) <> mrYes) then exit;
            case ComboBox1.ItemIndex of
              2: PageControl1.ActivePageIndex := PageControl1.ActivePageIndex + 1;
@@ -675,7 +675,7 @@ begin
       Result := CreateRealFile
     else begin
       Result := CreateSparseFile;
-      if not Result and (MessageBox(Handle, _P('StrAKötetNemTámogatj'), PChar(StrWinBox),
+      if not Result and (MessageBox(Handle, _P('StrAKotetNemTamogatj'), PChar(StrWinBox),
         MB_YESNO or MB_ICONQUESTION) = mrYes) then
           Result := CreateRealFile;
     end;

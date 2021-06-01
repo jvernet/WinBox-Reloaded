@@ -59,6 +59,10 @@ object WizardHDD: TWizardHDD
     object TabSheet1: TTabSheet
       Caption = 'TabSheet1'
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -97,8 +101,6 @@ object WizardHDD: TWizardHDD
       Caption = 'TabSheet7'
       ImageIndex = 6
       TabVisible = False
-      ExplicitTop = 24
-      ExplicitHeight = 235
       object Label28: TLabel
         Left = 16
         Top = 16
@@ -190,6 +192,10 @@ object WizardHDD: TWizardHDD
       Caption = 'TabSheet2'
       ImageIndex = 1
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -641,6 +647,10 @@ object WizardHDD: TWizardHDD
       Caption = 'TabSheet3'
       ImageIndex = 2
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -791,6 +801,10 @@ object WizardHDD: TWizardHDD
       Caption = 'TabSheet4'
       ImageIndex = 3
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -938,6 +952,10 @@ object WizardHDD: TWizardHDD
       ImageIndex = 4
       TabVisible = False
       OnShow = TabSheet5Show
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -1364,6 +1382,10 @@ object WizardHDD: TWizardHDD
       ImageIndex = 5
       ParentDoubleBuffered = False
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
   end
   object Button1: TButton
