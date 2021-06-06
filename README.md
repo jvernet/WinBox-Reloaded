@@ -24,7 +24,7 @@ The program currently has 2 languages supported (yet):
 If you want to add your language to the supported list, you can find the language files under the Translations folder.
 These files are simple UTF-8 encoded C-style escape sequenced INI-files, can be created by any kind of text editor. 
 
-If you want to translate the progam to your language, and got stock, feel free to ask questions.
+If you want to translate the progam to your language, and got stuck, feel free to ask questions.
 Add your new language as a pull request and I will include it with the next release.
 
 The program is written in Delphi 10.3.
