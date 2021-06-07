@@ -1,13 +1,13 @@
 [General]
-Manufacturer=(Általános PC)
-Description=Intel Pentium II alapú PCI/AGP rendszer
+Manufacturer=(ÃltalÃ¡nos PC)
+Description=Intel Pentium II alapÃº PCI/AGP rendszer
 Year=2002
 Type=86Box
 ConfigFile=86box.cfg
 Option0=&Processzor:|Intel Celeron (133 MHz)=p133|Intel Pentium II (233 MHz)=p233|VIA Cyrix III (300 MHz)=p300
-Option1=&Memória:|Machine.mem_size
-Option2=&Kiépítés:|3D-multimédia kiépítés=multi|Hálózati kiépítés=netw|Teljes kiépítés=full|Alapkiépítés=basic
-Option3=&Nyomtató:|Ports (COM & LPT).lpt1_device
+Option1=&MemÃ³ria:|Machine.mem_size
+Option2=&KiÃ©pÃ­tÃ©s:|3D-multimÃ©dia kiÃ©pÃ­tÃ©s=multi|HÃ¡lÃ³zati kiÃ©pÃ­tÃ©s=netw|Teljes kiÃ©pÃ­tÃ©s=full|AlapkiÃ©pÃ­tÃ©s=basic
+Option3=&NyomtatÃ³:|Ports (COM & LPT).lpt1_device
 DescOfCDROM=52x ATAPI
 SupportedOS=Windows XP, Windows 2000, Windows ME, OS/2 Warp 4, Linux
 

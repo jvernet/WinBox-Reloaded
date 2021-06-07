@@ -1,13 +1,13 @@
 [General]
-Manufacturer=(Általános PC)
-Description=Intel Pentium Pro alapú PCI rendszer
+Manufacturer=(ÃltalÃ¡nos PC)
+Description=Intel Pentium Pro alapÃº PCI rendszer
 Year=1999
 Type=86Box
 ConfigFile=86box.cfg
 Option0=&Processzor:|Intel Pentium Pro (90 MHz)=p90|Intel Pentium Pro (166 MHz)=p166|Intel Pentium II OverDrive (233 MHz)=p233
-Option1=&Memória:|Machine.mem_size
-Option2=&Kiépítés:|3D-multimédia kiépítés=multi|Hálózati kiépítés=netw|Teljes kiépítés=full|Alapkiépítés=basic
-Option3=&Nyomtató:|Ports (COM & LPT).lpt1_device
+Option1=&MemÃ³ria:|Machine.mem_size
+Option2=&KiÃ©pÃ­tÃ©s:|3D-multimÃ©dia kiÃ©pÃ­tÃ©s=multi|HÃ¡lÃ³zati kiÃ©pÃ­tÃ©s=netw|Teljes kiÃ©pÃ­tÃ©s=full|AlapkiÃ©pÃ­tÃ©s=basic
+Option3=&NyomtatÃ³:|Ports (COM & LPT).lpt1_device
 DescOfCDROM=48x ATAPI
 SupportedOS=Windows ME, Windows 2000, Windows 98 Second Editon, OS/2 Warp 4, Linux
 
@@ -52,7 +52,7 @@ Sound.sndcard=sbawe32_pnp
 EPSON LQ-2500=dot_matrix
 Apple LaserWriter IIf=postscript
 Apple Color LW 12/660 PS=postscript
-Szöveges mátrixnyomtató=text_prt
+SzÃ¶veges mÃ¡trixnyomtatÃ³=text_prt
 (Nincs)=none
 
 [HDD]

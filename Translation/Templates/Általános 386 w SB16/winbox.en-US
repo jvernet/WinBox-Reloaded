@@ -10,8 +10,8 @@ Option2=&Video memory:|Trident TVGA 8900D.memory
 Option3=&Printer:|Ports (COM & LPT).lpt1_device
 OptionCDROM=0
 DescOfCDROM=4x ATAPI
-NoteForCDROM=Contemporary hard drives don’t like it.
-SupportedOS=MS-DOS 3.30-6.22, korai Windows-verziók, OS/2 1.x, Windows 3.x, OS/2 2.x, Linux
+NoteForCDROM=Contemporary hard drives donâ€™t like it.
+SupportedOS=MS-DOS 3.30-6.22, early Windows versions, OS/2 1.x, Windows 3.x, OS/2 2.x, Linux
 
 [Option0]
 8 MB=8192
@@ -49,5 +49,5 @@ Floppy and CD-ROM drives.cdrom_01_parameters = 1, atapi
 Floppy and CD-ROM drives.cdrom_01_atapi_channel = 0:1
 
 [RenameFiles]
-Dokumentáció=Documentation
-Floppy lemezképek=Floppy disk images
+DokumentÃ¡ciÃ³=Documentation
+Floppy lemezkÃ©pek=Floppy disk images

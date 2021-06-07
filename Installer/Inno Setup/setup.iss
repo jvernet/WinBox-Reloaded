@@ -43,7 +43,7 @@ Name: "hungarian"; MessagesFile: "compiler:Languages\Hungarian.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "Win64\WinBox64.exe"; DestDir: "{app}"; Flags: ignoreversion; Check: Is64BitInstallMode       
+Source: "Win64\WinBox32.exe"; DestDir: "{app}"; DestName: "WinBox64.exe"; Flags: ignoreversion; Check: Is64BitInstallMode       
 Source: "Win64\*"; DestDir: "{app}"; Flags: ignoreversion; Check: Is64BitInstallMode          
 Source: "Win32\WinBox32.exe"; DestDir: "{app}"; Flags: ignoreversion; Check: not Is64BitInstallMode       
 Source: "Win32\*"; DestDir: "{app}"; Flags: ignoreversion; Check: not Is64BitInstallMode   

@@ -4,10 +4,10 @@ Description=IBM PCjr
 Type=86Box
 Year=1983
 ConfigFile=86box.cfg
-Option0=&CPU sebessÈg:|Machine.cpu_speed
-Option1=&MemÛria:|Machine.mem_size
-Option2=&Videok·rtya:|Video.gfxcard
-Option3=&MegjelenÌtı:|IBM PCjr.display_type
+Option0=&CPU sebess√©g:|Machine.cpu_speed
+Option1=&Mem√≥ria:|Machine.mem_size
+Option2=&Videok√°rtya:|Video.gfxcard
+Option3=&Megjelen√≠t≈ë:|IBM PCjr.display_type
 SupportedOS=ROM PC-DOS 2.10
 
 [Option0]
@@ -26,4 +26,4 @@ IBM PCjr=internal
 
 [Option3]
 Monitor (RGBI)=0
-TelevÌziÛ (NTSC)=1
+Telev√≠zi√≥ (NTSC)=1

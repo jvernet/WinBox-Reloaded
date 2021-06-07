@@ -1,16 +1,16 @@
 [General]
-Manufacturer=(¡ltal·nos PC)
-Description=H·lÛzati 386-alap˙ rendszer
+Manufacturer=(√Åltal√°nos PC)
+Description=H√°l√≥zati 386-alap√∫ rendszer
 Year=1990
 Type=86Box
 ConfigFile=86box.cfg
-Option0=&MemÛria:|Machine.mem_size
-Option1=&FPU-egysÈg:|Machine.fpu_type
-Option2=&VideomemÛria:|Trident TVGA 8900D.memory
-Option3=&NyomtatÛ:|Ports (COM & LPT).lpt1_device
+Option0=&Mem√≥ria:|Machine.mem_size
+Option1=&FPU-egys√©g:|Machine.fpu_type
+Option2=&Videomem√≥ria:|Trident TVGA 8900D.memory
+Option3=&Nyomtat√≥:|Ports (COM & LPT).lpt1_device
 OptionCDROM=0
 DescOfCDROM=4x SCSI
-NoteForCDROM=CsatolÛ: BusLogic BT-545S (ISA)
+NoteForCDROM=Csatol√≥: BusLogic BT-545S (ISA)
 SupportedOS=MS-DOS 3.30-6.22, Windows for Workgroups 3.x, OS/2 2.x, Windows NT 3.x, Linux
 
 [Option0]
@@ -33,7 +33,7 @@ Intel 80387=387
 EPSON LQ-2500=dot_matrix
 Apple LaserWriter IIf=postscript
 Apple Color LW 12/660 PS=postscript
-Szˆveges m·trixnyomtatÛ=text_prt
+Sz√∂veges m√°trixnyomtat√≥=text_prt
 (Nincs)=none
 
 [HDD]

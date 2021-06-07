@@ -4,10 +4,10 @@ Description=IBM PC/XT (1982)
 Year=1982
 Type=86Box
 ConfigFile=86box.cfg
-Option0=&CPU sebess間:|Machine.cpu_speed
-Option1=&Mem髍ia:|256 kB=lo|384 kB=ems1|512 kB=ems2
-Option2=&Videok醨tya:|Video.gfxcard
-Option3=Mo&nitor t韕usa:|General.video_grayscale
+Option0=&CPU sebess茅g:|Machine.cpu_speed
+Option1=&Mem贸ria:|256 kB=lo|384 kB=ems1|512 kB=ems2
+Option2=&Videok谩rtya:|Video.gfxcard
+Option3=Mo&nitor t铆pusa:|General.video_grayscale
 SupportedOS=PC DOS 2.0-3.20, CP/M-86, UCSD-P, IBM BASIC, PC/IX, SCO Xenix, Minix
 
 [Option0]
@@ -31,10 +31,10 @@ Hercules Graphics Controller (HGC)=hercules
 Professional Graphics Controller (PGC)=pgc
 
 [Option3]
-Sz韓es (RGBI)=0
-Monokr髆 (gy鰉b閞)=2
-Monokr髆 (z鰈d)=3
-Monokr髆 (feh閞)=4
+Sz铆nes (RGBI)=0
+Monokr贸m (gy枚mb茅r)=2
+Monokr贸m (z枚ld)=3
+Monokr贸m (feh茅r)=4
 
 [HDD]
 Connector=MFM

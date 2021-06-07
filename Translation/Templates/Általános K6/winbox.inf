@@ -1,13 +1,13 @@
 [General]
-Manufacturer=(Általános PC)
-Description=AMD K6 alapú PCI rendszer
+Manufacturer=(ÃltalÃ¡nos PC)
+Description=AMD K6 alapÃº PCI rendszer
 Year=1998
 Type=86Box
 ConfigFile=86box.cfg
 Option0=&Processzor:|AMD K6 (166 MHz)=k6|AMD K6-2 (233 MHz)=k62|AMD K6-III+ (400 MHz)=k63
-Option1=&Memória:|Machine.mem_size
-Option2=&Kiépítés:|3D-multimédia kiépítés=multi|Hálózati kiépítés=netw|Teljes kiépítés=full|Alapkiépítés=basic
-Option3=&Nyomtató:|Ports (COM & LPT).lpt1_device
+Option1=&MemÃ³ria:|Machine.mem_size
+Option2=&KiÃ©pÃ­tÃ©s:|3D-multimÃ©dia kiÃ©pÃ­tÃ©s=multi|HÃ¡lÃ³zati kiÃ©pÃ­tÃ©s=netw|Teljes kiÃ©pÃ­tÃ©s=full|AlapkiÃ©pÃ­tÃ©s=basic
+Option3=&NyomtatÃ³:|Ports (COM & LPT).lpt1_device
 DescOfCDROM=32x ATAPI
 SupportedOS=Windows ME, Windows 2000, Windows 98 Second Editon, OS/2 Warp 4, Linux
 
@@ -54,7 +54,7 @@ Sound.sndcard=sbawe32_pnp
 Apple LaserWriter IIf=postscript
 Apple Color LW 12/660 PS=postscript
 EPSON LQ-2500=dot_matrix
-Szöveges mátrixnyomtató=text_prt
+SzÃ¶veges mÃ¡trixnyomtatÃ³=text_prt
 (Nincs)=none
 
 [HDD]

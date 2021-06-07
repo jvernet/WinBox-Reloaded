@@ -1,13 +1,13 @@
 [General]
-Manufacturer=(¡ltal·nos PC)
-Description=¡ltal·nos PC/XT kompatibilis
+Manufacturer=(√Åltal√°nos PC)
+Description=√Åltal√°nos PC/XT kompatibilis
 Year=1983
 Type=86Box
 ConfigFile=86box.cfg
-Option0=&CPU sebessÈg:|Machine.cpu_speed
-Option1=&MemÛria:|Machine.mem_size
-Option2=&Videok·rtya:|Video.gfxcard
-Option3=Mo&nitor tÌpusa:|General.video_grayscale
+Option0=&CPU sebess√©g:|Machine.cpu_speed
+Option1=&Mem√≥ria:|Machine.mem_size
+Option2=&Videok√°rtya:|Video.gfxcard
+Option3=Mo&nitor t√≠pusa:|General.video_grayscale
 SupportedOS=DOS, CP/M-86, UCSD-P, IBM BASIC, PC DOS 2.0-3.20, PC/IX, SCO Xenix, Minix
 
 [Option0]
@@ -29,10 +29,10 @@ Hercules Graphics Controller (HGC)=hercules
 Professional Graphics Controller (PGC)=pgc
 
 [Option3]
-SzÌnes (RGBI)=0
-MonokrÛm (gyˆmbÈr)=2
-MonokrÛm (zˆld)=3
-MonokrÛm (fehÈr)=4
+Sz√≠nes (RGBI)=0
+Monokr√≥m (gy√∂mb√©r)=2
+Monokr√≥m (z√∂ld)=3
+Monokr√≥m (feh√©r)=4
 
 [HDD]
 Connector=MFM
