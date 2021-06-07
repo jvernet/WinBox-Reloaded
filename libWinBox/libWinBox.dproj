@@ -6,7 +6,7 @@
         <MainSource>libWinBox.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Release</Config>
-        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <Platform Condition="'$(Platform)'==''">Win64</Platform>
         <TargetedPlatforms>3</TargetedPlatforms>
         <AppType>Library</AppType>
     </PropertyGroup>
@@ -131,8 +131,9 @@
         <VerInfo_Locale>1038</VerInfo_Locale>
         <Manifest_File>(None)</Manifest_File>
         <VerInfo_MinorVer>1</VerInfo_MinorVer>
-        <VerInfo_Keys>CompanyName=Laci bá&apos;;FileDescription=WinBox Reloaded;FileVersion=1.1.0.0;InternalName=libWinBox;LegalCopyright=Laci bá&apos;;LegalTrademarks=Laci bá&apos;;OriginalFilename=libWinBox.dll;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.1.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Laci bá&apos;;FileDescription=WinBox Reloaded;FileVersion=1.1.2.0;InternalName=libWinBox;LegalCopyright=Laci bá&apos;;LegalTrademarks=Laci bá&apos;;OriginalFilename=libWinBox.dll;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.1.0.0;Comments=</VerInfo_Keys>
         <VerInfo_DLL>true</VerInfo_DLL>
+        <VerInfo_Release>2</VerInfo_Release>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">

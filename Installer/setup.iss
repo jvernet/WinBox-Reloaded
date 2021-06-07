@@ -32,7 +32,7 @@ WizardSmallImageFile=logo.bmp
 WizardImageStretch=true
 SolidCompression=yes
 WizardStyle=modern
-VersionInfoVersion=1.1.0.0
+VersionInfoVersion=1.12.0.0
 ArchitecturesInstallIn64BitMode=x64
 
 [Languages]
@@ -41,6 +41,10 @@ Name: "hungarian"; MessagesFile: "compiler:Languages\Hungarian.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+
+[InstallDelete]                        
+Type: filesandordirs; Name: "{app}\Samples"
+Type: filesandordirs; Name: "{app}\Templates"     
 
 [Files]
 Source: "Win64\Release\WinBox32.exe"; DestDir: "{app}"; DestName: "WinBox64.exe"; Flags: ignoreversion; Check: Is64BitInstallMode       
