@@ -1,4 +1,4 @@
-﻿[Actions]
+[Actions]
 acWorkDir=&Open Working Directory...
 acPrinterDir=Open Printer &Tray...
 acScreenshotDir=Open &Screenshots...
@@ -65,6 +65,7 @@ Naplzsafolyamat1=Log the &Profile Assignments
 Folyamatlistakiratsa1=&Dump process list
 Nyelvifjlksztse1=Create &Language File
 Nvdefinciklekrse1=Create Na&me &Definition File
+Programnyelvneklekrdezse1=&Query Program Language...
 Rendszernyelvneklekrdezse1=Query &System Language...
 Sg1=&Help
 
@@ -184,6 +185,35 @@ Button9=&Add
 Button7=&Clear
 Button6=&Delete
 Button10=&Modify
+TabSheet3=86Box VMs
+GroupBox5=Appearance of new VMs
+Label9=Here you can specify the appearance of new 86Box VMs. Later this can be customized per machine.
+Label10=Fixed scaled window (e.g. 960x720) and 4:3 aspect ratio in full screen.
+Label11=&Full screen scaling: 
+Label12=&Window scaling mode:
+RadioButton1=&Default appearance settings
+RadioButton2=&Custom scaling settings
+CheckListBox1.Items[0]=Force 4:3 aspect ratio
+CheckListBox1.Items[1]=Enable overscan (e.g. EGA/VGA)
+CheckListBox1.Items[2]=Apply system's DPI scaling
+CheckListBox1.Items[3]=Use linear filtering (if possible)
+CheckListBox1.Items[4]=Adjust contrast (for mononchrome)
+CheckListBox1.Items[5]=Update status bar icons
+CheckListBox1.Items[6]=Request exit confirmation 
+CheckListBox1.Items[7]=Enable Discord support
+ComboBox2.Items[0]=Stretch
+ComboBox2.Items[1]=Fixed 4:3 aspect ratio 
+ComboBox2.Items[2]=Keep original aspect ratio
+ComboBox2.Items[3]=Only integer magnification
+ComboBox3.Items[0]=According to the current resolution
+ComboBox3.Items[1]=Freely resizable
+ComboBox3.Items[2]=Fixed resolution from the template
+ComboBox3.Items[3]=Reduce display by 0.5x 
+ComboBox3.Items[4]=Magnify display by 1.5x
+ComboBox3.Items[5]=Magnify display by 2x
+RadioButton3=&Manually entered settings
+Button12=Load from &file...
+RadioButton4=&Do not create display settings 
 Button1=&Cancel
 Button2=&OK
 
@@ -331,9 +361,12 @@ SaveDialog1=Raw Hard Disk Images (*.im?)|*.im?|All files (*.*)|*.*
 SaveDialog1_VHD=Virtual Hard Disks (*.vhd)|*.vhd|All files (*.*)|*.*
 SaveDialog2=Log files (*.log)|*.log|Text files (*.txt)|*.txt|All files (*.*)|*.*
 OpenExeDialog=Executable files (*.exe; *.bat; *.cmd; *.com)|*.exe;*.bat;*.cmd;*.com|All files (*.*)|*.*
+Open86BoxDlg=86Box configuration files (86box.cfg)|86box.cfg|All files (*.*)|*.*
 OpenPicDlg=Supported formats (*.bmp; *.gif; *.jpeg; *.jpg; *.exif; *.png; *.tif; *.tiff)|*.bmp; *.gif; *.jpeg; *.jpg; *.exif; *.png; *.tif; *.tiff|Bitmaps (*.bmp)|*.bmp|GIF-images (*.gif)|*.gif|JPEG-images (*.jpg; *.jpeg)|*.jpg;*.jpeg|EXIF-images (*.exif)|*.exif|PNG-images (*.png)|*.png|TIFF-images (*.tif; *.tiff)|*.tif; *.tiff|All files (*.*)|*.*
 SaveBmp=Bitmaps (*.bmp)|*.bmp|All files (*.*)|*.*
 SaveEmf=Metafiles (*.emf; *.wmf)|*.emf;*.wmf|All files (*.*)|*.*
+
+EOpenConfigLocked=The file you wanted to open ("%s") is used by another program.
 
 ChartCPU=Processor load caused by the Virtual Machines
 ChartCPU_X=Time [s]

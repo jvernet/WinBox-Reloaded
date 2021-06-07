@@ -2,7 +2,7 @@ object WinBoxMain: TWinBoxMain
   Left = 0
   Top = 0
   Caption = 'WinBox Reloaded'
-  ClientHeight = 377
+  ClientHeight = 337
   ClientWidth = 670
   Color = clBtnFace
   DoubleBuffered = True
@@ -20,7 +20,7 @@ object WinBoxMain: TWinBoxMain
   object Splitter: TSplitter
     Left = 209
     Top = 104
-    Height = 254
+    Height = 214
     ExplicitLeft = 192
     ExplicitTop = -126
     ExplicitHeight = 426
@@ -30,7 +30,7 @@ object WinBoxMain: TWinBoxMain
     Left = 3
     Top = 107
     Width = 206
-    Height = 248
+    Height = 208
     Margins.Right = 0
     Style = lbOwnerDrawFixed
     Align = alLeft
@@ -44,24 +44,20 @@ object WinBoxMain: TWinBoxMain
     Left = 212
     Top = 104
     Width = 458
-    Height = 254
+    Height = 214
     ActivePage = tabPerfMon
     Align = alClient
     TabOrder = 1
     object tabHome: TTabSheet
       Caption = 'Kezd'#337'lap'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         450
-        226)
+        186)
       object Label10: TLabel
         Left = 19
         Top = 38
         Width = 255
-        Height = 178
+        Height = 138
         Anchors = [akLeft, akTop, akRight, akBottom]
         AutoSize = False
         Caption = 
@@ -108,7 +104,7 @@ object WinBoxMain: TWinBoxMain
         Left = 10
         Top = 10
         Width = 430
-        Height = 159
+        Height = 119
         Margins.Left = 10
         Margins.Top = 10
         Margins.Right = 10
@@ -118,15 +114,11 @@ object WinBoxMain: TWinBoxMain
         TabOrder = 0
         object TabSheet4: TTabSheet
           Caption = 'Gazdag'#233'p processzor'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ChartCPU: TChart
             Left = 0
             Top = 0
             Width = 422
-            Height = 82
+            Height = 91
             Legend.CheckBoxes = True
             Title.Text.Strings = (
               'A virtu'#225'lis g'#233'pek okozta processzorterhel'#233's a gazdag'#233'pen')
@@ -167,15 +159,11 @@ object WinBoxMain: TWinBoxMain
         object TabSheet5: TTabSheet
           Caption = 'Gazdag'#233'p mem'#243'ria'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ChartRAM: TChart
             Left = 0
             Top = 0
             Width = 422
-            Height = 82
+            Height = 91
             Legend.CheckBoxes = True
             Title.Text.Strings = (
               'A virtu'#225'lis g'#233'pek '#225'ltal haszn'#225'lt mem'#243'ria a gazdag'#233'pen')
@@ -220,7 +208,7 @@ object WinBoxMain: TWinBoxMain
             Left = 0
             Top = 0
             Width = 422
-            Height = 131
+            Height = 91
             Legend.CheckBoxes = True
             Title.Text.Strings = (
               'Az egyidej'#369'leg fut'#243' virtu'#225'lis g'#233'pek sz'#225'ma')
@@ -258,7 +246,7 @@ object WinBoxMain: TWinBoxMain
       end
       object pnpBottom: TPanel
         Left = 0
-        Top = 179
+        Top = 139
         Width = 450
         Height = 47
         Align = alBottom
@@ -325,23 +313,15 @@ object WinBoxMain: TWinBoxMain
     object tab86Box: TTabSheet
       Caption = '86Box VM-ek'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
     end
     object TabSheet1: TTabSheet
       Caption = 'Egy'#233'b VM-ek'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
     end
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 358
+    Top = 318
     Width = 670
     Height = 19
     Panels = <>

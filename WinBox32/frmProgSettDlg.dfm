@@ -25,16 +25,12 @@ object ProgSettDlg: TProgSettDlg
     Top = 8
     Width = 435
     Height = 431
-    ActivePage = TabSheet1
+    ActivePage = TabSheet3
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
     object TabSheet2: TTabSheet
       Caption = 'Alapvet'#337
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         427
         403)
@@ -202,19 +198,199 @@ object ProgSettDlg: TProgSettDlg
         end
       end
     end
+    object TabSheet3: TTabSheet
+      Caption = '86Box VM-ek'
+      ImageIndex = 2
+      object GroupBox5: TGroupBox
+        Left = 13
+        Top = 8
+        Width = 402
+        Height = 386
+        Caption = #218'j g'#233'pek megjelen'#233'se'
+        TabOrder = 0
+        object Image4: TImage
+          Left = 20
+          Top = 24
+          Width = 32
+          Height = 32
+        end
+        object Label8: TLabel
+          Left = 64
+          Top = 24
+          Width = 321
+          Height = 41
+          AutoSize = False
+          WordWrap = True
+        end
+        object Label9: TLabel
+          Left = 64
+          Top = 24
+          Width = 321
+          Height = 41
+          AutoSize = False
+          Caption = 
+            'Itt megadhatja hogy '#250'j 86Box g'#233'pek milyen megjelen'#233'ssel legyenek' +
+            ' l'#233'trehozva. Ez k'#233's'#337'bb szem'#233'lyre szabhat'#243' g'#233'penk'#233'nt.'
+          WordWrap = True
+        end
+        object Label10: TLabel
+          Left = 32
+          Top = 94
+          Width = 353
+          Height = 35
+          AutoSize = False
+          Caption = 
+            'Fix m'#233'retez'#233's'#369' ablak (pl. 960x720), '#233's 4:3 k'#233'par'#225'ny teljes k'#233'per' +
+            'ny'#337'n. '
+          WordWrap = True
+        end
+        object Label11: TLabel
+          Left = 32
+          Top = 237
+          Width = 141
+          Height = 13
+          Caption = '&Teljes k'#233'perny'#337's m'#233'retez'#233's: '
+          FocusControl = ComboBox2
+        end
+        object Label12: TLabel
+          Left = 32
+          Top = 211
+          Width = 108
+          Height = 13
+          Caption = '&Ablak m'#233'retez'#233'si m'#243'd:'
+          FocusControl = ComboBox1
+        end
+        object RadioButton1: TRadioButton
+          Left = 18
+          Top = 71
+          Width = 367
+          Height = 17
+          Caption = '&Alap'#233'rtelmezett megjelent'#237't'#233'si be'#225'll'#237't'#225'sok'
+          TabOrder = 0
+          OnClick = UpdateAppearancePage
+        end
+        object RadioButton2: TRadioButton
+          Left = 18
+          Top = 120
+          Width = 183
+          Height = 17
+          Caption = '&Egy'#233'ni m'#233'retez'#233'si be'#225'll'#237't'#225'sok'
+          TabOrder = 1
+          OnClick = UpdateAppearancePage
+        end
+        object CheckListBox1: TCheckListBox
+          Left = 32
+          Top = 143
+          Width = 337
+          Height = 58
+          OnClickCheck = CustomAppearanceChange
+          ItemHeight = 13
+          Items.Strings = (
+            'R'#246'gz'#237'tett 4:3 k'#233'par'#225'ny megtart'#225'sa'
+            'T'#250'lp'#225'szt'#225'z'#225's enged'#233'lyez'#233'se (mint EGA/VGA)'
+            'M'#233'retez'#233's a rendszer DPI '#233'rt'#233'k'#233're'
+            'Line'#225'ris sk'#225'l'#225'z'#225's alkalmaz'#225'sa (ha lehets'#233'ges)'
+            'Kontraszt megn'#246'vel'#233'se (monokr'#243'm kijelz'#337'n'#233'l)'
+            #193'llapotsori ikonok friss'#237't'#233'se'
+            'Kil'#233'p'#233'si meger'#337's'#237't'#233's k'#233'r'#233'se'
+            'Discord t'#225'mogat'#225's enged'#233'lyez'#233'se')
+          TabOrder = 2
+        end
+        object ComboBox2: TComboBox
+          Left = 179
+          Top = 234
+          Width = 190
+          Height = 21
+          Style = csDropDownList
+          ItemIndex = 1
+          TabOrder = 4
+          Text = 'R'#246'gz'#237'tett 4:3 k'#233'par'#225'ny'
+          OnChange = CustomAppearanceChange
+          Items.Strings = (
+            'Ny'#250'jt'#225's'
+            'R'#246'gz'#237'tett 4:3 k'#233'par'#225'ny'
+            'Eredeti k'#233'par'#225'ny megtart'#225'sa'
+            'Csak eg'#233'sz sz'#225'm'#250' nagy'#237't'#225's')
+        end
+        object ComboBox3: TComboBox
+          Left = 179
+          Top = 207
+          Width = 190
+          Height = 21
+          Style = csDropDownList
+          ItemIndex = 2
+          TabOrder = 3
+          Text = 'R'#246'gz'#237'tett felbont'#225's a sablonb'#243'l'
+          OnChange = CustomAppearanceChange
+          Items.Strings = (
+            'Pillanatnyi felbont'#225's szerint'
+            'Szabadon '#225'tm'#233'retezhet'#337
+            'R'#246'gz'#237'tett felbont'#225's a sablonb'#243'l'
+            'Eredeti k'#233'p 0,5x kicsiny'#237't'#233'se'
+            'Eredeti k'#233'p 1,5x nagy'#237't'#225'sa'
+            'Eredeti k'#233'p 2x nagy'#237't'#225'sa')
+        end
+        object RadioButton3: TRadioButton
+          Left = 18
+          Top = 264
+          Width = 215
+          Height = 17
+          Caption = '&K'#233'zi megad'#225's'#250' be'#225'll'#237't'#225'sok'
+          TabOrder = 5
+          OnClick = UpdateAppearancePage
+        end
+        object Memo2: TMemo
+          Left = 32
+          Top = 287
+          Width = 217
+          Height = 58
+          Lines.Strings = (
+            'window_remember 0'
+            'force_43 0'
+            'enable_overscan 0'
+            'video_filter_method 1'
+            'vid_cga_contrast 0'
+            'dpi_scale 1'
+            'vid_cga_contrast'
+            'update_icons 1'
+            'confirm_exit 1'
+            'enable_discord 0')
+          ScrollBars = ssVertical
+          TabOrder = 6
+        end
+        object RadioButton4: TRadioButton
+          Left = 18
+          Top = 351
+          Width = 327
+          Height = 17
+          Caption = '&Ne ker'#252'ljenek l'#233'trehoz'#225'sra megjelen'#237't'#233'si be'#225'll'#237't'#225'sok'
+          TabOrder = 8
+          OnClick = UpdateAppearancePage
+        end
+        object Button12: TButton
+          Left = 255
+          Top = 285
+          Width = 114
+          Height = 25
+          Caption = '&Bet'#246'lt'#233's f'#225'jlb'#243'l...'
+          TabOrder = 7
+          OnClick = Button12Click
+        end
+      end
+    end
     object TabSheet1: TTabSheet
       Caption = 'Eszk'#246'z'#246'k'
       ImageIndex = 1
       object GroupBox3: TGroupBox
-        Left = 18
+        Left = 13
         Top = 254
-        Width = 388
-        Height = 131
+        Width = 402
+        Height = 139
         Caption = #218'j/kiv'#225'lasztott elem tulajdons'#225'gai'
         TabOrder = 0
         DesignSize = (
-          388
-          131)
+          402
+          139)
         object Label6: TLabel
           Left = 50
           Top = 28
@@ -234,7 +410,7 @@ object ProgSettDlg: TProgSettDlg
         object Edit1: TEdit
           Left = 85
           Top = 24
-          Width = 189
+          Width = 203
           Height = 21
           Anchors = [akLeft, akTop, akRight]
           TabOrder = 0
@@ -242,15 +418,15 @@ object ProgSettDlg: TProgSettDlg
         object Memo1: TMemo
           Left = 85
           Top = 56
-          Width = 284
-          Height = 57
+          Width = 298
+          Height = 65
           Anchors = [akLeft, akTop, akRight, akBottom]
           ScrollBars = ssVertical
           TabOrder = 1
           WantReturns = False
         end
         object Button8: TButton
-          Left = 280
+          Left = 294
           Top = 22
           Width = 89
           Height = 25
@@ -261,25 +437,25 @@ object ProgSettDlg: TProgSettDlg
         end
       end
       object GroupBox4: TGroupBox
-        Left = 18
-        Top = 18
-        Width = 388
-        Height = 230
+        Left = 13
+        Top = 8
+        Width = 402
+        Height = 240
         Caption = 'Eszk'#246'zlista'
         TabOrder = 1
         DesignSize = (
-          388
-          230)
+          402
+          240)
         object Image2: TImage
           Left = 18
-          Top = 21
+          Top = 22
           Width = 32
           Height = 32
         end
         object Label5: TLabel
           Left = 64
           Top = 18
-          Width = 303
+          Width = 317
           Height = 48
           Anchors = [akLeft, akTop, akRight]
           AutoSize = False
@@ -288,12 +464,13 @@ object ProgSettDlg: TProgSettDlg
             'ket gyakran haszn'#225'l a virtu'#225'lis g'#233'pek kapcs'#225'n, '#233's '#237'gy a WinBox m' +
             'en'#252'j'#233'b'#337'l k'#246'nnyen el'#337' tudja h'#237'vni majd azokat.'
           WordWrap = True
+          ExplicitWidth = 303
         end
         object ListView1: TListView
           Left = 18
           Top = 72
-          Width = 351
-          Height = 113
+          Width = 365
+          Height = 123
           Anchors = [akLeft, akTop, akRight, akBottom]
           Columns = <
             item
@@ -313,7 +490,7 @@ object ProgSettDlg: TProgSettDlg
         object Button9: TButton
           Tag = 1
           Left = 18
-          Top = 191
+          Top = 201
           Width = 75
           Height = 25
           Anchors = [akLeft, akBottom]
@@ -323,8 +500,8 @@ object ProgSettDlg: TProgSettDlg
         end
         object Button7: TButton
           Tag = 4
-          Left = 296
-          Top = 191
+          Left = 310
+          Top = 201
           Width = 75
           Height = 25
           Anchors = [akRight, akBottom]
@@ -334,8 +511,8 @@ object ProgSettDlg: TProgSettDlg
         end
         object Button6: TButton
           Tag = 3
-          Left = 215
-          Top = 191
+          Left = 229
+          Top = 201
           Width = 75
           Height = 25
           Anchors = [akRight, akBottom]
@@ -346,7 +523,7 @@ object ProgSettDlg: TProgSettDlg
         object Button10: TButton
           Tag = 2
           Left = 99
-          Top = 191
+          Top = 201
           Width = 75
           Height = 25
           Anchors = [akLeft, akBottom]
@@ -383,7 +560,16 @@ object ProgSettDlg: TProgSettDlg
     Filter = 
       'Futtathat'#243' f'#225'jlok (*.exe; *.com; *.cmd; *.bat)|*.exe; *.com; *.c' +
       'md; *.bat|Minden f'#225'jl (*.*)|*.*'
-    Left = 216
-    Top = 248
+    Left = 48
+    Top = 440
+  end
+  object OpenDialog2: TOpenDialog
+    DefaultExt = 'cfg'
+    FileName = '86box.cfg'
+    Filter = 
+      '86Box konfigur'#225'ci'#243's f'#225'jlok (86box.cfg)|86box.cfg|Minden f'#225'jl (*.' +
+      '*)|*.*'
+    Left = 112
+    Top = 440
   end
 end

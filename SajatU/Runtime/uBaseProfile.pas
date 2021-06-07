@@ -44,6 +44,14 @@ resourcestring
   StrOptionalParams = 'OptionalParams';
   StrRootDirectory  = 'RootDirectory';
 
+  StrAutoAppearance = 'AutoAppearance';
+  StrApperanceValues = 'ApperanceValues';
+
+  StrDefaultAppearance = 'video_fullscreen_first=0'#13#10 +
+                         'video_fullscreen_scale=1'#13#10 +
+                         'dpi_scale=0'#13#10 +
+                         'vid_resize=2';
+
 (* A TProfile megvalósítja a regisztrációs adatbázisbeli profil kezelését. *)
 
 type

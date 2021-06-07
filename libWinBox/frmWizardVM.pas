@@ -27,7 +27,7 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, Vcl.Samples.Spin, ComCtrls, Vcl.Imaging.pngimage, ExtCtrls, FileCtrl,
   uBaseProfile, uVMSample, frmSelectHDD, frmWizardHDD, ShellAPI, IniFiles, Zip,
-  uLang;
+  uLang, Registry;
 
 type
   IWizardVM = interface
@@ -429,6 +429,7 @@ var
 
   List: TStringList;
   I: integer;
+  Key: HKEY;
 begin
   //Result := false;
 
@@ -455,6 +456,9 @@ begin
         if cbOption4.ItemIndex <> -1 then
           Sample.AddOption(3, cbOption4.Text, Config);
 
+        Config.WriteString('WinBox', 'WindowSize',
+            Sample.GetCustomKey('General', 'WindowSize', '960x720'));
+
         if LowerCase(Sample.EmulatorType) <> 'dosbox' then begin
           if cbCDROM.Checked then
             Sample.AddCDROM(Config);
@@ -478,13 +482,32 @@ begin
               DiskTool.TryCreate;
             end;
 
-          //ToDo: állítható legyen a registryben mint alapérték
-          Config.WriteString('General', 'video_fullscreen_first', '0');
-          Config.WriteString('General', 'video_fullscreen_scale', '1');
-          Config.WriteString('General', 'dpi_scale', '0');
-          Config.WriteString('General', 'vid_resize', '2');
-          Config.WriteString('General', 'window_fixed_res',
-            Sample.GetCustomKey('General', 'WindowSize', '960x720'));
+          List := TStringList.Create;
+          with TRegIniFile.Create(SRegRootKey) do
+            try
+              case ReadInteger(SRegConfigKey + '.86Box', StrAutoAppearance, 1) of
+                0: ;
+                1: begin
+                     List.Text := StrDefaultAppearance;
+                     List.Values['window_fixed_res'] :=
+                       Sample.GetCustomKey('General', 'WindowSize', '960x720');
+                   end;
+                else if RegOpenKeyEx(CurrentKey, PChar(SRegConfigKey + '.86Box'), 0, Access, Key) = ERROR_SUCCESS then begin
+                     RegReadMulti(Key, StrApperanceValues, List);
+                     RegCloseKey(Key);
+
+                     if List.Values['vid_resize'] = '2' then
+                       List.Values['window_fixed_res'] :=
+                          Sample.GetCustomKey('General', 'WindowSize', '960x720');
+                   end;
+              end;
+
+              for I := 0 to List.Count - 1 do
+                Config.WriteString('General', List.Names[I], List.ValueFromIndex[I]);
+            finally
+              Free;
+              List.Free;
+            end;
         end;
 
         List := Sample.GetRenameList;

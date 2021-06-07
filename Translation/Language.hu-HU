@@ -1,4 +1,4 @@
-﻿[WinBoxMain]
+[WinBoxMain]
 ToolButton1=&Indítás
 ToolButton2=&Leállítás
 ToolButton4=Ctrl+Alt+&Del
@@ -19,9 +19,12 @@ SaveDialog1=Nyers merevlemez képfájlok (*.im?)|*.im?|Minden fájl (*.*)|*.*
 SaveDialog1_VHD=Virtuális lemezképfájlok (*.vhd)|*.vhd|Minden fájl (*.*)|*.*
 SaveDialog2=Naplófájlok (*.log)|*.log|Szövegfájlok (*.txt)|*.txt|Minden fájl (*.*)|*.*
 OpenExeDialog=Futtatható fájlok (*.exe; *.bat; *.cmd; *.com)|*.exe;*.bat;*.cmd;*.com|Minden fájl (*.*)|*.*
+Open86BoxDlg=86Box konfigurációs fájlok (86box.cfg)|86box.cfg|Minden fájl (*.*)|*.*
 OpenPicDlg=Támogatott formátumok (*.bmp; *.gif; *.jpeg; *.jpg; *.exif; *.png; *.tif; *.tiff)|*.bmp; *.gif; *.jpeg; *.jpg; *.exif; *.png; *.tif; *.tiff|Bitképek (*.bmp)|*.bmp|GIF-képek (*.gif)|*.gif|JPEG-képek (*.jpg; *.jpeg)|*.jpg;*.jpeg|EXIF-képek (*.exif)|*.exif|PNG-képek (*.png)|*.png|TIFF-képek (*.tif; *.tiff)|*.tif; *.tiff|Minden fájl (*.*)|*.*
 SaveBmp=Bitképek (*.bmp)|*.bmp|Minden fájl (*.*)|*.*
 SaveEmf=Metafájlok (*.emf; *.wmf)|*.emf;*.wmf|Minden fájl (*.*)|*.*
+
+EOpenConfigLocked=A megnyitni kívánt fájl ("%s") egy másik program által használatban van.
 
 ChartCPU=Virtuális gépek okozta processzorterhelés
 ChartCPU_X=Idő [s]

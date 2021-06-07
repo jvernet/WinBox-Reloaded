@@ -343,7 +343,7 @@ begin
   if ValidateIndex then begin
      List := TStringList.Create;
      WorkDir := '';
-     case MessageBox(0, _P('AskDelete', [Profiles[ItemIndex].FriendlyName,
+     case MessageBox(Application.Handle, _P('AskDelete', [Profiles[ItemIndex].FriendlyName,
          FileSizeToStr(GetFiles(Profiles[ItemIndex].WorkingDirectory, true, List), 2)]),
          PChar(StrWinBox), MB_ICONWARNING or MB_YESNOCANCEL) of
        mrYes: begin

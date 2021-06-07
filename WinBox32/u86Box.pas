@@ -469,7 +469,10 @@ class function T86Box.GetImgAspect(Config: TCustomIniFile): TPoint;
 var
   Text: string;
 begin
-  Text := Config.ReadString('General', 'window_fixed_res', '960x720');
+  Text := Config.ReadString('General', 'window_fixed_res', '');
+
+  if Text = '' then
+    Text := Config.ReadString('WinBox', 'WindowSize', '960x720');
 
   Result := Point(1, 1);
   TryStrToInt(TextLeft(Text, 'x'), Result.X);
@@ -514,18 +517,9 @@ begin
 end;
 
 function T86BoxProfile.OpenConfig(out Config: TCustomIniFile): boolean;
-var
-  hFile: THandle;
 begin
-  Result := FileExists(WorkingDirectory + SConfigFile);
-  if Result then begin
-    hFile := CreateFile(PChar(WorkingDirectory + SConfigFile),
-      GENERIC_READ, 0, nil, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
-
-    Result := hFile <> INVALID_HANDLE_VALUE;
-    if Result then
-      CloseHandle(hFile);
-  end;
+  Result := FileExists(WorkingDirectory + SConfigFile) and
+            CanLockFile(WorkingDirectory + SConfigFile, GENERIC_READ);
 
   if Result then
     try

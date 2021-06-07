@@ -24,7 +24,7 @@ unit uLang;
 interface
 
 uses Windows, SysUtils, Classes, Controls, StdCtrls, Menus, ActnList,
-     ExtCtrls, Forms, IniFiles;
+     ExtCtrls, Forms, CheckLst, IniFiles;
 
 const
   Codes: array [0..1, 0..10] of char =
@@ -229,6 +229,8 @@ begin
     WriteItems(Control.Name, (Control as TListBox).Items)
   else if Control is TRadioGroup then
     WriteItems(Control.Name, (Control as TRadioGroup).Items)
+  else if Control is TCheckListBox then
+    WriteItems(Control.Name, (Control as TCheckListBox).Items)
   else begin
     I := Control.GetTextLen;
     if I > 0 then begin
@@ -248,6 +250,7 @@ end;
 procedure TLanguage.Translate(const Section: string; Control: TControl);
 var
   I: integer;
+  A: array of boolean;
   Temp: string;
 
   procedure ReadItems(const Name: string; Items: TStrings);
@@ -278,6 +281,18 @@ begin
       I := ItemIndex;
       ReadItems(Control.Name, Items);
       ItemIndex := I;
+    end
+  else if Control is TCheckListBox then
+    with (Control as TCheckListBox) do begin
+      SetLength(A, Items.Count);
+      for I := 0 to Items.Count - 1 do
+        A[I] := Checked[I];
+      I := ItemIndex;
+      ReadItems(Control.Name, Items);
+      ItemIndex := I;
+      for I := 0 to Items.Count - 1 do
+        Checked[I] := A[I];
+      SetLength(A, 0);
     end
   else begin
     Temp := UnescapeString(ReadString(Section, Control.Name, ''));

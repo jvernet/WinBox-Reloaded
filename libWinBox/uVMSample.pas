@@ -277,6 +277,8 @@ begin
       TextLeft(List.Names[I]),
       TextRight(List.Names[I]),
       List.ValueFromIndex[I]);
+
+  List.Free;
 end;
 
 { TVMSampleFilter }

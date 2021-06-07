@@ -33,8 +33,7 @@ SET VBSFILE="%APPDATA%\Laci b '\WinBox\Shortcut.vbs"
 echo Set oWS = WScript.CreateObject("WScript.Shell") > %VBSFILE%
 echo sLinkFile = "%DESKTOP%\WinBox Reloaded.lnk" >> %VBSFILE%
 echo Set oLink = oWS.CreateShortcut(sLinkFile) >> %VBSFILE%
-if %OS% == Win32 echo oLink.TargetPath = "%APPDATA%\Laci bá'\WinBox\%OS%\WinBox32.exe" >> %VBSFILE%
-if %OS% == Win64 echo oLink.TargetPath = "%APPDATA%\Laci bá'\WinBox\%OS%\WinBox64.exe" >> %VBSFILE%
+echo oLink.TargetPath = "%APPDATA%\Laci bá'\WinBox\%OS%\WinBox32.exe" >> %VBSFILE%
 echo oLink.Save >> %VBSFILE%
 cscript %VBSFILE%
 del %VBSFILE%
