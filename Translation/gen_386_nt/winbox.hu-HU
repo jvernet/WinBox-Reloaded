@@ -1,0 +1,49 @@
+[General]
+Manufacturer=(Általános PC)
+Description=Hálózati 386-alapú rendszer
+Year=1990
+Type=86Box
+ConfigFile=86box.cfg
+Option0=&Memória:|Machine.mem_size
+Option1=&FPU-egység:|Machine.fpu_type
+Option2=&Videomemória:|Trident TVGA 8900D.memory
+Option3=&Nyomtató:|Ports (COM & LPT).lpt1_device
+OptionCDROM=0
+DescOfCDROM=4x SCSI
+NoteForCDROM=Csatoló: BusLogic BT-545S (ISA)
+SupportedOS=MS-DOS 3.30-6.22, Windows for Workgroups 3.x, OS/2 2.x, Windows NT 3.x, Linux
+
+[Option0]
+8 MB=8192
+10 MB=10240
+12 MB=12288
+14 MB=14336
+16 MB=16384 
+
+[Option1]
+Nincs=none
+Intel 80387=387
+
+[Option2]
+512 kB=512
+256 kB=256
+1 MB=1024
+
+[Option3]
+EPSON LQ-2500=dot_matrix
+Apple LaserWriter IIf=postscript
+Apple Color LW 12/660 PS=postscript
+Szöveges mátrixnyomtató=text_prt
+(Nincs)=none
+
+[HDD]
+Connector=SCSI
+Slot=0
+C=1516
+H=4
+S=42
+
+[CDROM]
+Floppy and CD-ROM drives.cdrom_01_speed = 4
+Floppy and CD-ROM drives.cdrom_01_parameters = 1, scsi
+Floppy and CD-ROM drives.cdrom_01_scsi_id = 1
