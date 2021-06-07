@@ -2,7 +2,7 @@
 #### The newest way to manage the oldest computers.
 
 This program has been created to simplify the way I use PC Emulators.
-Currently it only supports *86Box*, but the rest of PCem forks are planned to be added later.
+Currently it only supports [86Box](https://github.com/86Box/86Box), but the rest of PCem forks are planned to be added later.
 
 <p align="center"><img src="https://raw.githubusercontent.com/laciba96/WinBox-Reloaded/main/Screenshot.PNG" width="500" height="360"></img></p>
 
