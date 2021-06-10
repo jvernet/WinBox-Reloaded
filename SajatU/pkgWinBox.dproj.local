@@ -6,18 +6,18 @@
     <Transaction>1899/12/30 00:00:00.000.317,E:\SajatU\WinBox komponensek\pkgWinBox.dproj=C:\Users\laciba\Documents\Embarcadero\Studio\Projects\Package1.dproj</Transaction>
     <Transaction>1899/12/30 00:00:00.000.870,=E:\SajatU\WinBox komponensek\uPicturePager.pas</Transaction>
     <Transaction>1899/12/30 00:00:00.000.641,=E:\SajatU\WinBox komponensek\uFolderMon.pas</Transaction>
-    <Transaction>2021/05/18 11:10:19.000.646,=E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uProcessMon.pas</Transaction>
+    <Transaction>2021/05/18 11:10:19.000.596,=E:\Projektek\WinBox-Reloaded\SajatU\Runtime\frmProfileDlg.pas</Transaction>
     <Transaction>2021/05/18 11:10:19.000.676,=E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uProcProfile.pas</Transaction>
     <Transaction>2021/05/18 11:10:19.000.606,=E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uBaseProfile.pas</Transaction>
     <Transaction>2021/05/18 11:10:19.000.720,=E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uWinBox.pas</Transaction>
     <Transaction>2021/05/18 11:10:19.000.636,=E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uCommUtil.pas</Transaction>
-    <Transaction>2021/05/18 11:10:19.000.596,=E:\Projektek\WinBox-Reloaded\SajatU\Runtime\frmProfileDlg.pas</Transaction>
+    <Transaction>2021/05/18 11:10:19.000.646,=E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uProcessMon.pas</Transaction>
     <Transaction>2021/05/18 11:10:19.000.697,=E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uWebUtils.pas</Transaction>
-    <Transaction>2021/05/18 11:27:56.000.255,E:\Projektek\WinBox-Reloaded\SajatU\Runtime\frmProfileDlg.pas=</Transaction>
+    <Transaction>2021/05/18 11:27:56.000.319,E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uProcessMon.pas=</Transaction>
     <Transaction>2021/05/18 11:27:56.000.364,E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uWinBox.pas=</Transaction>
     <Transaction>2021/05/18 11:27:56.000.355,E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uWebUtils.pas=</Transaction>
     <Transaction>2021/05/18 11:27:56.000.305,E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uCommUtil.pas=</Transaction>
-    <Transaction>2021/05/18 11:27:56.000.319,E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uProcessMon.pas=</Transaction>
+    <Transaction>2021/05/18 11:27:56.000.255,E:\Projektek\WinBox-Reloaded\SajatU\Runtime\frmProfileDlg.pas=</Transaction>
     <Transaction>2021/05/18 11:27:56.000.335,E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uProcProfile.pas=</Transaction>
     <Transaction>2021/05/18 11:27:56.000.285,E:\Projektek\WinBox-Reloaded\SajatU\Runtime\uBaseProfile.pas=</Transaction>
   </Transactions>

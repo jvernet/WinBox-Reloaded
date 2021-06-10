@@ -49,7 +49,7 @@ end;
 procedure SetLanguage(const AFileName, ALocale: PChar); stdcall;
 begin
   Locale := String(ALocale);
-  Language := TLanguage.Create(String(AFileName));
+  Language := TLanguage.Create(String(AFileName), TEncoding.UTF8);
 end;
 
 exports
