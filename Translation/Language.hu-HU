@@ -60,7 +60,7 @@ StrLockedVdiskImg=A virtuális gép nem indítható el, mivel egy vagy több mer
 
 StrEgyebLemezkepek=Egyéb lemezképek
 StrUjVirtualisGepD=Új virtuális gép #%d
-SDefaultDocumentsFolder=WinBox virtuális gépek
+SDefaultDocumentsFolder=86Box virtuális gépek
 StrIsmeretlenGyarto=(Ismeretlen gyártó)
 StrValasszaKiAHaszna=Válassza ki a használni kívánt munkakönyvtárat:
 StrNincs=(Nincs)

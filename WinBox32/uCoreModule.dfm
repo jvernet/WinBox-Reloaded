@@ -117,7 +117,6 @@ object Core: TCore
       Tag = -1
       Category = 'S'#250'g'#243
       Caption = '&N'#233'vjegy...'
-      Enabled = False
       ImageIndex = 12
       ShortCut = 112
       OnExecute = acAboutExecute
@@ -186,6 +185,7 @@ object Core: TCore
       Category = 'S'#250'g'#243
       Caption = 'Online dokument'#225'ci'#243': &DOSBox'
       ImageIndex = 7
+      Visible = False
       URL = 'https://www.dosbox.com/DOSBoxManual.html'
     end
     object acbWinWorldPC: TBrowseURL
@@ -278,6 +278,13 @@ object Core: TCore
       ImageIndex = 26
       URL = 'http://vogonsdrivers.com/'
     end
+    object acImportVM: TAction
+      Tag = -1
+      Category = 'F'#225'jl'
+      Caption = 'Megl'#233'v'#337' virtu'#225'lis g'#233'p &import'#225'l'#225'sa...'
+      ShortCut = 24649
+      OnExecute = acImportVMExecute
+    end
   end
   object MainMenu: TMainMenu
     Images = Icons16
@@ -290,6 +297,12 @@ object Core: TCore
       end
       object jvirtulismerevlemezltrehozsa1: TMenuItem
         Action = acNewHDD
+      end
+      object N36: TMenuItem
+        Caption = '-'
+      end
+      object Meglv86Boxvirtulisgpimportlsa1: TMenuItem
+        Action = acImportVM
       end
       object N25: TMenuItem
         Caption = '-'

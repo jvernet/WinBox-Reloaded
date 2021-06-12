@@ -227,6 +227,9 @@ type
     Programnyelvneklekrdezse1: TMenuItem;
     Nvdefinciklekrse1: TMenuItem;
     N35: TMenuItem;
+    acImportVM: TAction;
+    Meglv86Boxvirtulisgpimportlsa1: TMenuItem;
+    N36: TMenuItem;
     procedure MonitorTimerTimer(Sender: TObject);
     procedure ReloadProfiles(Sender: TObject);
     procedure acDirExecute(Sender: TObject);
@@ -251,6 +254,7 @@ type
     procedure acAutoUpdateUpdate(Sender: TObject);
     procedure miDebugClick(Sender: TObject);
     procedure miLangClick(Sender: TObject);
+    procedure acImportVMExecute(Sender: TObject);
   private
     FRelProf: TNotifyEvent;
     FUpdate: TNotifyEvent;
@@ -384,6 +388,25 @@ procedure TCore.acDiskCatalogExecute(Sender: TObject);
 begin
   if Assigned(WinBoxMain) then
     CreateSelectHDD(WinBoxMain).Execute;
+end;
+
+procedure TCore.acImportVMExecute(Sender: TObject);
+var
+  I: integer;
+begin
+  with CreateImportVM(Self) do begin
+    FriendlyName := _P('StrUjVirtualisGepD', [Profiles.Count + 1]);
+    if Execute(true) then begin
+      ReloadProfiles(Self);
+      I := FindProfileByID(ProfileID, Profiles);
+      if Assigned(WinBoxMain) then begin
+        WinBoxMain.List.ItemIndex := I + 2;
+        WinBoxMain.ListClick(Self);
+      end;
+      if OpenSettings and ValidateIndex then
+        Profiles[ItemIndex].SettingsDlg;
+    end;
+  end;
 end;
 
 procedure TCore.acNewHDDExecute(Sender: TObject);

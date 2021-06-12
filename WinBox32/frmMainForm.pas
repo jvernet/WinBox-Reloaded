@@ -73,7 +73,6 @@ type
     ToolButton10: TToolButton;
     ToolButton7: TToolButton;
     ToolButton8: TToolButton;
-    TabSheet1: TTabSheet;
     ImageCollection: TImageCollection;
     ListImages: TVirtualImageList;
     ToolBar2: TToolBar;

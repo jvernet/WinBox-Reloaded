@@ -3,7 +3,7 @@ object AboutFrm: TAboutFrm
   Top = 0
   BorderStyle = bsDialog
   Caption = 'N'#233'vjegy'
-  ClientHeight = 288
+  ClientHeight = 299
   ClientWidth = 403
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,17 +16,18 @@ object AboutFrm: TAboutFrm
   OnCreate = FormCreate
   DesignSize = (
     403
-    288)
+    299)
   PixelsPerInch = 96
   TextHeight = 13
   object Shape1: TShape
     Left = 0
     Top = 0
     Width = 403
-    Height = 235
+    Height = 246
     Anchors = [akLeft, akTop, akRight, akBottom]
     Brush.Color = clWindow
     Pen.Style = psClear
+    ExplicitHeight = 235
   end
   object Label1: TLabel
     Left = 104
@@ -108,22 +109,31 @@ object AboutFrm: TAboutFrm
   object Label9: TLabel
     Left = 104
     Top = 180
-    Width = 126
-    Height = 16
+    Width = 106
+    Height = 13
     Caption = 'Kapcsol'#243'd'#243' projektek:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -13
+    Font.Height = -11
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
   end
   object Label10: TLabel
-    Left = 120
-    Top = 202
-    Width = 226
+    Left = 232
+    Top = 180
+    Width = 30
     Height = 13
-    Caption = 'Egyel'#337're "csak" az 86Box, folytat'#225's a j'#246'v'#337'ben.'
+    Cursor = crHandPoint
+    Hint = 'https://github.com/86Box/86Box'
+    Caption = '86Box'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clHotLight
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsUnderline]
+    ParentFont = False
+    OnClick = Label8Click
   end
   object Image1: TImage
     Left = 16
@@ -151,14 +161,28 @@ object AboutFrm: TAboutFrm
     Height = 13
     Caption = 'Ez a program alapnyelve.'
   end
+  object Label3: TLabel
+    Left = 102
+    Top = 215
+    Width = 228
+    Height = 13
+    Caption = 'A program szabad szoftver a GNU GPL v3 alatt.'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
   object Button1: TButton
     Left = 306
-    Top = 248
+    Top = 259
     Width = 75
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = '&OK'
     ModalResult = 1
     TabOrder = 0
+    ExplicitTop = 248
   end
 end

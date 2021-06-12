@@ -1,6 +1,6 @@
 [General]
 Manufacturer=Tandy
-Description=Tandy 1000 (86Box)
+Description=Tandy 1000
 Type=86Box
 Year=1984
 ConfigFile=86box.cfg

@@ -44,6 +44,7 @@ type
     Shape1: TShape;
     Label11: TLabel;
     lbTranslatedBy: TLabel;
+    Label3: TLabel;
     procedure Label8Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private

@@ -77,12 +77,16 @@ object WizardVM: TWizardVM
     Top = 0
     Width = 337
     Height = 263
-    ActivePage = TabSheet4
+    ActivePage = TabSheet5
     Align = alClient
     TabOrder = 2
     object TabSheet1: TTabSheet
       Caption = 'TabSheet1'
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -121,6 +125,10 @@ object WizardVM: TWizardVM
       Caption = 'TabSheet7'
       ImageIndex = 6
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -217,6 +225,10 @@ object WizardVM: TWizardVM
       Caption = 'TabSheet2'
       ImageIndex = 1
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -291,6 +303,10 @@ object WizardVM: TWizardVM
       Caption = 'TabSheet3'
       ImageIndex = 4
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -408,6 +424,10 @@ object WizardVM: TWizardVM
       Caption = 'TabSheet4'
       ImageIndex = 5
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -902,9 +922,10 @@ object WizardVM: TWizardVM
       object Label26: TLabel
         Left = 16
         Top = 48
-        Width = 278
-        Height = 130
+        Width = 289
+        Height = 145
         Anchors = [akLeft, akTop, akRight]
+        AutoSize = False
         Caption = 
           'A var'#225'zsl'#243' most m'#225'r minden sz'#252'ks'#233'ges adatot ismer az '#250'j virtu'#225'li' +
           's g'#233'p l'#233'trehoz'#225's'#225'hoz.'#13#10#13#10'Ha a g'#233'p l'#233'trehoz'#225'sa ut'#225'n szeretne fino' +

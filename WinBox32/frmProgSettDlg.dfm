@@ -199,7 +199,7 @@ object ProgSettDlg: TProgSettDlg
       end
     end
     object TabSheet3: TTabSheet
-      Caption = '86Box VM-ek'
+      Caption = 'Megjelen'#233's'
       ImageIndex = 2
       object GroupBox5: TGroupBox
         Left = 13

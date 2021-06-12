@@ -95,7 +95,7 @@ type
     class function CreateProfile(const AExecutablePath, AFriendlyName, AWorkingDirectory: string;
       const APath: string = SRegBaseKey): string; overload; // = FProfileID
     class procedure CreateProfile(const AProfileID, AExecutablePath, AFriendlyName, AWorkingDirectory: string;
-      const APath: string = SRegBaseKey); overload;
+      const APath: string); overload;
     class procedure DeleteProfile(const AProfileID: string; const APath: string = SRegBaseKey);
 
     property ProfileID: string read FProfileID;

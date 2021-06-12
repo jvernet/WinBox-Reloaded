@@ -103,9 +103,26 @@ type
     property OpenSettings: boolean read GetOpenSettings;
   end;
 
+  IImportVM = interface
+    ['{E162D25D-8F3B-4032-8726-077EF4499FAE}']
+    function GetProfileID: PChar; stdcall;
+    function GetFriendlyName: PChar; stdcall;
+    function GetOpenSettings: boolean; stdcall;
+    procedure SetFriendlyName(const Value: PChar); stdcall;
+    function Execute(const AutoCreate: boolean): boolean; stdcall;
+    function TryCreate: boolean; stdcall;
+
+    procedure RecreateProfileID; stdcall;
+
+    property FriendlyName: PChar read GetFriendlyName write SetFriendlyName;
+    property OpenSettings: boolean read GetOpenSettings;
+    property ProfileID: PChar read GetProfileID;
+  end;
+
 const
   libWinBox = 'libWinBox.dll';
 
+function CreateImportVM(const AOwner: TComponent): IImportVM; stdcall; external libWinBox;
 function CreateWizardVM(const AOwner: TComponent): IWizardVM; stdcall; external libWinBox;
 function CreateWizardHDD(const AOwner: TComponent): IWizardHDD; stdcall; external libWinBox;
 function CreateSelectHDD(const AOwner: TComponent): ISelectHDD; stdcall; external libWinBox;
