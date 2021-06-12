@@ -33,6 +33,7 @@ acDeleteVM=&Delete Virtual Machine...
 acProgSettings=P&rogram Settings...
 acUpdateTools=Update List of &User Tools
 acVogonsDrivers=&Vogon's Drivers: Old Driver Downloads
+acImportVM=&Import Existing Machine...
 
 [MainMenu]
 Fjl1=&File
@@ -345,6 +346,29 @@ ComboBox3.Items[0]=(None)
 Button1=&Filter >>
 Button3=&Cancel
 Button4=&OK
+
+[ImportVM]
+ImportVM=Import Existing 86Box Machine
+Button1=&Next >
+Button2=< &Back
+Label15=Basic informations
+Label16=&Name:
+Label18=Enter a name for the virtual machine that you can use to identify it later in the WinBox list.
+Label20=The configuration is holded in 86Box.cfg, which is in the working directory of the machine to be imported.
+Label21=Configuration &file:
+Label3=Virtual machine files will be stored in the original working directory and will not be moved during import.
+Label4=Select emulator 
+Label5=When managing virtual machines, WinBox can also handle different versions of emulators. 
+Label6=If the virtual machine requires a specific version of 86Box, you can define it here. 
+Label7=&Path:
+Label8=Automatically updated, and managed by WinBox.
+RadioButton1=Use &automatic 86Box version 
+RadioButton2=Use a &custom 86Box version
+Label25=Everything is ready!
+Label26=The wizard now knows all the information needed to import the virtual machine.\r\n\r\nIf you want to make fine adjustments after setting up the machine, use the check box below.\r\n\r\n\r\n\r\n\r\nClick Next to finish.
+CheckBox1=Show more &settings after creation
+Label1=Import Virtual Machine - Welcome to the Wizard! 
+Label2=This wizard guides you through the process of importing an existing 86Box virtual machine.\r\n\r\nThis process allows you to add a previously created 86Box virtual machine to your WinBox list.\r\n\r\nClick Next to begin the steps.
 
 [UpdateFrm]
 UpdateForm_1=Updating Emulators

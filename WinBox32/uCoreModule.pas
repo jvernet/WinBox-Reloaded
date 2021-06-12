@@ -838,6 +838,7 @@ begin
       (CreateWizardVM(nil) as ILanguageSupport).GetTranslation(This);
       (CreateSelectHDD(nil) as ILanguageSupport).GetTranslation(This);
       (CreateAutoUpdate(nil) as ILanguageSupport).GetTranslation(This);
+      (CreateImportVM(nil) as ILanguageSupport).GetTranslation(This);
 
     finally
       try

@@ -137,6 +137,7 @@ end;
 procedure TImportVM.FormCreate(Sender: TObject);
 begin
   LoadImage('BANNER_IMP', Image1);
+  Translate;
 end;
 
 procedure TImportVM.FormShow(Sender: TObject);

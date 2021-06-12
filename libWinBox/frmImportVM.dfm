@@ -76,7 +76,7 @@ object ImportVM: TImportVM
     Top = 0
     Width = 337
     Height = 263
-    ActivePage = TabSheet1
+    ActivePage = TabSheet2
     Align = alClient
     TabOrder = 2
     object TabSheet1: TTabSheet
@@ -261,8 +261,9 @@ object ImportVM: TImportVM
       object Label8: TLabel
         Left = 34
         Top = 111
-        Width = 224
-        Height = 26
+        Width = 279
+        Height = 42
+        AutoSize = False
         Caption = 
           'Folyamatosan frissen tartott verzi'#243', a WinBox menedzsel'#233'se alatt' +
           '.'
