@@ -19,9 +19,16 @@ It's most noticeable features are:
 The program currently has 2 languages supported (yet):
 - en-US
 - hu-HU
+- it-IT (thanks for explorerdotexe)
+
+Since the Italian translation released after v1.14, if you want to add to your program, you simply have to download the `Languages\Language.it-IT` file from the repository, and copy into the `<installation directory>\Languages\` folder. 
+
+<p align="center"><img src="https://user-images.githubusercontent.com/84271678/122122550-3e5c0400-ce2d-11eb-86b9-bb797388217d.png" width="450" height="313"></img></p>
+  
+If you used the installer the default installation directory is `C:\Program Files\Laci bá'\WinBox\` or `C:\Users\<username>\AppData\Local\Laci bá'\WinBox\`, depending of the  installation type you chosen on first install.
 
 If you want to add your language to the supported list, you can find the language files under the Translations folder.
-These files are simple UTF-8 encoded C-style escape sequenced INI-files, can be created by any kind of text editor. 
+These files are simple UTF-8 encoded [C-style escape sequenced](https://en.wikipedia.org/wiki/Escape_sequences_in_C) INI-files, can be created by any kind of text editor. 
 
 If you want to translate the progam to your language, and got stuck, feel free to ask questions.
 Add your new language as a pull request and I will include it with the next release.
