@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a report of reproducable bug
+about: Create a report for a reproducable bug
 title: A short and descriptive title
 labels: bug
 assignees: ''
