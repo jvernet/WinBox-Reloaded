@@ -23,7 +23,8 @@ unit uBaseProfile;
 
 interface
 
-uses Windows, SysUtils, Classes, Graphics, IniFiles, Registry, IOUtils;
+uses Windows, SysUtils, Classes, Graphics, IniFiles, Registry, IOUtils,
+     uCommUtil, uLang;
 
 const
   SRegBaseKey      = 'Software\Laci bá''\WinBox\Profiles';
@@ -33,7 +34,6 @@ const
   SRegConfigKey    = 'Configuration';
 
 resourcestring
-  SDefaultDocumentsFolder = 'WinBox virtuális gépek';
   SDefaultAppDataFolder = 'Laci bá''\WinBox';
 
   StrExecutablePath = 'ExecutablePath';
@@ -43,6 +43,14 @@ resourcestring
 
   StrOptionalParams = 'OptionalParams';
   StrRootDirectory  = 'RootDirectory';
+
+  StrAutoAppearance = 'AutoAppearance';
+  StrApperanceValues = 'ApperanceValues';
+
+  StrDefaultAppearance = 'video_fullscreen_first=0'#13#10 +
+                         'video_fullscreen_scale=1'#13#10 +
+                         'dpi_scale=0'#13#10 +
+                         'vid_resize=2';
 
 (* A TProfile megvalósítja a regisztrációs adatbázisbeli profil kezelését. *)
 
@@ -87,7 +95,7 @@ type
     class function CreateProfile(const AExecutablePath, AFriendlyName, AWorkingDirectory: string;
       const APath: string = SRegBaseKey): string; overload; // = FProfileID
     class procedure CreateProfile(const AProfileID, AExecutablePath, AFriendlyName, AWorkingDirectory: string;
-      const APath: string = SRegBaseKey); overload;
+      const APath: string); overload;
     class procedure DeleteProfile(const AProfileID: string; const APath: string = SRegBaseKey);
 
     property ProfileID: string read FProfileID;
@@ -112,7 +120,7 @@ begin
     Result := IncludeTrailingPathDelimiter(
         ReadString(SRegConfigKey, StrRootDirectory,
           IncludeTrailingPathDelimiter(TPath.GetDocumentsPath)
-          + SDefaultDocumentsFolder));
+          + _T('SDefaultDocumentsFolder')));
     Free;
   end;
 end;
@@ -273,7 +281,7 @@ end;
 procedure TProfile.SetExecutablePath(const Value: string);
 begin
   if not FileExists(Value) then
-    raise Exception.Create(SysErrorMessage(ERROR_FILE_NOT_FOUND));
+    dbgLog('While setting TProfile.ExecutablePath: ' + SysErrorMessage(ERROR_FILE_NOT_FOUND));
 
   FExecutablePath := Value;
 end;

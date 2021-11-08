@@ -1,0 +1,44 @@
+[General]
+Manufacturer=IBM
+Description=IBM PC 5150 (1982)
+Year=1982
+Type=86Box
+ConfigFile=86box.cfg
+Option0=&CPU sebesség:|Machine.cpu_speed
+Option1=&Memória:|256 kB=lo|384 kB=ems1|512 kB=ems2
+Option2=&Videokártya:|Video.gfxcard
+Option3=Mo&nitor típusa:|General.video_grayscale
+SupportedOS=PC DOS 2.0-3.20, CP/M-86, UCSD-P, IBM BASIC, PC/IX, SCO Xenix, Minix
+
+[Option0]
+4,77 MHz=4772728
+7,16 MHz=7159092
+
+[Option1.lo]
+
+[Option1.ems1]
+Other peripherals.isamem0_type = ibmxt
+
+[Option1.ems2]
+Other peripherals.isamem0_type = ibmxt
+Other peripherals.isamem1_type = ibmxt
+
+[Option2]
+Color Graphics Adapter (CGA)=cga
+Monochrome Display Adapter (MDA)=mda
+Platronics ColorPlus=platronics
+Hercules Graphics Controller (HGC)=hercules
+Professional Graphics Controller (PGC)=pgc
+
+[Option3]
+Színes (RGBI)=0
+Monokróm (gyömbér)=2
+Monokróm (zöld)=3
+Monokróm (fehér)=4
+
+[HDD]
+Connector=MFM
+Slot=0
+C=306
+H=4
+S=17

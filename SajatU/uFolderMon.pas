@@ -94,7 +94,7 @@ const
   FILE_LIST_DIRECTORY = $0001;
 
 type
-  _FILE_NOTIFY_INFORMATION=packed record
+  _FILE_NOTIFY_INFORMATION = packed record
     NextEntryOffset: DWORD;
     Action: DWORD;
     FileNameLength: DWORD;
@@ -137,7 +137,7 @@ end;
 
 procedure TFolderMonitor.SetActive(const Value: Boolean);
 begin
-  if (Value = GetActive) then
+  if (Value = GetActive) and (Value = false) then
     exit
   else if Value then begin
     if FFilter = 0 then

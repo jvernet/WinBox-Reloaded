@@ -95,6 +95,9 @@ resourcestring
   StrWinBox = 'WinBox';
   SVmIconPng = 'vm-icon.png';
 
+var
+  MonitorLogging: boolean = false;
+
 implementation
 
 uses
@@ -204,8 +207,12 @@ begin
       hwnd := 0;
     end;
     EnumWindows(@FindWindowByPID, NativeInt(@FindWindow));
-    if FindWindow.hwnd <> 0 then
+    if FindWindow.hwnd <> 0 then begin
+      if MonitorLogging then
+        dbgLogFmt('PID: %d, HWND: 0x%.8x, ClassName: %s',
+          [Process.ProcessID, FindWindow.hwnd, NextClass]);
       exit(FindWindow.hwnd);
+    end;
   end;
 end;
 

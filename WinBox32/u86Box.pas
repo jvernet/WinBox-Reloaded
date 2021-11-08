@@ -24,7 +24,7 @@ unit u86Box;
 interface
 
 uses
-  Windows, SysUtils, Classes, IniFiles, Registry, uProcessMon,
+  Types, Windows, SysUtils, Classes, IniFiles, Registry, uProcessMon,
   uBaseProfile, uProcProfile, uWinBox, uCommUtil, Generics.Collections;
 
 type
@@ -88,6 +88,8 @@ const
 
 implementation
 
+uses uLang;
+
 const
   SGlobalNameDefs  = 'global';
   SConfigFile      = '86box.cfg';
@@ -113,19 +115,38 @@ resourcestring
   SVmIconPng = 'vm-icon.png';
   SRegSubKey = '.86Box';
   Str86Box = '86Box';
+  StrNameDefs = 'NameDefs.';
 
 function InitNameDefsMem: TMemIniFile;
 var
   Stream: TStream;
   List: TStringList;
+
+  Text: string;
+  I: Integer;
 begin
   Result := TMemIniFile.Create('');
 
   Stream := TResourceStream.Create(hInstance, SNameDefs, RT_RCDATA);
 
-  List := TStringList.Create;
-  List.LoadFromStream(Stream);
+  with TStringStream.Create do
+  try
+    LoadFromStream(Stream);
+    Text := DataString;
+  finally;
+    Free;
+  end;
 
+  List := TStringList.Create;
+  Language.ReadSectionValues('NameDefs', List);
+  for I := 0 to List.Count - 1 do
+    Text := StringReplace(Text,
+      List.Names[I],
+      List.ValueFromIndex[I],
+      [rfReplaceAll]);
+
+  List.Clear;
+  List.Text := Text;
   Result.SetStrings(List);
   Stream.Free;
   List.Free;
@@ -402,18 +423,20 @@ var
   I: integer;
 begin
   Result := '';
-  with CommandLineToArgs(Process.CommandLine) do begin
-     for I := 0 to Count - 1 do
-      if ((UpperCase(Strings[I]) = SPathParamUpper1) or
-          (UpperCase(Strings[I]) = SPathParamUpper2))
-         and (I < Count - 1) then begin
-           Result := IncludeTrailingPathDelimiter(
-             ExpandFileNameTo(
-               ExcludeTrailingPathDelimiter(Strings[I + 1]),
-               ExtractFilePath(Process.ExecutablePath)));
-      end;
-    Free;
-  end;
+  with CommandLineToArgs(Process.CommandLine) do
+    try
+       for I := 0 to Count - 1 do
+        if ((UpperCase(Strings[I]) = SPathParamUpper1) or
+            (UpperCase(Strings[I]) = SPathParamUpper2))
+           and (I < Count - 1) then begin
+             Result := IncludeTrailingPathDelimiter(
+               ExpandFileNameTo(
+                 ExcludeTrailingPathDelimiter(Strings[I + 1]),
+                 ExtractFilePath(Process.ExecutablePath)));
+           end;
+    finally
+      Free;
+    end;
   if Result = '' then
      Result := ExtractFilePath(Process.ExecutablePath);
 end;
@@ -446,7 +469,10 @@ class function T86Box.GetImgAspect(Config: TCustomIniFile): TPoint;
 var
   Text: string;
 begin
-  Text := Config.ReadString('General', 'window_fixed_res', '960x720');
+  Text := Config.ReadString('General', 'window_fixed_res', '');
+
+  if Text = '' then
+    Text := Config.ReadString('WinBox', 'WindowSize', '960x720');
 
   Result := Point(1, 1);
   TryStrToInt(TextLeft(Text, 'x'), Result.X);
@@ -473,7 +499,8 @@ function T86BoxProfile.CheckProcess(const Process: TProcess): boolean;
 begin
   Result := WideUpperCase(
     IncludeTrailingPathDelimiter(T86Box.GetWorkingDirectory(Process))) =
-           WideUpperCase(WorkingDirectory);
+           WideUpperCase(
+    IncludeTrailingPathDelimiter(WorkingDirectory));
 end;
 
 function T86BoxProfile.GetState: integer;
@@ -490,18 +517,9 @@ begin
 end;
 
 function T86BoxProfile.OpenConfig(out Config: TCustomIniFile): boolean;
-var
-  hFile: THandle;
 begin
-  Result := FileExists(WorkingDirectory + SConfigFile);
-  if Result then begin
-    hFile := CreateFile(PChar(WorkingDirectory + SConfigFile),
-      GENERIC_READ, 0, nil, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
-
-    Result := hFile <> INVALID_HANDLE_VALUE;
-    if Result then
-      CloseHandle(hFile);
-  end;
+  Result := FileExists(WorkingDirectory + SConfigFile) and
+            CanLockFile(WorkingDirectory + SConfigFile, GENERIC_READ);
 
   if Result then
     try
@@ -536,7 +554,27 @@ end;
 
 function T86BoxProfile.Start(const Parameters: string;
   const nShow: integer): boolean;
+var
+  Config: TCustomIniFile;
+  Temp: string;
+  FileName: array [0..7] of string; //Check for 8 HDD is unused by programs
+  I: integer;
 begin
+  if OpenConfig(Config) then
+    try
+      for I := Low(FileName) to High(FileName) do begin
+        T86Box.GetHDDData(Config, I, Temp, FileName[I]);
+        if FileName[I] <> '' then
+          FileName[I] := ExpandFileNameTo(FileName[I], WorkingDirectory);
+      end;
+
+      for I := Low(FileName) to High(FileName) do
+        if (FileName[I] <> '') and not CanLockFile(FileName[I]) then
+            raise Exception.Create(_T('StrLockedVdiskImg'));
+    finally
+      Config.Free;
+    end;
+
   Result := inherited Start(
     format(SCmdLine, [ExcludeTrailingPathDelimiter(WorkingDirectory),
                       Parameters]), nShow);

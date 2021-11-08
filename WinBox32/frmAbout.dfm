@@ -3,7 +3,7 @@ object AboutFrm: TAboutFrm
   Top = 0
   BorderStyle = bsDialog
   Caption = 'N'#233'vjegy'
-  ClientHeight = 282
+  ClientHeight = 299
   ClientWidth = 403
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,26 +16,25 @@ object AboutFrm: TAboutFrm
   OnCreate = FormCreate
   DesignSize = (
     403
-    282)
+    299)
   PixelsPerInch = 96
   TextHeight = 13
   object Shape1: TShape
     Left = 0
     Top = 0
     Width = 403
-    Height = 230
+    Height = 246
     Anchors = [akLeft, akTop, akRight, akBottom]
     Brush.Color = clWindow
     Pen.Style = psClear
-    ExplicitWidth = 465
-    ExplicitHeight = 225
+    ExplicitHeight = 235
   end
   object Label1: TLabel
     Left = 104
     Top = 17
-    Width = 147
+    Width = 123
     Height = 19
-    Caption = 'WinBox Reloaded R2'
+    Caption = 'WinBox Reloaded'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
@@ -50,12 +49,12 @@ object AboutFrm: TAboutFrm
     Height = 13
     Caption = 'Kiad'#225'si d'#225'tum: '
   end
-  object Label3: TLabel
+  object lbDate: TLabel
     Left = 208
     Top = 49
     Width = 60
     Height = 13
-    Caption = '2021.05.14.'
+    Caption = '2021.05.27.'
   end
   object Label4: TLabel
     Left = 120
@@ -64,12 +63,12 @@ object AboutFrm: TAboutFrm
     Height = 13
     Caption = 'Verzi'#243'sz'#225'm:'
   end
-  object Label5: TLabel
+  object lbVersion: TLabel
     Left = 208
     Top = 68
-    Width = 104
+    Width = 22
     Height = 13
-    Caption = 'v1.0 Release Preview'
+    Caption = 'v1.1'
   end
   object Label6: TLabel
     Left = 104
@@ -109,23 +108,32 @@ object AboutFrm: TAboutFrm
   end
   object Label9: TLabel
     Left = 104
-    Top = 161
-    Width = 126
-    Height = 16
+    Top = 180
+    Width = 106
+    Height = 13
     Caption = 'Kapcsol'#243'd'#243' projektek:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -13
+    Font.Height = -11
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
   end
   object Label10: TLabel
-    Left = 120
-    Top = 193
-    Width = 226
+    Left = 232
+    Top = 180
+    Width = 30
     Height = 13
-    Caption = 'Egyel'#337're "csak" az 86Box, folytat'#225's a j'#246'v'#337'ben.'
+    Cursor = crHandPoint
+    Hint = 'https://github.com/86Box/86Box'
+    Caption = '86Box'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clHotLight
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsUnderline]
+    ParentFont = False
+    OnClick = Label8Click
   end
   object Image1: TImage
     Left = 16
@@ -133,16 +141,48 @@ object AboutFrm: TAboutFrm
     Width = 73
     Height = 73
   end
+  object Label11: TLabel
+    Left = 120
+    Top = 148
+    Width = 43
+    Height = 13
+    Caption = 'Ford'#237't'#225's:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object lbTranslatedBy: TLabel
+    Left = 208
+    Top = 148
+    Width = 122
+    Height = 13
+    Caption = 'Ez a program alapnyelve.'
+  end
+  object Label3: TLabel
+    Left = 102
+    Top = 215
+    Width = 228
+    Height = 13
+    Caption = 'A program szabad szoftver a GNU GPL v3 alatt.'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
   object Button1: TButton
     Left = 306
-    Top = 242
+    Top = 259
     Width = 75
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = '&OK'
     ModalResult = 1
     TabOrder = 0
-    ExplicitLeft = 368
-    ExplicitTop = 250
+    ExplicitTop = 248
   end
 end

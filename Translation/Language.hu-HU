@@ -1,0 +1,146 @@
+[WinBoxMain]
+ToolButton1=&Indítás
+ToolButton2=&Leállítás
+ToolButton4=Ctrl+Alt+&Del
+ToolButton5=H/W &Reset
+ToolButton6=&Beállítások
+ToolButton9=&Előtérbe hozás
+ToolButton10=Nyomtató&tálca
+ToolButton8=&Névjegy
+ToolButton12=&Új gép
+ToolButton13=Új merev&lemez
+ToolButton15=Teljes &leállítás
+ToolButton16=&Lista frissítése
+ToolButton17=&Beállítások
+ToolButton22=&Névjegy
+
+[Strings]
+SaveDialog1=Nyers merevlemez képfájlok (*.im?)|*.im?|Minden fájl (*.*)|*.*
+SaveDialog1_VHD=Virtuális lemezképfájlok (*.vhd)|*.vhd|Minden fájl (*.*)|*.*
+SaveDialog2=Naplófájlok (*.log)|*.log|Szövegfájlok (*.txt)|*.txt|Minden fájl (*.*)|*.*
+OpenExeDialog=Futtatható fájlok (*.exe; *.bat; *.cmd; *.com)|*.exe;*.bat;*.cmd;*.com|Minden fájl (*.*)|*.*
+Open86BoxDlg=86Box konfigurációs fájlok (86box.cfg)|86box.cfg|Minden fájl (*.*)|*.*
+OpenPicDlg=Támogatott formátumok (*.bmp; *.gif; *.jpeg; *.jpg; *.exif; *.png; *.tif; *.tiff)|*.bmp; *.gif; *.jpeg; *.jpg; *.exif; *.png; *.tif; *.tiff|Bitképek (*.bmp)|*.bmp|GIF-képek (*.gif)|*.gif|JPEG-képek (*.jpg; *.jpeg)|*.jpg;*.jpeg|EXIF-képek (*.exif)|*.exif|PNG-képek (*.png)|*.png|TIFF-képek (*.tif; *.tiff)|*.tif; *.tiff|Minden fájl (*.*)|*.*
+SaveBmp=Bitképek (*.bmp)|*.bmp|Minden fájl (*.*)|*.*
+SaveEmf=Metafájlok (*.emf; *.wmf)|*.emf;*.wmf|Minden fájl (*.*)|*.*
+
+EOpenConfigLocked=A megnyitni kívánt fájl ("%s") egy másik program által használatban van.
+
+ChartCPU=Virtuális gépek okozta processzorterhelés
+ChartCPU_X=Idő [s]
+ChartCPU_Y=Terhelés [%]
+ChartRAM=Virtuális gépek által lefoglalt gazdagép memória  
+ChartRAM_X=Idő [s]
+ChartRAM_Y=Terhelés [%]
+ChartVMs=Egyidejűleg futó virtuális gépek száma
+ChartVMs_X=Idő [s]
+ChartVMs_Y=Virtuális gépek [db]
+
+StrEnsureHardStopCmd=A virtuális gép(ek) ilyen módon történő leállítása adatvesztést okozhat. Biztos benne?
+AskDelete=A "%s" nevű virtuális gép eltávolítására készül. A virtuális géphez a munkakönyvtárban %s mennyiségű fájl tartozik.\r\nKívánja ezeket a fájlokat is eltávolítani?\r\n\r\nIgen: A virtuális gép és a fájlok egyidejű törlése.\r\nNem: A virtuális gép törlése, a fájlok megtartása mellett.\r\nMégse: A törlési művelet megszakítása.\r\n\r\nA művelet nem visszafordítható művelet, célszerű előtte biztonsági másolatot készíteni.
+SUnableToDelete=A fájlok eltávolítása nem sikerült, mivel használatban vannak. Ezeket később majd kézzel el kell távolítani.\r\n\r\nKívánja megnyitni a munkakönyvtárat?
+StrTheVirtualMachine=A virtuális gép munkakönyvtárát eltávolították.\r\n\r\nKívánja a profilt is törölni?
+StrAMegadottEleresiU=A megadott elérési útvonalon nem található az emulátor.\r\n\r\nEllenőrizze hogy letöltötte-e már az emulátort, vagy egyéni beállításoknál hogy a profilbeállítások érvényes adatokat tartalmaznak.
+
+StrValasszaKiAzUjVi=Válassza ki az új virtuális gépek tárolási helyét:
+StrModositasokTortente=Módosítások történtek az eszközlistán. Kívánja menteni?
+
+StrMemoria1fS=Memória: %.1f%%\r\n(%s)
+StrCPU1f=CPU: %.1f%%
+StrListaFrissitese=Lista &frissítése
+StrTeljesLeallitas=Teljes &leállítás
+STR_PROCESS_STATE_UNKNOWN=Ismeretlen
+STR_PROCESS_STATE_STOPPED=Leállítva
+STR_PROCESS_STATE_RUNNING=Fut
+STR_PROCESS_STATE_PAUSED=Szüneteltetve
+STR_PROCESS_STATE_ERROR_MULTINST=Több példány!
+STR_PROCESS_STATE_RUN_PENDING=Indítás...
+STR_PROCESS_STATE_SAVED=Altatva
+StrLockedVdiskImg=A virtuális gép nem indítható el, mivel egy vagy több merevlemez képfájl használatban van más programok által.\r\n\r\nEllenőrizze hogy a gazdagépen nincs-e csatlakoztatva, vagy valamely programban megnyitva egyetlen lemezkép sem.
+
+StrEgyebLemezkepek=Egyéb lemezképek
+StrUjVirtualisGepD=Új virtuális gép #%d
+SDefaultDocumentsFolder=86Box virtuális gépek
+StrIsmeretlenGyarto=(Ismeretlen gyártó)
+StrValasszaKiAHaszna=Válassza ki a használni kívánt munkakönyvtárat:
+StrNincs=(Nincs)
+
+StrAMegadottHelyenMa=A megadott helyen már létezik fájl, kívánja felülírni?\r\n\r\nA művelet nem fordítható vissza.
+SDiskData2=Fájlnév: %s\r\nNévleges kapacitás: %s\r\nModellnév: %s %s\r\nFizikai geometria:  C: %d H: %d S: %d B: 512\r\nMegadandó geometria:  C: %d H: %d S: %d B: 512\r\nCsatolófelület: %s\r\nÍrás-előkompenzáció (WPCom): %d\r\nFej parkolópozíció (LZone): %d
+SDiskData1=Fájlnév: %s\r\nKapacitás: %s\r\nGeometria:  C: %d H: %d S: %d B: 512\r\nCsatolófelület: %s\r\nÍrás-előkompenzáció (WPCom): %d\r\nFej parkolópozíció (LZone): %d
+SDiskData3=Fájlnév: %s\r\nKapacitás: %s\r\nGeometria:  C: %d H: %d S: %d B: 512\r\nÍrás-előkompenzáció (WPCom): %d\r\nFej parkolópozíció (LZone): %d
+SDiskSparse=Dinamikus bővülő lemezkép kerül kialakításra.
+StrAKotetNemTamogatj=A kötet nem támogatja a ritka fájlok létrehozását.\r\n\r\nA WinBox megkísérelheti a fájl szokványos létrehozását, de ez hosszabb ideig is eltarthat.\r\n\r\nKívánja szokványos módon létrehozni a képfájlt?
+StrFailedToCreateVHD=Nem sikerült virtuális merevlemezképfájlt létrehozni. Ezt okozhatja ha a kötet tömörített, vagy titkosított, vagy nincsenek meg a szükséges jogosultságok a fájl létrehozásához.\r\n\r\nKívánja megpróbálni nyers merevlemezképfájl létrehozását?
+StrRecommendedFixed=A kiválasztott merevlemez olyan csatolóval rendelkezik, aminél nem feltétlenül előnyös a dinamikus helyfoglalás alkalmazása.\r\n\r\nEngedélyezi a WinBox számára hogy a kiválasztott merevlemezt inkább foglalja le előre teljesen?
+
+StrBarmelyGyarto=(Bármely gyártó)
+StrBarmelyCsatolo=(Bármely csatoló)
+StrSzabvanyos=Szabványos
+CDS.FieldDefs[0]=Index
+CDS.FieldDefs[1]=Gyártó
+CDS.FieldDefs[2]=Modell
+CDS.FieldDefs[3]=Méret
+CDS.FieldDefs[4]=C
+CDS.FieldDefs[5]=H
+CDS.FieldDefs[6]=S
+CDS.FieldDefs[7]=WPCom
+CDS.FieldDefs[8]=LZone
+CDS.FieldDefs[9]=Csatoló
+CDS.FieldDefs[10]=TC
+CDS.FieldDefs[11]=TH
+CDS.FieldDefs[12]=TS
+
+StrAJelenlegiVerzioN=A jelenlegi verzió nem lekérhető. Kívánja folytatni?
+StrJelenlegiVerzioS=Jelenlegi 86Box verzió: %s
+StrLegfrisebbVerzioKe=Frissítések keresése itt: %s
+StrElerhetoVerzioS=Elérhető 86Box verzió: %s
+StrATelepitettVerzio=A telepített verzió azonos vagy frissebb mint a letölthető.\r\nKívánja mégis letölteni?
+StrFrissitesElerheto=Frissítés elérhető (build: %d, dátum: %s).\r\nKívánja letölteni?
+StrJelenlegNincsEgyet=Jelenleg nincs egyetlen telepített verzió sem.
+StrAFolyamatotAFelha=A folyamatot a felhasználó megszakította.
+StrKilepes=&Kilépés
+StrLegfrisebbValtozaso=Legfrisebb változások: 
+StrVerziokEllenorzese=Verziók ellenőrzése...
+StrUresjarat=Üresjárat
+StrMegszakitas=&Megszakítás
+StrFajlokLetoltese=Fájlok letöltése...
+StrFajlokKibontasa=Fájlok kibontása...
+StrIdeiglenesFajlokEl=Ideiglenes fájlok eltávolítása...
+StrHibaTortentAFajlo=Hiba történt a fájlok kibontása során.
+StrAtnevezesKozbenHib=Átnevezés közben hiba történt.
+StrKonyvtarAtnevezese=Könyvtár átnevezése: 86Box-master
+StrKonyvtarAtnevezes2=Könyvtár átnevezése: roms-master
+StrForraskodKibontasa=Forráskód kibontása...
+StrDFajlKibontva=%d fájl kibontva.
+StrROMkepekKibontasa=ROM-képek kibontása...
+StrBinarisokKibontasa=Binárisok kibontása...
+StrHibaTortentAKorab=Hiba történt a korábbi verzió eltávolítása során.
+StrAKorabbiVerzioElt=A korábbi verzió eltávolítása...
+StrHibaTortentAFajl2=Hiba történt a fájlok letöltése során.
+StrForraskodLetoltese=Forráskód letöltése ide: "%s"
+StrForraskodLetoltes2=Forráskód letöltése innen: "%s"
+StrROMkepekFajlainak=ROM-képek fájlainak letöltése ide: "%s"
+StrROMkepekLetoltese=ROM-képek letöltése innen: "%s"
+StrAzEmulatorFajlaina=Az emulátor fájlainak letöltése ide: "%s"
+
+[NameDefs]
+None=Nincs
+Integrated=Integrált
+expanded memory=bővített memória
+hard disk controller=merevlemez vezérlő
+dual channel=két csatorna
+controller=vezérlő
+Fixed Disk Adapter=merevlemez vezérlő
+Stereo=Sztereó
+Network=hálózat
+emulation=emuláció
+Pass to MIDI output=Továbbítás MIDI kimenetre
+bus mouse=busz
+serial mouse=soros egér
+PS/2 mouse=PS/2 egér
+compatible=kompatibilis
+SCSI host adapter=SCSI gazdaadapter
+Standard=Szabványos
+-button joystick(s)=-gombos játékvezérlő(k)
+-button joystick=-gombos játékvezérlő

@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject>
-	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.552,C:\Users\laciba\Documents\Embarcadero\Studio\Projects\ProjectGroup1.groupproj=E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\ProjectGroup1.groupproj</Transaction>
-  </Transactions>
-	<Default.Personality>
-		<Projects ActiveProject="E:\Programok\WinBox\WinBox Rel Try2\libwbox_try1\libWinBox.dproj"/>
-	</Default.Personality>
-</BorlandProject>

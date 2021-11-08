@@ -99,11 +99,11 @@ type
     btnImgPrev: TButton;
     lbState: TLabel;
     Bevel1: TBevel;
-    Screenshots: TPicturePager;
     Label2: TLabel;
     TopPanel: TPanel;
     lbTitle: TLabel;
     btnWorkDir: TSpeedButton;
+    Screenshots: TPicturePager;
     procedure btnVMClick(Sender: TObject);
     procedure ScreenshotsMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
@@ -130,12 +130,11 @@ implementation
 
 {$R *.dfm}
 
-uses uCoreModule, uCommUtil;
+uses uCoreModule, uCommUtil, uLang;
 
 resourcestring
   StrPrinter = 'printer';
   StrScreenshots = 'screenshots';
-
 
 { Tfrm86Box }
 
@@ -158,6 +157,8 @@ begin
   Screenshots.AspectY := 3;
 
   RightPanel.FullRepaint := false;
+
+  Language.Translate('86Box', Self);
 end;
 
 destructor TFrame86Box.Destroy;

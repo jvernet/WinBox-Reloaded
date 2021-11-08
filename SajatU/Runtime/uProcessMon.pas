@@ -40,11 +40,11 @@ type
 
   TProcessMonitor = class
   private
-    procedure SetFilter(const Value: string);
+    //procedure SetFilter(const Value: string); virtual;
     function GetCount: integer;
     function GetProcess(I: integer): TProcess;
   protected
-    FFilter: string;
+    //FFilter: string;
     FList: TArray<TProcess>;
     FUpdate: TNotifyEvent;
     FLastSystemTime: uint64;
@@ -54,7 +54,7 @@ type
     constructor Create(const AFilter: string = ''); reintroduce; virtual;
     procedure Update; virtual;
     function FindByPID(const PID: DWORD): integer;
-    property Filter: string read FFilter write SetFilter;
+    //property Filter: string read FFilter write SetFilter;
     property Processes[I: integer]: TProcess read GetProcess; default;
     property Count: integer read GetCount;
     property OnUpdate: TNotifyEvent read FUpdate write FUpdate;
@@ -65,12 +65,14 @@ type
     FThread: TThread;
     FTask: integer;
     FCritSect: TRTLCriticalSection;
+    function GetUpdating: boolean;
   public
     constructor Create(const AFilter: string = ''); override;
     procedure Update; override;
     destructor Destroy; override;
     procedure Lock;
     procedure Unlock;
+    property IsUpdating: boolean read GetUpdating;
   end;
 
   TProcessMonitorThread = class(TThread)
@@ -100,6 +102,8 @@ function GetProcessList(Filter: string): TArray<TProcess>;
 function GetProcessListEx(Filter: string; FWMIService: OleVariant): TArray<TProcess>;
 function KillProcess(const PID: DWORD): boolean;
 
+function GetProcessFileName(const PID: DWORD): string;
+
 function FindWindowByPID(hwnd: HWND; pFindWindow: PFindWindow): BOOL; stdcall;
 
 implementation
@@ -109,6 +113,22 @@ uses uCommUtil;
 var
   FSWbemLocator, FWMIService: OleVariant;
   MemoryStatus: TMemoryStatusEx;
+
+function GetProcessFileName(const PID: DWORD): string;
+var
+  hProcess: THandle;
+  Buffer: array [0..MAX_PATH] of char;
+begin
+  hProcess := OpenProcess(PROCESS_QUERY_INFORMATION or PROCESS_VM_READ, false, PID);
+  if (hProcess <> INVALID_HANDLE_VALUE) and (hProcess <> 0) then begin
+    FillChar(Buffer, SizeOf(Buffer), #0);
+    if GetModuleFileName(hProcess, @Buffer[0], MAX_PATH) <> 0 then
+      Result := String(Buffer);
+    CloseHandle(hProcess);
+  end
+  else
+    Result := '';
+end;
 
 function KillProcess(const PID: DWORD): boolean;
 var
@@ -194,15 +214,14 @@ end;
 
 function GetProcessListEx(Filter: string; FWMIService: OleVariant): TArray<TProcess>;
 var
-  Buffer: array [0..1023] of DWORD;
+  Buffer: array [0..2048] of DWORD;
   Needed, I: DWORD;
 
   FExecutablePath: string;
   FWbemObjectSet: OleVariant;
 begin
-  Filter := AnsiUpperCase(Filter);
-  EnumProcesses(@Buffer[0], 1024, Needed);
-  Needed := Needed div 4;
+  EnumProcesses(@Buffer[0], length(Buffer) * SizeOf(DWORD), Needed);
+  Needed := Needed div SizeOf(DWORD);
 
   SetLength(Result, 0);
   for I := 0 to Needed - 1 do
@@ -210,8 +229,6 @@ begin
       FWbemObjectSet:= FWMIService.Get(Format('Win32_Process.Handle="%d"', [Buffer[I]]));
        if not IsEmptyOrNull(FWbemObjectSet.ExecutablePath) then begin
          FExecutablePath := FWbemObjectSet.ExecutablePath;
-         if (Filter <> '') and (pos(Filter, AnsiUpperCase(ExtractFileName(FExecutablePath))) = 0) then
-           continue;
 
          SetLength(Result, length(Result) + 1);
          with Result[High(Result)] do begin
@@ -241,7 +258,7 @@ end;
 constructor TProcessMonitor.Create(const AFilter: string);
 begin
   FLastSystemTime := 0;
-  FFilter := AFilter;
+  //FFilter := AFilter;
 end;
 
 function TProcessMonitor.CreateDataField(const Process: TProcess): Integer;
@@ -290,23 +307,22 @@ begin
     end;
   FList := ProcessList;
   FLastSystemTime := SystemTime;
-
-  if Assigned(FUpdate) then
-    FUpdate(Self);
 end;
 
-procedure TProcessMonitor.SetFilter(const Value: string);
-begin
-  FFilter := Value;
-  Update;
-end;
+//procedure TProcessMonitor.SetFilter(const Value: string);
+//begin
+//  FFilter := Value;
+//  Update;
+//end;
 
 procedure TProcessMonitor.Update;
 var
   ProcessList: TArray<TProcess>;
 begin
-  ProcessList := GetProcessList(FFilter);
+  ProcessList := GetProcessList(''); //FFilter);
   InternalUpdate(ProcessList);
+  if Assigned(FUpdate) then
+    FUpdate(Self);
 end;
 
 { TProcessMonitorThread }
@@ -320,7 +336,7 @@ end;
 procedure TProcessMonitorThread.Execute;
 var
   ProcessList: TArray<TProcess>;
-  LocalFilter: string;
+  //LocalFilter: string;
 
   FSWbemLocator,
   FWMIService: OleVariant;
@@ -332,23 +348,22 @@ begin
 
     while not Terminated do begin
       if FAsyncMonitor.FTask = 1 then begin
-        Synchronize(
-          procedure
-          begin
-            LocalFilter := FAsyncMonitor.FFilter;
-          end);
+        //Synchronize(
+        //  procedure
+        //  begin
+        //    LocalFilter := FAsyncMonitor.FFilter;
+        //  end);
 
-        ProcessList := GetProcessListEx(LocalFilter, FWMIService);
-
+        ProcessList := GetProcessListEx('', FWMIService); //LocalFilter, FWMIService);
         Synchronize(
           procedure
           begin
             FAsyncMonitor.InternalUpdate(ProcessList);
-            InterlockedExchange(FAsyncMonitor.FTask, 0);
             FAsyncMonitor.Lock;
             if Assigned(FAsyncMonitor.FUpdate) then
               FAsyncMonitor.FUpdate(FAsyncMonitor);
             FAsyncMonitor.Unlock;
+            InterlockedExchange(FAsyncMonitor.FTask, 0);
           end);
       end
       else
@@ -380,6 +395,11 @@ begin
 
   DeleteCriticalSection(FCritSect);
   inherited;
+end;
+
+function TAsyncProcessMonitor.GetUpdating: boolean;
+begin
+  Result := FTask <> 0;
 end;
 
 procedure TAsyncProcessMonitor.Lock;

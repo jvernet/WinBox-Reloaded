@@ -29,7 +29,7 @@ uses
   Controls, Dialogs, ExtDlgs, Graphics, uBaseProfile, uProcProfile,
   VCLTee.Chart, uFolderMon, uWinBoxLib, ExtActns, StdActns, IOUtils,
   Vcl.VirtualImageList, Vcl.BaseImageCollection, Vcl.ImageCollection,
-  Registry;
+  Registry, IniFiles;
 
 type
   TCore = class(TDataModule)
@@ -212,6 +212,24 @@ type
     ToolsSep: TMenuItem;
     acVogonsDrivers: TBrowseURL;
     BrowseURL1: TMenuItem;
+    miDebug: TMenuItem;
+    dbgCmdlWorkDir: TMenuItem;
+    dbgLogMonitor: TMenuItem;
+    N31: TMenuItem;
+    Naplzsafolyamatmend1: TMenuItem;
+    Naplzsafolyamat1: TMenuItem;
+    N33: TMenuItem;
+    Folyamatlistakiratsa1: TMenuItem;
+    Frisstsekmonitorozsa1: TMenuItem;
+    N34: TMenuItem;
+    Nyelvifjlksztse1: TMenuItem;
+    Rendszernyelvneklekrdezse1: TMenuItem;
+    Programnyelvneklekrdezse1: TMenuItem;
+    Nvdefinciklekrse1: TMenuItem;
+    N35: TMenuItem;
+    acImportVM: TAction;
+    Meglv86Boxvirtulisgpimportlsa1: TMenuItem;
+    N36: TMenuItem;
     procedure MonitorTimerTimer(Sender: TObject);
     procedure ReloadProfiles(Sender: TObject);
     procedure acDirExecute(Sender: TObject);
@@ -234,11 +252,15 @@ type
     procedure acProgSettingsExecute(Sender: TObject);
     procedure ReloadTools(Sender: TObject);
     procedure acAutoUpdateUpdate(Sender: TObject);
+    procedure miDebugClick(Sender: TObject);
+    procedure miLangClick(Sender: TObject);
+    procedure acImportVMExecute(Sender: TObject);
   private
     FRelProf: TNotifyEvent;
     FUpdate: TNotifyEvent;
   public
     ItemIndex: integer;
+    UpdateTime: longword;
     FirstUpdate: boolean;
     Monitor: TWinBoxMonitor;
     Profiles: TObjectList<TWinBoxProfile>;
@@ -252,6 +274,8 @@ type
     function IsAllStopped: boolean;
     function ValidateIndex: boolean;
 
+    procedure EnableUI(const Value: boolean);
+
     property OnReloadProfiles: TNotifyEvent read FRelProf write FRelProf;
     property OnMonitorUpdate: TNotifyEvent read FUpdate write FUpdate;
   end;
@@ -259,28 +283,16 @@ type
 var
   Core: TCore;
 
-resourcestring
-  StrWinBox = 'WinBox';
+var
+  UpdateLogging: boolean = false;
 
 implementation
 
-uses frmMainForm, uCommUtil, frmProgSettDlg, frmAbout;
+uses frmMainForm, uCommUtil, frmProgSettDlg, frmAbout, uProcessMon, frmSplash,
+     uLang, frmProfileDlg;
 
 resourcestring
-  StrEnsureHardStopCmd = 'A virtuális gép(ek) ilyen módon történõ leállítása adatvesztést okozhat. Biztos benne?';
-  StrEgyébLemezképek = 'Egyéb lemezképek';
   StrImg = '.img';
-  StrVdisk2dimg = 'vdisk%.2d.img';
-  StrÚjVirtuálisGépD = 'Új virtuális gép #%d';
-  AskDelete = 'A "%s" nevû virtuális gép eltávolítására készül. A virtuális géphez a munkakönyvtárban %s mennyiségû fájl tartozik. ' +
-              #13#10'Kívánja ezeket a fájlokat is eltávolítani?'#13#10 +
-              #13#10'Igen: A virtuális gép és a fájlok egyidejû törlése.'+
-              #13#10'Nem: A virtuális gép törlése, a fájlok megtartása mellett.'+
-              #13#10'Mégse: A törlési mûvelet megszakítása.' +
-              #13#10#13#10'A mûvelet nem visszafordítható mûvelet, célszerû elõtte biztonsági másolatot készíteni.';
-  SUnableToDelete = 'A fájlok eltávolítása nem sikerült, mivel használatban vannak. Ezeket késõbb majd kézzel el kell távolítani.'#13#10#13#10 +
-                    'Kívánja megnyitni a munkakönyvtárat?';
-
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -324,7 +336,7 @@ end;
 
 procedure TCore.acAutoUpdateUpdate(Sender: TObject);
 begin
-  (Sender as TAction).Enabled := IsAllStopped;
+  (Sender as TAction).Enabled := not FirstUpdate and IsAllStopped;
 end;
 
 procedure TCore.acDeleteVMExecute(Sender: TObject);
@@ -335,10 +347,9 @@ begin
   if ValidateIndex then begin
      List := TStringList.Create;
      WorkDir := '';
-     case MessageBox(0, PChar(format(AskDelete,
-        [Profiles[ItemIndex].FriendlyName,
-         FileSizeToStr(GetFiles(Profiles[ItemIndex].WorkingDirectory, true, List), 2)])),
-           PChar(StrWinBox), MB_ICONWARNING or MB_YESNOCANCEL) of
+     case MessageBox(Application.Handle, _P('AskDelete', [Profiles[ItemIndex].FriendlyName,
+         FileSizeToStr(GetFiles(Profiles[ItemIndex].WorkingDirectory, true, List), 2)]),
+         PChar(StrWinBox), MB_ICONWARNING or MB_YESNOCANCEL) of
        mrYes: begin
                 WorkDir := ExcludeTrailingPathDelimiter(
                               Profiles[ItemIndex].WorkingDirectory);
@@ -353,7 +364,7 @@ begin
      ReloadProfiles(Self);
 
      if (WorkDir <> '') then begin
-       if not DeleteToBin(WorkDir) and (MessageBox(0, PChar(SUnableToDelete),
+       if not DeleteWithShell(WorkDir) and (MessageBox(0, _P('SUnableToDelete'),
          PChar(StrWinBox), MB_ICONINFORMATION or MB_YESNO) = mrYes) then
            ShellExecute(0, 'open', PChar(WorkDir), nil, nil, SW_SHOWNORMAL);
      end;
@@ -379,6 +390,25 @@ begin
     CreateSelectHDD(WinBoxMain).Execute;
 end;
 
+procedure TCore.acImportVMExecute(Sender: TObject);
+var
+  I: integer;
+begin
+  with CreateImportVM(Self) do begin
+    FriendlyName := _P('StrUjVirtualisGepD', [Profiles.Count + 1]);
+    if Execute(true) then begin
+      ReloadProfiles(Self);
+      I := FindProfileByID(ProfileID, Profiles);
+      if Assigned(WinBoxMain) then begin
+        WinBoxMain.List.ItemIndex := I + 2;
+        WinBoxMain.ListClick(Self);
+      end;
+      if OpenSettings and ValidateIndex then
+        Profiles[ItemIndex].SettingsDlg;
+    end;
+  end;
+end;
+
 procedure TCore.acNewHDDExecute(Sender: TObject);
 var
   I: integer;
@@ -388,12 +418,13 @@ begin
   if ValidateIndex then
     Directory := IncludeTrailingPathDelimiter(Profiles[ItemIndex].WorkingDirectory)
   else
-    Directory := DefWorkingRootDirectory + StrEgyébLemezképek + PathDelim;
+    Directory := DefWorkingRootDirectory + _T('StrEgyebLemezkepek') + PathDelim;
 
   AFileName := '';
   for I := 0 to 99 do begin
-    Temp := format(StrVdisk2dimg, [I]);
-    if not FileExists(Directory + Temp) then begin
+    Temp := format('vdisk%.2d', [I]);
+    if (not FileExists(Directory + Temp + '.img')) and
+       (not FileExists(Directory + Temp + '.vhd')) then begin
       AFileName := Temp;
       break;
     end;
@@ -416,7 +447,7 @@ var
   I: integer;
 begin
   with CreateWizardVM(Self) do begin
-    FriendlyName := PChar(format(StrÚjVirtuálisGépD, [Profiles.Count + 1]));
+    FriendlyName := _P('StrUjVirtualisGepD', [Profiles.Count + 1]);
     if Execute(true) then begin
       ReloadProfiles(Self);
       I := FindProfileByID(ProfileID, Profiles);
@@ -447,7 +478,7 @@ var
   P: TWinBoxProfile;
 begin
   if ((Sender as TComponent).Tag = 2) and
-     (MessageBox(0, PChar(StrEnsureHardStopCmd), PChar(StrWinBox),
+     (MessageBox(0, _P('StrEnsureHardStopCmd'), PChar(StrWinBox),
               MB_ICONWARNING or MB_YESNO) <> mrYes) then
                 exit;
 
@@ -512,7 +543,7 @@ begin
         4: Execute(IDM_ACTION_PAUSE);
         5: Execute(IDM_ACTION_HRESET);
         6: SettingsDlg;
-        7: if MessageBox(Handle, PChar(StrEnsureHardStopCmd), PChar(StrWinBox),
+        7: if MessageBox(Handle, _P('StrEnsureHardStopCmd'), PChar(StrWinBox),
                 MB_ICONWARNING or MB_YESNO) = mrYes then
                   Terminate(true);
         8: Execute(IDM_ACTION_RESET_CAD);
@@ -587,6 +618,25 @@ begin
                   Icons16.Height * Screen.PixelsPerInch div 96);
   Icons32.SetSize(Icons32.Width * Screen.PixelsPerInch div 96,
                   Icons32.Height * Screen.PixelsPerInch div 96);
+
+  {$IFNDEF DEBUG}
+  miDebug.Visible := IsDebuggerPresent;
+  {$ELSE}
+  miDebug.Visible := true;
+  {$ENDIF}
+
+  Language.Translate('Actions', Actions);
+  Language.Translate('MainMenu', MainMenu.Items);
+  Language.Translate('HomeMenu', HomeMenu.Items);
+  Language.Translate('PerfMenu', PerfMenu.Items);
+  Language.Translate('VMMenu', VMMenu.Items);
+
+  SaveBmp.Filter := _T('SaveBmp');
+  SaveEmf.Filter := _T('SaveEmf');
+
+  SetLanguage(PChar(Language.FileName), PChar(Locale));
+
+  EnableUI(false);
 end;
 
 destructor TCore.Destroy;
@@ -594,6 +644,23 @@ begin
   Monitor.Free; //ezt KELL elõbb felszabadítani
   Profiles.Free;
   inherited;
+end;
+
+procedure TCore.EnableUI(const Value: boolean);
+var
+  I: Integer;
+begin
+  for I := 0 to Actions.ActionCount - 1 do
+    if Actions[I].Tag = -1 then
+      Actions[I].Enabled := Value;
+
+  if Assigned(WinBoxMain) then
+    WinBoxMain.List.Enabled := Value;
+
+  if Value then
+    Screen.Cursor := crDefault
+  else
+    Screen.Cursor := crAppStart;
 end;
 
 procedure TCore.FolderMonitorChange(Sender: TObject; FileName: string;
@@ -640,22 +707,146 @@ end;
 
 procedure TCore.MonitorTimerTimer(Sender: TObject);
 begin
-  Monitor.Update;
+  if not Monitor.IsUpdating then begin
+    if UpdateLogging then
+      dbgLog('Monitor Update Started');
+
+    UpdateTime := GetTickCount;
+    Monitor.Update;
+  end;
 end;
 
 procedure TCore.MonitorUpdate(Sender: TObject);
 begin
+  UpdateTime := longword(GetTickCount - UpdateTime);
+
+  if UpdateLogging then
+    dbgLogFmt('Monitor Update Responded, Delta: %d', [UpdateTime]);
+
   UpdatePIDs(Profiles);
 
   if FirstUpdate then begin
     FirstUpdate := false;
-    with CreateAutoUpdate(nil) do
-      if HasUpdate and IsAllStopped then
+    WinBoxSplash.Close;
+    WinBoxSplash.Free;
+
+    MonitorTimer.Interval := UpdateTime * 13 div 10;
+    dbgLogFmt('Monitor Update Interval Set To %d', [MonitorTimer.Interval]);
+
+    with CreateAutoUpdate(nil) do begin
+      if AutoUpdate and IsAllStopped and HasUpdate then
         Execute(false);
+    end;
+    EnableUI(true);
   end;
 
   if Assigned(FUpdate) then
     FUpdate(Self);
+
+  if UpdateLogging then
+    dbgLog('Monitor Update Done');
+end;
+
+procedure TCore.miDebugClick(Sender: TObject);
+var
+  P: TProcess;
+  I: integer;
+
+  List: TStringList;
+begin
+  case (Sender as TComponent).Tag of
+    1: begin
+         P.CommandLine := InputBox('P.CommandLine', 'P.CommandLine = ', '');
+         ShowMessage(T86Box.GetWorkingDirectory(P));
+       end;
+    2: MonitorLogging := (Sender as TMenuItem).Checked;
+    3: ProcessLogging := (Sender as TMenuItem).Checked;
+    4: AssignmentLogging := (Sender as TMenuItem).Checked;
+    5: for I := 0 to Monitor.Count - 1 do begin
+         P := Monitor[I];
+         dbgLogFmt('PID: %d, HWND: 0x%.8x, %s, %s',
+           [P.ProcessID, P.Data, P.ExecutablePath, P.CommandLine]);
+       end;
+    6: UpdateLogging := (Sender as TMenuItem).Checked;
+    7: ShowMessage(Locale + #13#10'Filename: ' + Language.FileName);
+    8: ShowMessage(GetSystemLanguage);
+    9: begin
+         List := TStringList.Create;
+         (NameDefs as TMemIniFile).GetStrings(List);
+         List.SaveToFile('namedefs.' + Locale);
+         List.Free;
+       end;
+  end;
+end;
+
+procedure TCore.miLangClick(Sender: TObject);
+var
+  Temp: TForm;
+  FileName: string;
+
+  This: TLanguage;
+begin
+  FileName := 'teszt.' + GetLanguage(1038);
+  DeleteFile(FileName);
+  This := TLanguage.Create(FileName);
+  with This do
+    try
+      GetTranslation('Actions', Actions);
+      GetTranslation('MainMenu', MainMenu.Items);
+      GetTranslation('HomeMenu', HomeMenu.Items);
+      GetTranslation('PerfMenu', PerfMenu.Items);
+      GetTranslation('VMMenu', VMMenu.Items);
+      GetTranslation('WinBoxMain', WinBoxMain);
+      GetTranslation('AboutFrm', AboutFrm);
+
+      GetTranslation('86Box', WinBoxMain.Pages.Pages[2].Controls[0]);
+
+      Temp := TProgSettDlg.Create(nil);
+      try
+        GetTranslation('ProgSettDlg', Temp);
+      finally
+        Temp.Free;
+      end;
+
+      Temp := TProfileDialog.Create(nil);
+      try
+        GetTranslation('ProfileDlg', Temp);
+        GetTranslation('pmIcon', (Temp as TProfileDialog).pmIcon.Items);
+
+        WriteString('Strings', 'OpenExeDialog', EscapeString((Temp as TProfileDialog).OpenExeDialog.Filter));
+        WriteString('Strings', 'OpenPicDlg', EscapeString((Temp as TProfileDialog).OpenPicDlg.Filter));
+      finally
+        Temp.Free;
+      end;
+
+      WriteString('Strings', 'SaveBmp', EscapeString(SaveBmp.Filter));
+      WriteString('Strings', 'SaveEmf', EscapeString(SaveEmf.Filter));
+
+      WriteString('Strings', 'ChartCPU', EscapeString(WinBoxMain.ChartCPU.Title.Text.Text));
+      WriteString('Strings', 'ChartCPU_X', EscapeString(WinBoxMain.ChartCPU.BottomAxis.Title.Caption));
+      WriteString('Strings', 'ChartCPU_Y', EscapeString(WinBoxMain.ChartCPU.LeftAxis.Title.Caption));
+
+      WriteString('Strings', 'ChartRAM', EscapeString(WinBoxMain.ChartRAM.Title.Text.Text));
+      WriteString('Strings', 'ChartRAM_X', EscapeString(WinBoxMain.ChartRAM.BottomAxis.Title.Caption));
+      WriteString('Strings', 'ChartRAM_Y', EscapeString(WinBoxMain.ChartRAM.LeftAxis.Title.Caption));
+
+      WriteString('Strings', 'ChartVMs', EscapeString(WinBoxMain.ChartVMs.Title.Text.Text));
+      WriteString('Strings', 'ChartVMs_X', EscapeString(WinBoxMain.ChartVMs.BottomAxis.Title.Caption));
+      WriteString('Strings', 'ChartVMs_Y', EscapeString(WinBoxMain.ChartVMs.LeftAxis.Title.Caption));
+
+      (CreateWizardHDD(nil) as ILanguageSupport).GetTranslation(This);
+      (CreateWizardVM(nil) as ILanguageSupport).GetTranslation(This);
+      (CreateSelectHDD(nil) as ILanguageSupport).GetTranslation(This);
+      (CreateAutoUpdate(nil) as ILanguageSupport).GetTranslation(This);
+      (CreateImportVM(nil) as ILanguageSupport).GetTranslation(This);
+
+    finally
+      try
+        UpdateFile;
+      finally
+        Free;
+      end;
+    end;
 end;
 
 end.

@@ -26,6 +26,9 @@ interface
 uses Windows, SysUtils, Classes, Graphics, ComObj, ShellAPI,
      ShlObj, ExtCtrls, ComCtrls, WinCodec;
 
+procedure dbgLogFmt(const S: string; const Data: array of const);
+procedure dbgLog(const S: string); inline;
+
 function GetFiles(dir: string; subdir: Boolean; List: TStringList): uint64;
 
 function FileSizeToStr(const Value: uint64; const Round: byte;
@@ -41,7 +44,8 @@ function GetLinkColor(Color: TColor): TColor;
 function RandomColor: TColor;
 
 function FileVersion(const FileName: string): string;
-function DeleteToBin(FileName: string): boolean;
+//function DeleteToBin(FileName: string): boolean;
+function DeleteWithShell(FileName: string; const AllowUndo: boolean = true): boolean;
 
 function GetFileTime(const FileName: string): TDateTime;
 
@@ -76,7 +80,69 @@ procedure BringWindowToFront(const Handle: HWND);
 function GetWindowTitle(const hwnd: HWND): string;
 function GetWindowClass(const hwnd: HWND): string;
 
+function CanLockFile(const FileName: string; const Access: DWORD = GENERIC_READ or GENERIC_WRITE): boolean;
+
+function RegReadMulti(const Key: HKEY; const ValueName: string; Strings: TStrings): boolean;
+function RegWriteMulti(const Key: HKEY; const ValueName: string; Strings: TStrings): boolean;
+
 implementation
+
+function RegReadMulti(const Key: HKEY; const ValueName: string; Strings: TStrings): boolean;
+var
+  Buffer, Temp: PChar;
+  ValueType, ValueLen: DWORD;
+begin
+  Result := RegQueryValueEx(Key, PChar(ValueName), nil, @ValueType, nil, @ValueLen) = ERROR_SUCCESS;
+  if Result and (ValueType = REG_MULTI_SZ) then begin
+    GetMem(Buffer, ValueLen);
+    try
+      Result := RegQueryValueEx(Key, PChar(ValueName), nil, nil, PByte(Buffer), @ValueLen) = ERROR_SUCCESS;
+      Temp := Buffer;
+      if Result then
+        while Temp^ <> #0 do begin
+          Strings.Add(Temp);
+          Temp := PChar(Pointer(Integer(Temp) + (lstrlen(Temp) + 1) * SizeOf(Char)));
+        end;
+    finally
+      FreeMem(Buffer, ValueLen);
+    end;
+  end;
+end;
+
+function RegWriteMulti(const Key: HKEY; const ValueName: string; Strings: TStrings): boolean;
+var
+  Text, S: string;
+begin
+  Text := '';
+  for S in Strings do
+    Text := Text + S + #0;
+  Text := Text + #0;
+
+  Result := RegSetValueEx(Key, PChar(ValueName), 0, REG_MULTI_SZ,
+    Pointer(@Text[1]), Length(Text) * SizeOf(Char)) = ERROR_SUCCESS;
+end;
+
+function CanLockFile(const FileName: string; const Access: DWORD): boolean;
+var
+  Handle: THandle;
+begin
+  Handle := CreateFile(PChar(FileName), Access,
+                       0, nil, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
+
+  Result := (Handle <> 0) and (Handle <> INVALID_HANDLE_VALUE);
+  if Result then
+    CloseHandle(Handle);
+end;
+
+procedure dbgLogFmt(const S: string; const Data: array of const);
+begin
+  OutputDebugStringW(PChar(format(S, Data)));
+end;
+
+procedure dbgLog(const S: string);
+begin
+  OutputDebugStringW(PChar(S));
+end;
 
 function GetWindowTitle(const hwnd: HWND): string;
 var
@@ -180,6 +246,24 @@ begin
        Result := 0;
 end;
 
+function DeleteWithShell(FileName: string; const AllowUndo: boolean): boolean;
+var
+  FileOp: TSHFileOpStruct;
+begin
+  FillChar(FileOp, SizeOf(FileOp), #0);
+  FileName := FileName + #0#0;
+  with FileOp do begin
+    wFunc := FO_DELETE;
+    pFrom := @FileName[1];
+    fFlags := FOF_SILENT or FOF_NOCONFIRMATION;
+
+    if AllowUndo then
+      fFlags := fFlags or FOF_ALLOWUNDO;
+  end;
+  Result := SHFileOperation(FileOp) = 0;
+end;
+
+(*
 function DeleteToBin(FileName: string): boolean;
 var
   FileOp: TSHFileOpStruct;
@@ -190,13 +274,14 @@ begin
     with FileOp do begin
       wFunc := FO_DELETE;
       pFrom := @FileName[1];
-      fFlags := FOF_ALLOWUNDO or FOF_SILENT or FOF_NOCONFIRMATION;
+      fFlags := FOF_SILENT or FOF_NOCONFIRMATION or FOF_ALLOWUNDO;
     end;
     Result := SHFileOperation(FileOp) = 0;
   end
   else
     Result := false;
 end;
+*)
 
 function FileVersion(const FileName: string): string;
 var

@@ -22,6 +22,7 @@
 program WinBox32;
 
 uses
+  MidasLib,
   Windows,
   uCommUtil,
   Vcl.Forms,
@@ -31,7 +32,8 @@ uses
   u86Box in 'u86Box.pas',
   uWinBoxLib in 'uWinBoxLib.pas',
   frmProgSettDlg in 'frmProgSettDlg.pas' {ProgSettDlg},
-  frmAbout in 'frmAbout.pas' {AboutFrm};
+  frmAbout in 'frmAbout.pas' {AboutFrm},
+  frmSplash in 'frmSplash.pas' {WinBoxSplash};
 
 {$R *.res}
 
@@ -40,14 +42,22 @@ var
 
 begin
   Handle := FindWindow('TWinBoxMain', nil);
-  if Handle <> 0 then begin
+  if (Handle <> 0) then begin
     BringWindowToFront(Handle);
-    halt(1);
+    Halt(1);
   end;
 
+  if FindWindow('TWinBoxSplash', nil) <> 0 then
+    Halt(2);
+
   Application.Initialize;
+  WinBoxSplash := TWinBoxSplash.Create(Application);
+  WinBoxSplash.Show;
+  Application.ProcessMessages;
+
+  Application.ActionUpdateDelay := 50;
   Application.MainFormOnTaskbar := True;
-  Application.Title := 'WinBox Reloaded R2 Release Preview';
+  Application.Title := 'WinBox Reloaded';
   Application.CreateForm(TCore, Core);
   Application.CreateForm(TWinBoxMain, WinBoxMain);
   Application.CreateForm(TAboutFrm, AboutFrm);

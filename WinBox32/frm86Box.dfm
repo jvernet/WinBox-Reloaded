@@ -87,7 +87,6 @@ object Frame86Box: TFrame86Box
       Caption = 'Portok'
       ParentColor = True
       TabOrder = 0
-      ExplicitWidth = 324
       object lbLPT: TLabel
         Left = 111
         Top = 27
@@ -123,7 +122,6 @@ object Frame86Box: TFrame86Box
       Caption = 'Beviteli eszk'#246'z'#246'k'
       ParentColor = True
       TabOrder = 1
-      ExplicitWidth = 324
       object lbJoystick: TLabel
         Left = 99
         Top = 27
@@ -159,7 +157,6 @@ object Frame86Box: TFrame86Box
       Caption = 'H'#225'l'#243'zat'
       ParentColor = True
       TabOrder = 2
-      ExplicitWidth = 324
       object lbNetType: TLabel
         Left = 99
         Top = 27
@@ -195,7 +192,6 @@ object Frame86Box: TFrame86Box
       Caption = 'T'#225'rol'#243
       ParentColor = True
       TabOrder = 3
-      ExplicitWidth = 324
       object lbSCSI: TLabel
         Left = 93
         Top = 84
@@ -273,7 +269,6 @@ object Frame86Box: TFrame86Box
       Caption = 'Audi'#243
       ParentColor = True
       TabOrder = 4
-      ExplicitWidth = 324
       object lbMidi: TLabel
         Left = 93
         Top = 27
@@ -309,7 +304,6 @@ object Frame86Box: TFrame86Box
       Caption = 'K'#233'perny'#337
       ParentColor = True
       TabOrder = 5
-      ExplicitWidth = 324
       object lb3Dfx: TLabel
         Left = 93
         Top = 27
@@ -345,7 +339,6 @@ object Frame86Box: TFrame86Box
       Caption = 'Rendszer'
       ParentColor = True
       TabOrder = 6
-      ExplicitWidth = 324
       object lbEmulator: TLabel
         Tag = 1
         Left = 80

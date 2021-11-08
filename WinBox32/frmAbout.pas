@@ -32,9 +32,9 @@ type
     Button1: TButton;
     Label1: TLabel;
     Label2: TLabel;
-    Label3: TLabel;
+    lbDate: TLabel;
     Label4: TLabel;
-    Label5: TLabel;
+    lbVersion: TLabel;
     Label6: TLabel;
     Label7: TLabel;
     Label8: TLabel;
@@ -42,6 +42,9 @@ type
     Label10: TLabel;
     Image1: TImage;
     Shape1: TShape;
+    Label11: TLabel;
+    lbTranslatedBy: TLabel;
+    Label3: TLabel;
     procedure Label8Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -60,11 +63,12 @@ implementation
 
 {$R *.dfm}
 
-uses uCommUtil;
+uses uCommUtil, uLang;
 
 procedure TAboutFrm.FormCreate(Sender: TObject);
 begin
   LoadImage('WELCOME', Image1);
+  Language.Translate('AboutFrm', Self);
 end;
 
 procedure TAboutFrm.Label8Click(Sender: TObject);

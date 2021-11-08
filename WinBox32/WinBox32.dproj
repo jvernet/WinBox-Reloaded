@@ -6,8 +6,8 @@
         <MainSource>WinBox32.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Release</Config>
-        <Platform Condition="'$(Platform)'==''">Win32</Platform>
-        <TargetedPlatforms>1</TargetedPlatforms>
+        <Platform Condition="'$(Platform)'==''">Win64</Platform>
+        <TargetedPlatforms>3</TargetedPlatforms>
         <AppType>Application</AppType>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
@@ -34,6 +34,12 @@
         <Cfg_1>true</Cfg_1>
         <Base>true</Base>
     </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win64)'!=''">
+        <Cfg_1_Win64>true</Cfg_1_Win64>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
         <Cfg_2>true</Cfg_2>
         <CfgParent>Base</CfgParent>
@@ -41,6 +47,12 @@
     </PropertyGroup>
     <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
         <Cfg_2_Win32>true</Cfg_2_Win32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win64)'!=''">
+        <Cfg_2_Win64>true</Cfg_2_Win64>
         <CfgParent>Cfg_2</CfgParent>
         <Cfg_2>true</Cfg_2>
         <Base>true</Base>
@@ -67,11 +79,23 @@
         <DCC_UsePackage>JvGlobus;JvMM;FireDACTDataDriver;JvManagedThreads;FireDACSqliteDriver;FireDACDSDriver;DBXSqliteDriver;FireDACPgDriver;fmx;JvDlgs;IndySystem;JvCrypt;TeeDB;tethering;vclib;DBXInterBaseDriver;DataSnapClient;DataSnapCommon;DataSnapServer;JvNet;DataSnapProviderClient;JvDotNetCtrls;DBXSybaseASEDriver;pkgWinBox;DbxCommonDriver;vclimg;DUnitXRuntime;dbxcds;DatasnapConnectorsFreePascal;vclshlctrls;appanalytics;JvXPCtrls;vcldb;vcldsnap;fmxFireDAC;DBXDb2Driver;DBXOracleDriver;CustomIPTransport;JvCore;vclribbon;dsnap;IndyIPServer;fmxase;vcl;IndyCore;DBXMSSQLDriver;CloudService;IndyIPCommon;FmxTeeUI;FireDACIBDriver;DataSnapFireDAC;FireDACDBXDriver;JvAppFrm;soapserver;JvDB;JvRuntimeDesign;inetdbxpress;dsnapxml;FireDACInfxDriver;FireDACDb2Driver;JclDeveloperTools;JvDocking;adortl;JvWizards;FireDACASADriver;JvHMI;bindcompfmx;JvBands;FireDACODBCDriver;RESTBackendComponents;emsclientfiredac;rtl;dbrtl;DbxClientDriver;FireDACCommon;bindcomp;inetdb;JvPluginSystem;Tee;JclContainers;DBXOdbcDriver;ibmonitor;vclFireDAC;JvCmp;JvSystem;xmlrtl;DataSnapNativeClient;ibxpress;svnui;JvControls;JvTimeFramework;IndyProtocols;DBXMySQLDriver;FireDACCommonDriver;bindcompdbx;bindengine;vclactnband;FMXTee;soaprtl;TeeUI;bindcompvcl;JvStdCtrls;JvCustom;Jcl;vclie;JvJans;JvPageComps;JvPrintPreview;FireDACADSDriver;vcltouch;emsclient;VCLRESTComponents;FireDAC;DBXInformixDriver;FireDACMSSQLDriver;Intraweb;VclSmp;DataSnapConnectors;DataSnapServerMidas;DBXFirebirdDriver;dsnapcon;inet;fmxobj;JclVcl;JvPascalInterpreter;FireDACMySQLDriver;soapmidas;vclx;svn;DBXSybaseASADriver;FireDACOracleDriver;fmxdae;RESTComponents;dbexpress;FireDACMSAccDriver;DataSnapIndy10ServerTransport;IndyIPClient;$(DCC_UsePackage)</DCC_UsePackage>
         <UWP_DelphiLogo44>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_150.png</UWP_DelphiLogo150>
+        <DCC_DcuOutput>..\$(Platform)\$(Config)</DCC_DcuOutput>
+        <DCC_ExeOutput>..\$(Platform)\$(Config)</DCC_ExeOutput>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.1.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <DCC_UsePackage>FireDACTDataDriver;FireDACSqliteDriver;FireDACDSDriver;DBXSqliteDriver;FireDACPgDriver;fmx;IndySystem;TeeDB;tethering;vclib;DBXInterBaseDriver;DataSnapClient;DataSnapCommon;DataSnapServer;DataSnapProviderClient;DBXSybaseASEDriver;DbxCommonDriver;vclimg;dbxcds;DatasnapConnectorsFreePascal;vclshlctrls;appanalytics;vcldb;vcldsnap;fmxFireDAC;DBXDb2Driver;DBXOracleDriver;CustomIPTransport;vclribbon;dsnap;IndyIPServer;fmxase;vcl;IndyCore;DBXMSSQLDriver;CloudService;IndyIPCommon;FmxTeeUI;FireDACIBDriver;DataSnapFireDAC;FireDACDBXDriver;soapserver;inetdbxpress;dsnapxml;FireDACInfxDriver;FireDACDb2Driver;adortl;FireDACASADriver;bindcompfmx;FireDACODBCDriver;RESTBackendComponents;emsclientfiredac;rtl;dbrtl;DbxClientDriver;FireDACCommon;bindcomp;inetdb;Tee;DBXOdbcDriver;ibmonitor;vclFireDAC;xmlrtl;DataSnapNativeClient;ibxpress;IndyProtocols;DBXMySQLDriver;FireDACCommonDriver;bindcompdbx;bindengine;vclactnband;FMXTee;soaprtl;TeeUI;bindcompvcl;vclie;FireDACADSDriver;vcltouch;emsclient;VCLRESTComponents;FireDAC;DBXInformixDriver;FireDACMSSQLDriver;Intraweb;VclSmp;DataSnapConnectors;DataSnapServerMidas;DBXFirebirdDriver;dsnapcon;inet;fmxobj;FireDACMySQLDriver;soapmidas;vclx;DBXSybaseASADriver;FireDACOracleDriver;fmxdae;RESTComponents;dbexpress;FireDACMSAccDriver;DataSnapIndy10ServerTransport;IndyIPClient;$(DCC_UsePackage)</DCC_UsePackage>
         <UWP_DelphiLogo44>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_150.png</UWP_DelphiLogo150>
+        <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
+        <BT_BuildType>Debug</BT_BuildType>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Keys>CompanyName=Laci bá&apos;;FileDescription=WinBox Reloaded;FileVersion=1.1.0.0;InternalName=WinBox;LegalCopyright=Laci bá&apos;;LegalTrademarks=Laci bá&apos;;OriginalFilename=WinBox64.exe;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.1.0.0;Comments=WinBox Reloaded</VerInfo_Keys>
+        <Icon_MainIcon>2w95.ico</Icon_MainIcon>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
+        <AppDPIAwarenessMode>system</AppDPIAwarenessMode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -82,17 +106,27 @@
         <DCC_RemoteDebug>true</DCC_RemoteDebug>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <VerInfo_Keys>CompanyName=Laci bá&apos;;FileDescription=WinBox Reloaded R2 bétaverzió;FileVersion=1.0.0.0;InternalName=WinBoxR4;LegalCopyright=Laci bá&apos;;LegalTrademarks=Laci bá&apos;;OriginalFilename=WinBox32.exe;ProductName=WinBox Reloaded R2 bétaverzió;ProductVersion=1.0.0.0;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
-        <VerInfo_PreRelease>true</VerInfo_PreRelease>
+        <VerInfo_Keys>CompanyName=Laci bá&apos;;FileDescription=WinBox Reloaded;FileVersion=1.1.0.0;InternalName=WinBox;LegalCopyright=Laci bá&apos;;LegalTrademarks=Laci bá&apos;;OriginalFilename=WinBox32.exe;ProductName=WinBox Reloaded;ProductVersion=1.0.0.0;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <Icon_MainIcon>2w95.ico</Icon_MainIcon>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
         <BT_BuildType>Debug</BT_BuildType>
-        <VerInfo_Locale>1033</VerInfo_Locale>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
-        <DCC_ExeOutput>.\Out</DCC_ExeOutput>
-        <DCC_DcuOutput>.\Out</DCC_DcuOutput>
+        <DCC_ExeOutput>..\$(Platform)\$(Config)</DCC_ExeOutput>
+        <DCC_DcuOutput>..\$(Platform)\$(Config)</DCC_DcuOutput>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <Debugger_DebugSourcePath>E:\Projektek\WinBox-Reloaded\SajatU\Runtime\;$(Debugger_DebugSourcePath)</Debugger_DebugSourcePath>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <Debugger_RunParams>-lang en-US</Debugger_RunParams>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
+        <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
+        <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.1.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <Icon_MainIcon>2w95.ico</Icon_MainIcon>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -101,15 +135,28 @@
         <DCC_DebugInformation>0</DCC_DebugInformation>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Keys>CompanyName=Laci bá&apos;;FileDescription=WinBox Reloaded R2 Release Preview;FileVersion=1.0.0.0;InternalName=WinBoxR4;LegalCopyright=Laci bá&apos;;LegalTrademarks=Laci bá&apos;;OriginalFilename=WinBox32.exe;ProductName=WinBox Reloaded R2 Release Preview;ProductVersion=1.0.0.0;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
-        <VerInfo_PreRelease>true</VerInfo_PreRelease>
+        <VerInfo_Keys>CompanyName=Laci bá&apos;;FileDescription=WinBox Reloaded;FileVersion=1.1.0.0;InternalName=WinBox;LegalCopyright=Laci bá&apos;;LegalTrademarks=Laci bá&apos;;OriginalFilename=WinBox32.exe;ProductName=WinBox Reloaded;ProductVersion=1.0.0.0;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <Icon_MainIcon>2w95.ico</Icon_MainIcon>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>system</AppDPIAwarenessMode>
         <BT_BuildType>Debug</BT_BuildType>
-        <DCC_ExeOutput>.\Out</DCC_ExeOutput>
         <VerInfo_Locale>1033</VerInfo_Locale>
+        <DCC_ExeOutput>..\$(Platform)\$(Config)</DCC_ExeOutput>
+        <DCC_DcuOutput>..\$(Platform)\$(Config)</DCC_DcuOutput>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
+        <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
+        <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
+        <DCC_ExeOutput>..\$(Platform)\$(Config)</DCC_ExeOutput>
+        <DCC_DcuOutput>..\$(Platform)\$(Config)</DCC_DcuOutput>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.1.2.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <VerInfo_Release>2</VerInfo_Release>
+        <Icon_MainIcon>2w95.ico</Icon_MainIcon>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -130,11 +177,12 @@
         <DCCReference Include="uWinBoxLib.pas"/>
         <DCCReference Include="frmProgSettDlg.pas">
             <Form>ProgSettDlg</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="frmAbout.pas">
             <Form>AboutFrm</Form>
-            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="frmSplash.pas">
+            <Form>WinBoxSplash</Form>
         </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
@@ -164,7 +212,13 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="Out\WinBox32.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="..\Win32\Release\WinBox32.exe" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>WinBox32.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\Win32\Debug\WinBox32.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>WinBox32.exe</RemoteName>
                         <Overwrite>true</Overwrite>
@@ -871,7 +925,7 @@
             </Deployment>
             <Platforms>
                 <Platform value="Win32">True</Platform>
-                <Platform value="Win64">False</Platform>
+                <Platform value="Win64">True</Platform>
             </Platforms>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>

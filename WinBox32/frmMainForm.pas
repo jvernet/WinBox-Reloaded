@@ -73,7 +73,6 @@ type
     ToolButton10: TToolButton;
     ToolButton7: TToolButton;
     ToolButton8: TToolButton;
-    TabSheet1: TTabSheet;
     ImageCollection: TImageCollection;
     ListImages: TVirtualImageList;
     ToolBar2: TToolBar;
@@ -97,7 +96,9 @@ type
   public
     //Lista kirajzolásához szükséges cuccok
     HalfCharHeight, BorderThickness: integer;
-    clHighlight1, clHighlight2: TColor;
+
+    clHighlight1, clHighlight2,
+    clDisabled1, clDisabled2: TColor;
 
     //Átméretezés aránytartása
     Ratio: extended;
@@ -122,23 +123,8 @@ implementation
 {$R *.dfm}
 {$R 'Data\rcWinBoxMain.res'}
 
-uses uCoreModule, frm86Box, uCommUtil, uWinBoxLib, frmAbout;
-
-resourcestring
-  StrMemória1fS = 'Memória: %.1f%%'#13#10'(%s)';
-  StrCPU1f = 'CPU: %.1f%%';
-  StrIndítás = '&Indítás...';
-  StrLeállítás = '&Leállítás...';
-  StrCtrlAltDel = 'Ctrl+Alt+&Del';
-  StrHWReset = 'H/W &Reset';
-  StrBeállítások = '&Beállítások';
-  StrElõtérbeHozás = '&Elõtérbe hozás';
-  StrNyomtatótálca = '&Nyomtatótálca';
-  StrNévjegy = 'Név&jegy...';
-  StrListaFrissítése = 'Lista &frissítése';
-  StrTeljesLeállítás = 'Teljes &leállítás';
-  StrÚjMerevlemez = 'Új merev&lemez';
-  StrÚjGép = '&Új gép';
+uses uCoreModule, frm86Box, uCommUtil, uWinBoxLib, frmAbout, frmSplash,
+     uLang;
 
 const
   DefRatio = 0.28;
@@ -213,12 +199,11 @@ begin
 
   pbCPU.Position := Round(SumCPU);
   ColorProgress(pbCPU);
-  lbHCPU.Caption := format(StrCPU1f, [SumCPU]);
+  lbHCPU.Caption := _T('StrCPU1f', [SumCPU]);
 
   pbRAM.Position := Round(SumRAM);
   ColorProgress(pbRAM);
-  lbHRAM.Caption := format(StrMemória1fS, [SumRAM,
-    FileSizeToStr(SumBytesOfRAM, 2)]);
+  lbHRAM.Caption := _T('StrMemoria1fS', [SumRAM, FileSizeToStr(SumBytesOfRAM, 2)]);
 
   List.Invalidate;
   if Pages.ActivePageIndex > 1 then
@@ -273,13 +258,18 @@ var
   I: integer;
 begin
   inherited;
+  Language.Translate('WinBoxMain', Self);
+
   HalfCharHeight := Canvas.TextHeight('W');
   BorderThickness := (List.ItemHeight - ListImages.Height) div 2;
 
   clHighlight1 := ColorToRGB(clHighlight);
   ColorRGBToHLS(clHighlight1, H, L, S);
+  clDisabled1 := ColorHLSToRGB(H, L, 0);
+
   L := L * 10 div 8;
   clHighlight2 := ColorHLSToRGB(H, L, S);
+  clDisabled2 := ColorHLSToRGB(H, L, 0);
 
   Ratio := DefRatio;
 
@@ -307,26 +297,23 @@ destructor TWinBoxMain.Destroy;
 begin
   Core.OnReloadProfiles := nil;
   Core.OnMonitorUpdate := nil;
+  WinBoxMain := nil;
   inherited;
 end;
 
 procedure TWinBoxMain.FormShow(Sender: TObject);
 begin
-  ToolButton1.Caption := StrIndítás;
-  ToolButton2.Caption := StrLeállítás;
-  ToolButton4.Caption := StrCtrlAltDel;
-  ToolButton5.Caption := StrHWReset;
-  ToolButton6.Caption := StrBeállítások;
-  ToolButton9.Caption := StrElõtérbeHozás;
-  ToolButton10.Caption := StrNyomtatótálca;
-  ToolButton8.Caption := StrNévjegy;
+  ChartCPU.Title.Text.Text := _T('ChartCPU');
+  ChartCPU.BottomAxis.Title.Caption := _T('ChartCPU_X');
+  ChartCPU.LeftAxis.Title.Caption := _T('ChartCPU_Y');
 
-  ToolButton12.Caption := StrÚjGép;
-  ToolButton13.Caption := StrÚjMerevlemez;
-  ToolButton15.Caption := StrTeljesLeállítás;
-  ToolButton16.Caption := StrListaFrissítése;
-  ToolButton17.Caption := StrBeállítások;
-  ToolButton22.Caption := StrNévjegy;
+  ChartRAM.Title.Text.Text := _T('ChartRAM');
+  ChartRAM.BottomAxis.Title.Caption := _T('ChartRAM_X');
+  ChartRAM.LeftAxis.Title.Caption := _T('ChartRAM_Y');
+
+  ChartVMs.Title.Text.Text := _T('ChartVMs');
+  ChartVMs.BottomAxis.Title.Caption := _T('ChartVMs_X');
+  ChartVMs.LeftAxis.Title.Caption := _T('ChartVMs_Y');
 
   ToolBar1.ShowCaptions := true;
   ToolBar2.ShowCaptions := true;
@@ -347,6 +334,19 @@ begin
       Core.ItemIndex := List.ItemIndex - 2;
 
       Core.FolderMonitor.Folder := Core.Profiles[Core.ItemIndex].WorkingDirectory;
+      if not DirectoryExists(Core.FolderMonitor.Folder) then
+        case MessageBox(Handle, _P('StrTheVirtualMachine'),
+               PChar(Application.Title), MB_ICONQUESTION or MB_YESNO) of
+          mrYes:
+            with Core do begin
+              TWinBoxProfile.DeleteProfile(Profiles[ItemIndex].ProfileID,
+                                           Profiles[ItemIndex].SectionKey);
+              ReloadProfiles(Self);
+              exit;
+            end
+          else ForceDirectories(Core.FolderMonitor.Folder);
+        end;
+
       Core.FolderMonitor.Active := true;
 
       Pages.ActivePageIndex := Core.Profiles[Core.ItemIndex].Tag;
@@ -363,10 +363,15 @@ var
   StateText: string;
 begin
   with Control as TListBox, Canvas do begin
-    if odSelected in State then begin
+    if Enabled and (odSelected in State) then begin
       Brush.Color := clHighlight;
       Font.Color := clHighlightText;
       GradientFillCanvas(Canvas, clHighlight2, clHighlight1, Rect, gdVertical);
+    end
+    else if (odSelected in State) then begin
+      Brush.Color := cl3DDkShadow;
+      Font.Color := cl3DLight;
+      GradientFillCanvas(Canvas, clDisabled2, clDisabled1, Rect, gdVertical);
     end
     else begin
       Brush.Color := clWindow;

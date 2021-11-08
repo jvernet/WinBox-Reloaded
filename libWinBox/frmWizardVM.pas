@@ -26,7 +26,8 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, Vcl.Samples.Spin, ComCtrls, Vcl.Imaging.pngimage, ExtCtrls, FileCtrl,
-  uBaseProfile, uVMSample, frmSelectHDD, frmWizardHDD, ShellAPI, IniFiles, Zip;
+  uBaseProfile, uVMSample, frmSelectHDD, frmWizardHDD, ShellAPI, IniFiles, Zip,
+  uLang, Registry;
 
 type
   IWizardVM = interface
@@ -51,7 +52,7 @@ type
     property OpenSettings: boolean read GetOpenSettings;
   end;
 
-  TWizardVM = class(TForm, IWizardVM)
+  TWizardVM = class(TForm, IWizardVM, ILanguageSupport)
     Bevel1: TBevel;
     Button1: TButton;
     Button2: TButton;
@@ -142,6 +143,9 @@ type
     Samples: TVMSampleFilter;
     DiskTool: IWizardHDD;
     procedure FixItemIndex(Control: TCustomListControl);
+
+    procedure GetTranslation(Language: TLanguage); stdcall;
+    procedure Translate; stdcall;
   end;
 
 var
@@ -152,12 +156,10 @@ implementation
 uses uCommUtil;
 
 resourcestring
-  StrSamples = '\Samples';
-  StrANévNemLehetÜres = 'A név nem lehet üres.';
-  ENincsKiválasztottS = 'Nincs kiválasztott sablon.';
-  StrNincsSablonKiválas = 'Nincs sablon kiválasztva.';
-  StrVálasszaKiAHaszná = 'Válassza ki a használni kívánt munkakönyvtárat:';
-  StrNincs = '(Nincs)';
+  StrSamples = '\Templates';
+
+const
+  Extensions: array [boolean] of string = ('img', 'vhd');
 
 {$R *.dfm}
 
@@ -169,7 +171,7 @@ begin
     case PageControl1.ActivePageIndex of
       1: begin
            if Edit1.Text = '' then
-             raise Exception.Create(StrANévNemLehetÜres);
+             raise Exception.Create(SysErrorMessage(ERROR_INVALID_PARAMETER));
 
            if (Path.Text = '') or (Path.Text = '\') then
              raise Exception.Create(SysErrorMessage(ERROR_PATH_NOT_FOUND));
@@ -177,7 +179,7 @@ begin
            Path.Text := IncludeTrailingPathDelimiter(Path.Text);
          end;
       2: if ListBox2.ItemIndex = -1 then
-           raise Exception.Create(StrNincsSablonKiválas);
+           raise Exception.Create(SysErrorMessage(ERROR_INVALID_PARAMETER));
       5: if (not FAutoCreate) or TryCreate then
            ModalResult := mrOK
          else
@@ -232,7 +234,7 @@ begin
                 end;
 
                DiskTool.DiskData := ADiskData;
-               DiskTool.FileName := PChar(Path.Text + 'vdisk00.img');
+               DiskTool.FileName := PChar(Path.Text + 'vdisk00.' + Extensions[DiskTool.GetIsVHD]);
                DiskTool.SetConnectorFilter(true);
              end;
 
@@ -251,15 +253,15 @@ procedure TWizardVM.Button3Click(Sender: TObject);
 var
   Directory: string;
 begin
-  ForceDirectories(Path.Text);
+  SysUtils.ForceDirectories(Path.Text);
   Directory := ExcludeTrailingPathDelimiter(Path.Text);
-  if SelectDirectory(StrVálasszaKiAHaszná, '', Directory, [sdNewUI], Self) then
+  if SelectDirectory(_T('StrValasszaKiAHaszna'), '', Directory, [sdNewUI], Self) then
     Path.Text := IncludeTrailingPathDelimiter(Directory);
 end;
 
 procedure TWizardVM.Button4Click(Sender: TObject);
 begin
-  ForceDirectories(Path.Text);
+  SysUtils.ForceDirectories(Path.Text);
   ShellExecute(Handle, 'open', PChar(ExcludeTrailingPathDelimiter(Path.Text)),
     nil, nil, SW_SHOWNORMAL);
 end;
@@ -276,7 +278,9 @@ begin
       if DiskTool.Execute(false) then begin
         ADiskData := DiskTool.DiskData;
         UpdateCHS;
-      end;
+      end
+      else if String(DiskTool.FileName) = '' then
+        DiskTool.FileName := PChar(Path.Text + 'vdisk00.' + Extensions[DiskTool.GetIsVHD]);
     end;
 end;
 
@@ -314,10 +318,20 @@ begin
 end;
 
 procedure TWizardVM.FormShow(Sender: TObject);
+var
+  Path: string;
 begin
+  Translate;
+
+  Path := ExcludeTrailingPathDelimiter(
+    ExtractFilePath(Application.ExeName)) + StrSamples;
+
+  if not SysUtils.DirectoryExists(Path) then
+      Path := IncludeTrailingPathDelimiter(
+    GetEnvironmentVariable(SAppDataEnvVar)) + SDefaultAppDataFolder + StrSamples;
+
   PageControl1.ActivePageIndex := 0;
-  Samples.Load(IncludeTrailingPathDelimiter(
-    GetEnvironmentVariable(SAppDataEnvVar)) + SDefaultAppDataFolder + StrSamples);
+  Samples.Load(Path);
   Samples.GetManufacturers(ListBox1.Items);
 
   FixItemIndex(ListBox1);
@@ -350,6 +364,12 @@ end;
 function TWizardVM.GetProfileID: PChar;
 begin
   Result := PChar(ProfileID);
+end;
+
+procedure TWizardVM.GetTranslation(Language: TLanguage);
+begin
+  if Assigned(Language) then
+    Language.GetTranslation('WizardVM', Self);
 end;
 
 function TWizardVM.GetWorkingDirectory: PChar;
@@ -396,23 +416,34 @@ begin
     Path.Text := IncludeTrailingPathDelimiter(Value);
 end;
 
+procedure TWizardVM.Translate;
+begin
+  if Assigned(Language) then
+    Language.Translate('WizardVM', Self);
+end;
+
 function TWizardVM.TryCreate: boolean;
 var
   Sample: TVMSample;
   Config: TIniFile;
+
+  List: TStringList;
+  I: integer;
+  Key: HKEY;
 begin
-  Result := false;
+  //Result := false;
 
   if ListBox2.ItemIndex = -1 then
-    raise Exception.Create(ENincsKiválasztottS);
+    raise Exception.Create(SysErrorMessage(ERROR_INVALID_PARAMETER));
 
   Sample := ListBox2.Items.Objects[ListBox2.ItemIndex] as TVMSample;
 
   with TZipFile.Create do
     try
-      ForceDirectories(Path.Text);
+      SysUtils.ForceDirectories(Path.Text);
       ExtractZipFile(Sample.FileName, Path.Text);
-      DeleteFile(Path.Text + 'winbox.inf');
+      //DeleteFile(Path.Text + 'winbox.inf');
+      DeleteWithShell(Path.Text + 'winbox.*', false);
 
       Config := TIniFile.Create(Path.Text + Sample.ConfigFile);
       try
@@ -424,6 +455,9 @@ begin
           Sample.AddOption(2, cbOption3.Text, Config);
         if cbOption4.ItemIndex <> -1 then
           Sample.AddOption(3, cbOption4.Text, Config);
+
+        Config.WriteString('WinBox', 'WindowSize',
+            Sample.GetCustomKey('General', 'WindowSize', '960x720'));
 
         if LowerCase(Sample.EmulatorType) <> 'dosbox' then begin
           if cbCDROM.Checked then
@@ -448,13 +482,41 @@ begin
               DiskTool.TryCreate;
             end;
 
-          //ToDo: állítható legyen a registryben mint alapérték
-          Config.WriteString('General', 'video_fullscreen_first', '0');
-          Config.WriteString('General', 'video_fullscreen_scale', '1');
-          Config.WriteString('General', 'dpi_scale', '0');
-          Config.WriteString('General', 'vid_resize', '2');
-          Config.WriteString('General', 'window_fixed_res',
-            Sample.GetCustomKey('General', 'WindowSize', '960x720'));
+          List := TStringList.Create;
+          with TRegIniFile.Create(SRegRootKey) do
+            try
+              case ReadInteger(SRegConfigKey + '.86Box', StrAutoAppearance, 1) of
+                0: ;
+                1: begin
+                     List.Text := StrDefaultAppearance;
+                     List.Values['window_fixed_res'] :=
+                       Sample.GetCustomKey('General', 'WindowSize', '960x720');
+                   end;
+                else if RegOpenKeyEx(CurrentKey, PChar(SRegConfigKey + '.86Box'), 0, Access, Key) = ERROR_SUCCESS then begin
+                     RegReadMulti(Key, StrApperanceValues, List);
+                     RegCloseKey(Key);
+
+                     if List.Values['vid_resize'] = '2' then
+                       List.Values['window_fixed_res'] :=
+                          Sample.GetCustomKey('General', 'WindowSize', '960x720');
+                   end;
+              end;
+
+              for I := 0 to List.Count - 1 do
+                Config.WriteString('General', List.Names[I], List.ValueFromIndex[I]);
+            finally
+              Free;
+              List.Free;
+            end;
+        end;
+
+        List := Sample.GetRenameList;
+        try
+          for I := 0 to List.Count - 1 do
+            RenameFile(Path.Text + List.Names[I],
+                       Path.Text + List.ValueFromIndex[I]);
+        finally
+          List.Free;
         end;
 
         TProfile.CreateProfile(
@@ -492,8 +554,8 @@ begin
       lbCHS.Caption := format('C: %d H: %d S: %d', [C, H, S]);
   end
   else begin
-    lbHDD.Caption := StrNincs;
-    lbCHS.Caption := StrNincs;
+    lbHDD.Caption := _T('StrNincs');
+    lbCHS.Caption := lbHDD.Caption;
   end;
 end;
 

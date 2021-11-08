@@ -22,15 +22,18 @@
 library libWinBox;
 
 uses
+  MidasLib,
   SysUtils,
   Classes,
   Forms,
+  uLang,
   frmSelectHDD in 'frmSelectHDD.pas' {HDSelect},
   frmUpdate in 'frmUpdate.pas' {UpdateForm},
   frmWizardHDD in 'frmWizardHDD.pas' {WizardHDD},
   frmWaitForm in 'frmWaitForm.pas' {WaitForm},
   uVMSample in 'uVMSample.pas',
-  frmWizardVM in 'frmWizardVM.pas' {WizardVM};
+  frmWizardVM in 'frmWizardVM.pas' {WizardVM},
+  frmImportVM in 'frmImportVM.pas' {ImportVM};
 
 {$R *.res}
 
@@ -44,11 +47,24 @@ begin
   Result := TUpdateForm.Create(AOwner) as IAutoUpdate;
 end;
 
+function CreateImportVM(const AOwner: TComponent): IImportVM; stdcall;
+begin
+  Result := TImportVM.Create(AOwner) as IImportVM;
+end;
+
+procedure SetLanguage(const AFileName, ALocale: PChar); stdcall;
+begin
+  Locale := String(ALocale);
+  Language := TLanguage.Create(String(AFileName), TEncoding.UTF8);
+end;
+
 exports
   CreateSelectHDD,
   CreateAutoUpdate,
   CreateWizardHDD,
-  CreateWizardVM;
+  CreateWizardVM,
+  SetLanguage,
+  CreateImportVM;
 
 begin
 end.

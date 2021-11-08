@@ -24,7 +24,7 @@ unit uProcProfile;
 interface
 
 uses
-  Windows, Messages, SysUtils, uBaseProfile, uProcessMon, uCommUtil;
+  Windows, Messages, SysUtils, uBaseProfile, uProcessMon, uCommUtil, uLang;
 
 (* A TProcessMonitor egy adott feltétel szerint kapcsolja a megadott
    TProcessMonitor elemeit.
@@ -111,19 +111,14 @@ const
   PROCESS_STATE_SAVED          = 5; //Jelenleg egyik emulátor sem tud ilyet, de
                                     //késõbbi célokra fenntartva (pl. VirtualBox?).
 
-resourcestring
-  STR_PROCESS_STATE_UNKNOWN        = 'Ismeretlen';
-  STR_PROCESS_STATE_STOPPED        = 'Leállítva';
-  STR_PROCESS_STATE_RUNNING        = 'Fut';
-  STR_PROCESS_STATE_PAUSED         = 'Szüneteltetve';
-  STR_PROCESS_STATE_ERROR_MULTINST = 'Több példány!';
-  STR_PROCESS_STATE_RUN_PENDING    = 'Indítás...';
-  STR_PROCESS_STATE_SAVED          = 'Altatva';
+var
+  AssignmentLogging: boolean = false;
+  ProcessLogging: boolean = false;
 
 implementation
 
 resourcestring
-  EInvalidProcessIndex = 'Érvénytelen folyamat-index, vagy definíálatlan monitor (%s.Processes[%d]).';
+  EInvalidProcessIndex = 'Invalid process index, or undefinied monitor (%s.Processes[%d]).';
 
 { TProcessProfile }
 
@@ -210,7 +205,7 @@ var
 begin
   if not (FileExists(ExecutablePath) and //létezzen a mappa és a progi
     DirectoryExists(ExcludeTrailingPathDelimiter(WorkingDirectory))) then
-      exit(false);
+      raise Exception.Create(_T('StrAMegadottEleresiU'));
 
   if length(FIndexMap) > 0 then //csak 1x lehet elindítani
     exit(false);
@@ -228,7 +223,17 @@ begin
   Result := CreateProcess(nil, @szCmdLine[1], nil, nil, false, 0, nil,
                  @szWorkDir[1], siStartup, piProcess);
 
-  FStarting := true; //a monitor visszajelzéséig "indítás folyamatban" állapot
+  if ProcessLogging then begin
+    if Result then
+      dbgLog('CreateProcess: Success')
+    else
+      dbgLogFmt('CreateProcess: Failed!. Reason: %s.', [SysErrorMessage(GetLastError)]);
+
+    dbgLogFmt('CommandLine: %s, PID: %d, TID: %d',
+          [szCmdLine, piProcess.dwProcessID, piProcess.dwThreadID]);
+  end;
+
+  FStarting := Result; //a monitor visszajelzéséig "indítás folyamatban" állapot, ha sikerült az indítás
   CloseHandle(piProcess.hProcess);
   CloseHandle(piProcess.hThread);
 end;
@@ -236,13 +241,13 @@ end;
 class function TProcessProfile.StateToStr(const ProfileState: Integer): string;
 begin
   case ProfileState of
-    PROCESS_STATE_STOPPED:        Result := STR_PROCESS_STATE_STOPPED;
-    PROCESS_STATE_RUNNING:        Result := STR_PROCESS_STATE_RUNNING;
-    PROCESS_STATE_PAUSED:         Result := STR_PROCESS_STATE_PAUSED;
-    PROCESS_STATE_ERROR_MULTINST: Result := STR_PROCESS_STATE_ERROR_MULTINST;
-    PROCESS_STATE_RUN_PENDING:    Result := STR_PROCESS_STATE_RUN_PENDING;
+    PROCESS_STATE_STOPPED:        Result := _T('STR_PROCESS_STATE_STOPPED');
+    PROCESS_STATE_RUNNING:        Result := _T('STR_PROCESS_STATE_RUNNING');
+    PROCESS_STATE_PAUSED:         Result := _T('STR_PROCESS_STATE_PAUSED');
+    PROCESS_STATE_ERROR_MULTINST: Result := _T('STR_PROCESS_STATE_ERROR_MULTINST');
+    PROCESS_STATE_RUN_PENDING:    Result := _T('STR_PROCESS_STATE_RUN_PENDING');
     else
-      Result := STR_PROCESS_STATE_UNKNOWN;
+      Result := _T('STR_PROCESS_STATE_UNKNOWN');
   end;
 end;
 
@@ -252,6 +257,10 @@ var
 begin
   for I in FIndexMap do begin
     KillProcess(FMonitor[I].ProcessID);
+
+    if ProcessLogging then
+      dbgLogFmt('Kill process PID %d', [FMonitor[I].ProcessID]);
+
     if not All then
       break;
   end;
@@ -269,6 +278,11 @@ begin
       if CheckProcess(FMonitor[I]) then begin
         SetLength(FIndexMap, length(FIndexMap) + 1);
         FIndexMap[High(FIndexMap)] := I;
+
+        if AssignmentLogging then
+          dbgLogFmt('PID %d, HWND %.8x is Profile %s (%s)',
+            [FMonitor[I].ProcessID, FMonitor[I].Data, FriendlyName, ProfileID]);
+
       end;
 end;
 
